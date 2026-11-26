@@ -1,6 +1,6 @@
 {
   "name": "@fierst/ui",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "AsterUI — Proven, code-owned, mobile-first UI component registry for Aster by Fierst LLC with single-seed OKLCH theming and @lucide/icons.",
   "homepage": "https://ui.fierst.dev",
   "bugs": {

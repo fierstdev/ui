@@ -89,7 +89,24 @@ export async function addComponents(names, projectRoot = process.cwd(), options 
   };
 }
 
-const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+const selfPath = (() => {
+  const raw = fileURLToPath(import.meta.url);
+  try {
+    return fs.realpathSync(raw);
+  } catch {
+    return path.resolve(raw);
+  }
+})();
+
+const isMain = [process.argv[1], process.argv[2]].filter(Boolean).some((candidate) => {
+  const resolvedCandidate = path.resolve(candidate);
+  try {
+    return fs.realpathSync(resolvedCandidate) === selfPath;
+  } catch {
+    return resolvedCandidate === selfPath;
+  }
+});
+
 if (isMain) {
   const args = process.argv.slice(2);
   const cmd = args[0] ?? 'help';
@@ -156,7 +173,7 @@ Usage:
 `);
     }
   } catch (err) {
-    console.error(`[@fierst/ui] ${err.message}`);
+    console.error(`[@fierst/ui] ${err instanceof Error ? err.message : String(err)}`);
     process.exit(1);
   }
 }
