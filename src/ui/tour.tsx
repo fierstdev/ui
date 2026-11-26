@@ -1,5 +1,5 @@
 import { X } from '@lucide/icons';
-import { scope, type View } from '@fierst/aster';
+import { scope, signal, type View } from '@fierst/aster';
 import { Button } from './button.tsx';
 import { Icon } from './icon.tsx';
 
@@ -92,23 +92,24 @@ export function TourCard({
  * Returns `true` if the user completed the tour, or `false` if skipped early.
  */
 export function* runTour(steps: readonly TourStep[]): Generator<View, boolean, any> {
-  let idx = 0;
-  let status: 'active' | 'done' | 'skipped' = 'active';
+  const idx = signal(0);
+  const status = signal<'active' | 'done' | 'skipped'>('active');
 
-  while (status === 'active' && idx < steps.length) {
+  while (status() === 'active' && idx() < steps.length) {
+    const cur = idx();
     yield (
       <TourCard
-        step={steps[idx]}
-        index={idx}
+        step={steps[cur]}
+        index={cur}
         total={steps.length}
-        onPrev={() => (idx = Math.max(0, idx - 1))}
+        onPrev={() => idx.set(Math.max(0, cur - 1))}
         onNext={() => {
-          if (idx >= steps.length - 1) status = 'done';
-          else idx++;
+          if (cur >= steps.length - 1) status.set('done');
+          else idx.set(cur + 1);
         }}
-        onClose={() => (status = 'skipped')}
+        onClose={() => status.set('skipped')}
       />
     );
   }
-  return (status as string) === 'done';
+  return status() === 'done';
 }

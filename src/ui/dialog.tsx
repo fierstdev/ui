@@ -1,5 +1,5 @@
 import { X } from '@lucide/icons';
-import { scope, type View } from '@fierst/aster';
+import { scope, signal, type View } from '@fierst/aster';
 import { Button } from './button.tsx';
 import { Icon } from './icon.tsx';
 
@@ -11,7 +11,7 @@ const dialogScope = scope`
     color: var(--aster-on-surface);
     width: calc(100vw - 1.5rem);
     max-width: 480px;
-    height: auto;
+    height: fit-content;
     max-height: calc(100dvh - 2rem);
     overflow: hidden;
     overscroll-behavior: contain;
@@ -125,9 +125,20 @@ export function Dialog({
   class?: string;
   children?: View;
 }) {
+  const getOpen = () =>
+    Array.isArray(open)
+      ? Boolean(open[0]?.())
+      : typeof open === 'function'
+        ? Boolean(open())
+        : Boolean(open);
+
+  const setOpen = (v: boolean) => {
+    if (Array.isArray(open)) open[1]?.(v);
+    else open?.set?.(v);
+  };
+
   const closeDialog = (el?: HTMLDialogElement | null) => {
-    if (Array.isArray(open)) open[1]?.(false);
-    else open?.set?.(false);
+    setOpen(false);
     el?.close?.();
   };
 
@@ -140,7 +151,7 @@ export function Dialog({
   return (
     <dialog
       id={id}
-      bind:open={open}
+      bind:open={[getOpen, setOpen]}
       closedby="any"
       onClick={onBackdropClick}
       onClose={onClose}
@@ -184,22 +195,19 @@ export interface ConfirmDialogOptions {
  * Aster-native `yield*` Confirmation Modal Flow.
  */
 export function* confirmDialog(opts: ConfirmDialogOptions): Generator<View, boolean, any> {
-  let decision: boolean | null = null;
-  let isOpen = true;
+  const decision = signal<boolean | null>(null);
 
   const choose = (val: boolean) => {
-    isOpen = false;
-    decision = val;
+    decision.set(val);
   };
 
-  while (decision === null) {
+  while (decision() === null) {
     yield (
       <Dialog
         open={[
-          () => isOpen,
+          () => decision() === null,
           (v: boolean) => {
-            isOpen = v;
-            if (!v && decision === null) decision = false;
+            if (!v && decision() === null) decision.set(false);
           },
         ]}
         title={opts.title}
@@ -219,5 +227,5 @@ export function* confirmDialog(opts: ConfirmDialogOptions): Generator<View, bool
     );
   }
 
-  return decision;
+  return decision()!;
 }

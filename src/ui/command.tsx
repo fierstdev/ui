@@ -1,5 +1,5 @@
 import { Search, X } from '@lucide/icons';
-import { scope, type Ctx, type View } from '@fierst/aster';
+import { scope, signal, type Ctx, type View } from '@fierst/aster';
 import { Icon } from './icon.tsx';
 
 const cmdScope = scope`
@@ -10,7 +10,7 @@ const cmdScope = scope`
     max-width: 560px;
     border-radius: var(--aster-radius-lg);
     color: var(--aster-on-surface);
-    height: auto;
+    height: fit-content;
     max-height: min(520px, calc(100dvh - 2rem));
     overflow: hidden;
     overscroll-behavior: contain;
@@ -237,9 +237,9 @@ export function* CommandPalette(
     const activeOptId = matches[activeIdx] ? `${uid}-opt-${activeIdx}` : undefined;
 
     const runItem = (item: CommandItem) => {
-      setOpen(false);
       item.onSelect?.();
       props.onSelect?.(item);
+      setOpen(false);
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -359,27 +359,24 @@ export function* pickCommand(
   items: readonly CommandItem[],
   opts: { placeholder?: string } = {},
 ): Generator<View, CommandItem | null, any> {
-  let decided = false;
+  const decided = signal(false);
   let selected: CommandItem | null = null;
-  let open = true;
 
-  while (!decided) {
+  while (!decided()) {
     yield (
       <CommandPalette
         items={items}
-        open={open}
+        open={!decided()}
         shortcut={false}
         placeholder={opts.placeholder}
         onSelect={(item) => {
           selected = item;
-          open = false;
-          decided = true;
+          decided.set(true);
         }}
         onOpenChange={(next) => {
-          open = next;
-          if (!next && !decided) {
+          if (!next && !decided()) {
             selected = null;
-            decided = true;
+            decided.set(true);
           }
         }}
       />

@@ -1,5 +1,5 @@
 import { Calendar as CalendarIcon, ChevronDown, ChevronLeft, ChevronRight } from '@lucide/icons';
-import { scope, type Ctx, type View } from '@fierst/aster';
+import { scope, signal, type Ctx, type View } from '@fierst/aster';
 import { Icon } from './icon.tsx';
 import { Dialog } from './dialog.tsx';
 import { Button } from './button.tsx';
@@ -611,21 +611,19 @@ export function* pickDate(
     toYear?: number;
   } = {},
 ): Generator<View, string | null, any> {
-  let decided = false;
-  let chosen = opts.initial ?? toIsoDate(new Date());
+  const decided = signal(false);
+  const chosen = signal(opts.initial ?? toIsoDate(new Date()));
   let result: string | null = null;
-  let open = true;
 
-  while (!decided) {
+  while (!decided()) {
     yield (
       <Dialog
         open={[
-          () => open,
+          () => !decided(),
           (v: boolean) => {
-            open = v;
-            if (!v && !decided) {
+            if (!v && !decided()) {
               result = null;
-              decided = true;
+              decided.set(true);
             }
           },
         ]}
@@ -636,9 +634,8 @@ export function* pickDate(
             <Button
               variant="outline"
               onClick={() => {
-                open = false;
                 result = null;
-                decided = true;
+                decided.set(true);
               }}
             >
               Cancel
@@ -646,9 +643,8 @@ export function* pickDate(
             <Button
               variant="primary"
               onClick={() => {
-                open = false;
-                result = chosen;
-                decided = true;
+                result = chosen();
+                decided.set(true);
               }}
             >
               Confirm Date
@@ -658,13 +654,13 @@ export function* pickDate(
       >
         <div style="display:flex; justify-content:center">
           <Calendar
-            value={chosen}
+            value={chosen()}
             min={opts.min}
             max={opts.max}
             fromYear={opts.fromYear}
             toYear={opts.toYear}
             embedded
-            onChange={(iso) => (chosen = iso)}
+            onChange={(iso) => chosen.set(iso)}
           />
         </div>
       </Dialog>

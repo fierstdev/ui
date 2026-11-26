@@ -61,9 +61,11 @@ const tableScope = scope`
       padding: 0;
       border-bottom: none;
     }
-    th, td {
+    th,
+    tbody td {
       display: table-cell;
       text-align: left;
+      vertical-align: middle;
       padding: 0.7rem 0.9rem;
       border-bottom: 1px solid var(--aster-outline-variant);
     }
@@ -156,6 +158,7 @@ export function* DataTable<T extends Record<string, any>>(
       sortKey = key;
       sortDir = 'asc';
     }
+    ctx.refresh();
   };
 
   for (props of ctx) {

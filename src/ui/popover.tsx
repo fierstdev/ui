@@ -62,21 +62,36 @@ const popScope = scope`
 export function Popover({
   id,
   mode = 'auto',
+  align = 'start',
   onToggle,
   class: extraClass,
   children,
 }: {
   id: string;
   mode?: 'auto' | 'manual';
+  align?: 'start' | 'end';
   onToggle?: (e: any) => void;
   class?: string;
   children?: View;
 }) {
+  const handleToggle = (e: any) => {
+    if (e.newState === 'open') {
+      const pop = e.currentTarget as HTMLElement;
+      const trigger =
+        (e.source as HTMLElement | null) ??
+        document.querySelector<HTMLElement>(`[popovertarget="${CSS.escape(id)}"]`);
+      if (trigger) {
+        positionPopover(trigger, pop, { align });
+      }
+    }
+    onToggle?.(e);
+  };
+
   return (
     <div
       id={id}
       popover={mode}
-      on:toggle={onToggle}
+      on:toggle={handleToggle}
       class={['aster-surface-popover', popScope, extraClass].filter(Boolean).join(' ')}
     >
       {children}
@@ -130,7 +145,7 @@ export function DropdownMenu({
         <span>{label}</span>
         <Icon icon={ChevronDown} size={15} />
       </Button>
-      <Popover id={popId} onToggle={onToggle}>
+      <Popover id={popId} align={align} onToggle={onToggle}>
         <div role="menu">
           {items.map((item) => (
             <div key={item.id}>

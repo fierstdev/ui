@@ -41,9 +41,11 @@ const msgScope = scope`
     box-shadow: var(--aster-shadow-xs);
   }
   :scope.role-user .cm-bubble {
-    background: var(--aster-primary);
-    color: var(--aster-on-primary);
-    border-color: transparent;
+    background: var(--aster-primary-subtle);
+    color: var(--aster-on-primary-subtle);
+    --aster-on-surface: var(--aster-on-primary-subtle);
+    --aster-on-surface-muted: var(--aster-on-primary-subtle);
+    border-color: var(--aster-primary-border);
   }
   :scope.role-system .cm-bubble {
     background: var(--aster-surface-muted);

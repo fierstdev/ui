@@ -307,7 +307,10 @@ export function* AppShell(
   let collapsed = false;
 
   for (props of ctx) {
-    const closeMobile = () => (mobileOpen = false);
+    const closeMobile = () => {
+      mobileOpen = false;
+      ctx.refresh();
+    };
     const renderSidebar = (isCollapsed: boolean) =>
       typeof props.sidebar === 'function'
         ? props.sidebar({ collapsed: isCollapsed, closeMobile })
@@ -347,7 +350,13 @@ export function* AppShell(
         <main class="main-content">{props.children}</main>
 
         <Sheet
-          open={[() => mobileOpen, (v: boolean) => (mobileOpen = v)]}
+          open={[
+            () => mobileOpen,
+            (v: boolean) => {
+              mobileOpen = v;
+              ctx.refresh();
+            },
+          ]}
           side="left"
           title="Navigation"
         >

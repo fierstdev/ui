@@ -1,5 +1,5 @@
 import { AlertTriangle } from '@lucide/icons';
-import { scope, type Ctx, type View } from '@fierst/aster';
+import { scope, signal, type Ctx, type View } from '@fierst/aster';
 import { Dialog } from './dialog.tsx';
 import { Button } from './button.tsx';
 import { Input } from './input.tsx';
@@ -77,8 +77,12 @@ export function* AlertDialog(
             {props.confirmPhrase ? (
               <Input
                 label={`Type "${props.confirmPhrase}" to confirm`}
-                bind:value={typed}
                 placeholder={props.confirmPhrase}
+                value={typed}
+                onInput={(e: Event) => {
+                  typed = (e.target as HTMLInputElement).value;
+                  ctx.refresh();
+                }}
               />
             ) : null}
           </div>
@@ -98,33 +102,26 @@ export function* confirmDestructive(opts: {
   confirmPhrase?: string;
   confirmLabel?: string;
 }): Generator<View, boolean, any> {
-  let result: boolean | null = null;
-  let open = true;
+  const result = signal<boolean | null>(null);
 
-  while (result === null) {
+  while (result() === null) {
     yield (
       <AlertDialog
         open={[
-          () => open,
+          () => result() === null,
           (v: boolean) => {
-            open = v;
-            if (!v && result === null) result = false;
+            if (!v && result() === null) result.set(false);
           },
         ]}
         title={opts.title}
         description={opts.description}
         confirmPhrase={opts.confirmPhrase}
         confirmLabel={opts.confirmLabel}
-        onCancel={() => {
-          open = false;
-          result = false;
-        }}
-        onConfirm={() => {
-          open = false;
-          result = true;
-        }}
+        onConfirm={() => result.set(true)}
+        onCancel={() => result.set(false)}
       />
     );
   }
-  return result;
+
+  return result()!;
 }

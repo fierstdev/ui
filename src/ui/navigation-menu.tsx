@@ -23,16 +23,10 @@ const nmScope = scope`
   }
   .nm-btn:hover, .nm-btn.is-open { background: var(--aster-surface-muted); color: var(--aster-on-surface); }
   .nm-panel {
-    position: absolute;
-    z-index: 55;
-    top: calc(100% + 8px);
-    left: 0;
-    width: min(440px, calc(100vw - 2rem));
-    padding: 0.55rem;
-    border-radius: var(--aster-radius-lg);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 0.25rem;
+    position: fixed;
+    z-index: 50;
+    width: min(360px, calc(100vw - 1.5rem));
+    max-width: calc(100vw - 1.5rem);
   }
   .nm-link {
     display: flex;

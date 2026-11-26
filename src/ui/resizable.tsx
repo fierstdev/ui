@@ -56,6 +56,28 @@ const resScope = scope`
     pointer-events: none;
   }
   :scope.dir-vertical .grip { transform: rotate(90deg); }
+
+  @media (max-width: 639px) {
+    :scope.dir-horizontal.stack-mobile {
+      flex-direction: column;
+      height: auto !important;
+    }
+    :scope.dir-horizontal.stack-mobile > .pane {
+      flex: none !important;
+      width: 100% !important;
+      max-height: 260px;
+    }
+    :scope.dir-horizontal.stack-mobile > .handle {
+      width: 100%;
+      height: 1px;
+      padding: 0;
+      cursor: default;
+      pointer-events: none;
+    }
+    :scope.dir-horizontal.stack-mobile > .handle .grip {
+      display: none;
+    }
+  }
 `;
 
 export function* ResizableSplit(
@@ -65,6 +87,8 @@ export function* ResizableSplit(
     min?: number;
     max?: number;
     height?: string;
+    /** Automatically stack horizontal panes vertically on mobile (< 640px). Default: true. */
+    stackOnMobile?: boolean;
     first: View;
     second: View;
     onResize?: (pct: number) => void;
@@ -80,6 +104,7 @@ export function* ResizableSplit(
     const dir = props.direction ?? 'horizontal';
     const min = props.min ?? 20;
     const max = props.max ?? 80;
+    const stackOnMobile = props.stackOnMobile ?? true;
 
     const updateSplit = (next: number) => {
       const clamped = Math.max(min, Math.min(max, Math.round(next)));
@@ -138,7 +163,12 @@ export function* ResizableSplit(
     yield (
       <div
         ref={(el: HTMLDivElement) => (rootEl = el)}
-        class={[resScope, dir === 'vertical' ? 'dir-vertical' : '', props.class]
+        class={[
+          resScope,
+          dir === 'vertical' ? 'dir-vertical' : 'dir-horizontal',
+          stackOnMobile ? 'stack-mobile' : '',
+          props.class,
+        ]
           .filter(Boolean)
           .join(' ')}
         style={props.height ? { height: props.height } : undefined}

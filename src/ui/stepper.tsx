@@ -1,5 +1,5 @@
 import { Check } from '@lucide/icons';
-import { scope, type View } from '@fierst/aster';
+import { scope, signal, type View } from '@fierst/aster';
 import { Icon } from './icon.tsx';
 import { Button } from './button.tsx';
 
@@ -172,40 +172,41 @@ export function* runWizard<TState extends Record<string, any>>(
   initial: TState,
   opts: { finishLabel?: string; cancelLabel?: string } = {},
 ): Generator<View, TState | null, any> {
-  let stepIdx = 0;
-  let state: TState = { ...initial };
-  let finished = false;
-  let cancelled = false;
+  const stepIdx = signal(0);
+  const state = signal<TState>({ ...initial });
+  const status = signal<'active' | 'done' | 'cancelled'>('active');
 
   const update = (patch: Partial<TState>) => {
-    state = { ...state, ...patch };
+    state.update((prev) => ({ ...prev, ...patch }));
   };
 
-  while (!finished && !cancelled) {
-    const cur = steps[stepIdx];
-    const isLast = stepIdx === steps.length - 1;
-    const ok = cur?.canProceed ? cur.canProceed(state) : true;
+  while (status() === 'active') {
+    const idx = stepIdx();
+    const curState = state();
+    const cur = steps[idx];
+    const isLast = idx === steps.length - 1;
+    const ok = cur?.canProceed ? cur.canProceed(curState) : true;
 
     yield (
       <div class={wizScope}>
-        <Stepper steps={steps} currentStep={stepIdx} onStepClick={(i) => (stepIdx = i)} />
-        <div>{cur ? cur.render(state, update) : null}</div>
+        <Stepper steps={steps} currentStep={idx} onStepClick={(i) => stepIdx.set(i)} />
+        <div>{cur ? cur.render(curState, update) : null}</div>
         <div class="wiz-footer">
           <Button
             variant="ghost"
             onClick={() => {
-              if (stepIdx === 0) cancelled = true;
-              else stepIdx--;
+              if (idx === 0) status.set('cancelled');
+              else stepIdx.set(idx - 1);
             }}
           >
-            {stepIdx === 0 ? (opts.cancelLabel ?? 'Cancel') : 'Back'}
+            {idx === 0 ? (opts.cancelLabel ?? 'Cancel') : 'Back'}
           </Button>
           <Button
             variant="primary"
             disabled={!ok}
             onClick={() => {
-              if (isLast) finished = true;
-              else stepIdx++;
+              if (isLast) status.set('done');
+              else stepIdx.set(idx + 1);
             }}
           >
             {isLast ? (opts.finishLabel ?? 'Complete') : 'Continue'}
@@ -215,5 +216,5 @@ export function* runWizard<TState extends Record<string, any>>(
     );
   }
 
-  return cancelled ? null : state;
+  return status() === 'cancelled' ? null : state();
 }

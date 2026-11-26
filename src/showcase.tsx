@@ -1,24 +1,20 @@
 import './ui/theme.css';
 import {
   Activity,
-  Calendar as CalendarIcon,
-  Command,
+  Bot,
+  Layers,
   LayoutDashboard,
+  LayoutGrid,
   Monitor,
   Moon,
-  PanelBottom,
-  PanelRight,
-  RefreshCw,
-  Rocket,
   Search,
-  Settings,
   SlidersHorizontal,
+  Smartphone,
   Sparkles,
   Sun,
-  Trash2,
-  Users,
+  X,
 } from '@lucide/icons';
-import { render, scope, type Ctx } from '@fierst/aster';
+import { render, scope, signal, type Ctx } from '@fierst/aster';
 import {
   initTheme,
   setTheme,
@@ -30,159 +26,178 @@ import {
 import { Icon } from './ui/icon.tsx';
 import { Button, ButtonGroup } from './ui/button.tsx';
 import { Badge } from './ui/badge.tsx';
-import { Card } from './ui/card.tsx';
-import { Input, Textarea } from './ui/input.tsx';
-import { Switch } from './ui/switch.tsx';
-import { Checkbox, CheckboxGroup, RadioGroup } from './ui/checkbox.tsx';
-import { Slider } from './ui/slider.tsx';
-import { Avatar, AvatarGroup } from './ui/avatar.tsx';
-import { Alert } from './ui/alert.tsx';
-import { Breadcrumb } from './ui/breadcrumb.tsx';
-import { Pagination } from './ui/pagination.tsx';
-import { DatePicker, pickDate } from './ui/calendar.tsx';
-import { AppShell, Sidebar, NavItem } from './ui/app-shell.tsx';
-import { Tabs } from './ui/tabs.tsx';
-import { Dialog, confirmDialog } from './ui/dialog.tsx';
-import { Sheet, type SheetSide } from './ui/sheet.tsx';
-import { CommandPalette, pickCommand, type CommandItem } from './ui/command.tsx';
-import { Select } from './ui/select.tsx';
-import { Accordion } from './ui/accordion.tsx';
+import { Avatar } from './ui/avatar.tsx';
+import { AppShell, NavItem, Sidebar } from './ui/app-shell.tsx';
 import { Tooltip } from './ui/tooltip.tsx';
-import { Progress, ProgressRing, Skeleton } from './ui/progress.tsx';
-import { DropdownMenu } from './ui/popover.tsx';
+import { CommandPalette, pickCommand, type CommandItem } from './ui/command.tsx';
+import { confirmDialog } from './ui/dialog.tsx';
+import { confirmDestructive } from './ui/alert-dialog.tsx';
+import { pickDate } from './ui/calendar.tsx';
+import { promptDrawer } from './ui/drawer.tsx';
+import { runWizard } from './ui/stepper.tsx';
+import { runTour } from './ui/tour.tsx';
+import { requestApproval } from './ui/approval-card.tsx';
+import { Input } from './ui/input.tsx';
+import { SkipLink } from './ui/visually-hidden.tsx';
 import { Toaster, toast } from './ui/toast.tsx';
-import { DataTable, type ColumnDef } from './ui/data-table.tsx';
+import {
+  activeFlow,
+  commandOpen,
+  deployRelease,
+  deployments,
+  navSection,
+  releaseConfig,
+  resolveMigration,
+  updateRelease,
+  type NavSection,
+} from './showcase/store.ts';
+import { OverviewWorkspace } from './showcase/overview.tsx';
+import { OpsWorkspace } from './showcase/ops.tsx';
+import { AiStudioWorkspace } from './showcase/ai.tsx';
+import { FormsWorkspace } from './showcase/forms.tsx';
+import { OverlaysWorkspace } from './showcase/overlays.tsx';
+import { DirectoryWorkspace } from './showcase/directory.tsx';
 
 initTheme();
 
+const isEmbeddedMobile =
+  typeof window !== 'undefined' &&
+  new URLSearchParams(window.location.search).get('mobile') === '1';
+
+if (typeof window !== 'undefined') {
+  const initialSec = new URLSearchParams(window.location.search).get(
+    'section',
+  ) as NavSection | null;
+  if (
+    initialSec &&
+    ['overview', 'ops', 'ai', 'forms', 'overlays', 'directory'].includes(initialSec)
+  ) {
+    navSection.set(initialSec);
+  }
+}
+
+const mobilePreview = signal(false);
+
+const topbarScope = scope`
+  :scope {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .swatches {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .swatch {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform var(--aster-dur-fast) var(--aster-ease-motion);
+  }
+  .swatch:hover { transform: scale(1.12); }
+  .swatch.is-selected {
+    border-color: var(--aster-on-surface);
+    transform: scale(1.12);
+  }
+  .chroma-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .chroma-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 96px;
+    height: 10px;
+    border-radius: 9999px;
+    border: 1px solid var(--aster-border);
+    cursor: pointer;
+    background: linear-gradient(
+      to right,
+      oklch(0.65 0.22 0),
+      oklch(0.65 0.22 60),
+      oklch(0.65 0.22 120),
+      oklch(0.65 0.22 180),
+      oklch(0.65 0.22 240),
+      oklch(0.65 0.22 300),
+      oklch(0.65 0.22 360)
+    );
+  }
+  .chroma-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background: var(--aster-surface);
+    border: 2px solid var(--aster-on-surface);
+    box-shadow: var(--aster-shadow-xs);
+  }
+  .chroma-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background: var(--aster-surface);
+    border: 2px solid var(--aster-on-surface);
+    box-shadow: var(--aster-shadow-xs);
+  }
+`;
+
 const pageScope = scope`
   :scope {
-    max-width: 1080px;
+    max-width: 1180px;
     margin: 0 auto;
     display: grid;
     gap: 1.25rem;
   }
-  .swatches { display: inline-flex; align-items: center; gap: 0.35rem; }
-  .swatch {
-    width: 20px;
-    height: 20px;
-    border-radius: 9999px;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: transform var(--aster-dur-fast) var(--aster-ease-motion);
-  }
-  .swatch:hover { transform: scale(1.12); }
-  .swatch.is-selected { border-color: var(--aster-on-surface); transform: scale(1.12); }
-  .hero { display: grid; gap: 0.45rem; }
-  .hero h1 {
-    margin: 0;
-    font-family: var(--aster-font-display);
-    font-size: clamp(1.55rem, 4vw, 2.25rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-  }
-  .hero p { margin: 0; color: var(--aster-on-surface-muted); max-width: 66ch; font-size: 0.92rem; }
-  .grid-2 { display: grid; grid-template-columns: 1fr; gap: 1.15rem; }
-  @media (min-width: 860px) {
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
-  }
-  .row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-  .stack { display: grid; gap: 0.85rem; }
 `;
 
-interface Deployment {
-  id: string;
-  env: string;
-  region: string;
-  latencyMs: number;
-  status: 'healthy' | 'degraded' | 'building';
-}
-
-const DEPLOYMENTS: Deployment[] = [
-  { id: 'd1', env: 'Production', region: 'us-west (PDX)', latencyMs: 14, status: 'healthy' },
-  { id: 'd2', env: 'Staging', region: 'eu-central (FRA)', latencyMs: 28, status: 'healthy' },
-  { id: 'd3', env: 'Canary', region: 'ap-northeast (NRT)', latencyMs: 92, status: 'degraded' },
-  { id: 'd4', env: 'Preview #48', region: 'us-east (IAD)', latencyMs: 19, status: 'building' },
-];
-
-const COLUMNS: ColumnDef<Deployment>[] = [
-  { key: 'env', header: 'Environment', sortable: true },
-  { key: 'region', header: 'Edge Region', sortable: true },
-  {
-    key: 'latencyMs',
-    header: 'p99 (ms)',
-    sortable: true,
-    render: (r) => <code>{r.latencyMs} ms</code>,
-  },
-  {
-    key: 'status',
-    header: 'Status',
-    sortable: true,
-    render: (r) => (
-      <Badge
-        dot
-        tone={r.status === 'healthy' ? 'success' : r.status === 'degraded' ? 'warning' : 'primary'}
-      >
-        {r.status}
-      </Badge>
-    ),
-  },
-];
-
-const REGIONS = [
-  { value: 'pdx', label: 'us-west (PDX)', description: 'Portland / Vancouver edge cluster' },
-  { value: 'iad', label: 'us-east (IAD)', description: 'Northern Virginia primary POP' },
-  { value: 'fra', label: 'eu-central (FRA)', description: 'Frankfurt EU data residency' },
-  { value: 'nrt', label: 'ap-northeast (NRT)', description: 'Tokyo low-latency edge' },
-  {
-    value: 'syd',
-    label: 'ap-southeast (SYD)',
-    description: 'Sydney (maintenance)',
-    disabled: true,
-  },
-];
-
-const TEAM = [
-  { name: 'Ada Lovelace', status: 'online' as const },
-  { name: 'Grace Hopper', status: 'online' as const },
-  { name: 'Linus Torvalds', status: 'away' as const },
-  { name: 'Margaret Hamilton', status: 'busy' as const },
-  { name: 'Ken Thompson', status: 'offline' as const },
-  { name: 'Barbara Liskov', status: 'online' as const },
-];
-
-async function* EdgeHealthProbe(props: { run: number }, ctx: Ctx) {
-  yield (
-    <div class="stack">
-      <div class="row">
-        <Skeleton width="38px" height="38px" shape="circle" />
-        <div class="stack" style="flex:1; gap:0.4rem">
-          <Skeleton width="55%" height="0.9rem" />
-          <Skeleton width="80%" height="0.75rem" />
-        </div>
-      </div>
-      <Progress label="Probing edge POPs…" />
-    </div>
-  );
-
-  await new Promise((r) => setTimeout(r, 700));
-  if (ctx.signal.aborted) return;
-
-  yield (
-    <div class="row" style="justify-content:space-between">
-      <div class="stack" style="gap:0.15rem">
-        <strong>All 310 Edge POPs Healthy</strong>
-        <span style="font-size:0.82rem; color:var(--aster-on-surface-muted)">
-          Probe #{props.run} resolved via <code>async function*</code>
-        </span>
-      </div>
-      <Badge tone="success" dot>
-        99.99% uptime
-      </Badge>
-    </div>
-  );
-}
+const mobileFrameScope = scope`
+  :scope {
+    min-height: 100dvh;
+    background: var(--aster-bg);
+    color: var(--aster-on-surface);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    place-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    font-family: var(--aster-font-sans);
+  }
+  .mf-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid var(--aster-border);
+    background: var(--aster-surface);
+    box-shadow: var(--aster-shadow-sm);
+    font-size: 0.82rem;
+  }
+  .mf-shell {
+    width: 390px;
+    height: min(844px, calc(100dvh - 5.5rem));
+    border-radius: 36px;
+    border: 8px solid var(--aster-border-strong);
+    background: var(--aster-surface);
+    box-shadow: var(--aster-shadow-lg, 0 24px 60px rgba(0, 0, 0, 0.35));
+    overflow: hidden;
+  }
+  .mf-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background: var(--aster-bg);
+  }
+`;
 
 function* TopbarControls(props: { onOpenCommand: () => void }, ctx: Ctx) {
   for (props of ctx) {
@@ -193,9 +208,10 @@ function* TopbarControls(props: { onOpenCommand: () => void }, ctx: Ctx) {
       { id: 'system', icon: Monitor, label: 'System mode' },
     ];
     const radii: ThemeRadius[] = ['none', 'sm', 'md', 'lg'];
+    const activeHue = cfg.customHue ?? 255;
 
     yield (
-      <div class="row">
+      <div class={topbarScope}>
         <Tooltip content="Command Palette (⌘K)" side="bottom">
           <Button size="sm" variant="outline" onClick={props.onOpenCommand}>
             <Icon icon={Search} size={14} />
@@ -211,12 +227,30 @@ function* TopbarControls(props: { onOpenCommand: () => void }, ctx: Ctx) {
               title={p.label}
               aria-label={`${p.label} seed`}
               class="swatch"
-              class:is-selected={cfg.preset === p.id}
+              class:is-selected={cfg.customHue === undefined && cfg.preset === p.id}
               style={{ background: p.swatch }}
               onClick={() => setTheme({ preset: p.id, customHue: undefined })}
             />
           ))}
         </div>
+
+        <Tooltip content={`OKLCH Hue: ${activeHue}°`} side="bottom">
+          <div class="chroma-wrap">
+            <input
+              type="range"
+              min="0"
+              max="360"
+              step="1"
+              value={String(activeHue)}
+              aria-label="OKLCH chroma hue"
+              class="chroma-slider"
+              onInput={(e: Event) => {
+                const hue = Number((e.target as HTMLInputElement).value);
+                setTheme({ customHue: hue });
+              }}
+            />
+          </div>
+        </Tooltip>
 
         <ButtonGroup label="Radius preset">
           {radii.map((r) => (
@@ -244,85 +278,51 @@ function* TopbarControls(props: { onOpenCommand: () => void }, ctx: Ctx) {
             </Button>
           ))}
         </ButtonGroup>
+
+        {!isEmbeddedMobile ? (
+          <Tooltip content="Mobile viewport preview (390×844)" side="bottom">
+            <Button
+              size="sm"
+              variant={mobilePreview() ? 'primary' : 'outline'}
+              aria-label="Toggle mobile preview"
+              onClick={() => mobilePreview.update((v) => !v)}
+            >
+              <Icon icon={Smartphone} size={14} />
+            </Button>
+          </Tooltip>
+        ) : null}
       </div>
     );
   }
 }
 
-export function* ShowcaseApp(_props: Record<string, any>, ctx: Ctx) {
-  let navSection = 'overview';
-  let projectName = 'aster-cloud';
-  let region = 'pdx';
-  let deployDate = '1995-07-14';
-  let notes = '';
-  let autoRevive = true;
-  let features = ['ssr', 'revive'];
-  let plan = 'pro';
-  let rolloutPct = 72;
-  let currentPage = 2;
-  let accordionMode: 'single' | 'multiple' = 'single';
-  let dialogOpen = false;
-  let sheetOpen = false;
-  let sheetSide: SheetSide = 'right';
-  let commandOpen = false;
-  let activeFlow: 'idle' | 'confirm' | 'pickCmd' | 'pickDate' = 'idle';
-  let probeRun = 1;
-
-  const commands: CommandItem[] = [
-    {
-      id: 'seed-zinc',
-      group: 'Theme Seed',
-      label: 'Zinc (Monochrome)',
-      onSelect: () => setTheme({ preset: 'zinc', customHue: undefined }),
-    },
-    {
-      id: 'seed-blue',
-      group: 'Theme Seed',
-      label: 'Blue',
-      onSelect: () => setTheme({ preset: 'blue', customHue: undefined }),
-    },
-    {
-      id: 'seed-emerald',
-      group: 'Theme Seed',
-      label: 'Emerald',
-      onSelect: () => setTheme({ preset: 'emerald', customHue: undefined }),
-    },
-    {
-      id: 'pick-date',
-      group: 'Flows',
-      label: 'Pick Date (with Year/Month Dropdowns)…',
-      hint: 'Runs yield* pickDate()',
-      onSelect: () => {
-        activeFlow = 'pickDate';
-      },
-    },
-    {
-      id: 'purge-cache',
-      group: 'Flows',
-      label: 'Purge Global Edge Cache…',
-      hint: 'Runs yield* confirmDialog()',
-      onSelect: () => {
-        activeFlow = 'confirm';
-      },
-    },
-  ];
-
+function* FlowHost(_props: Record<string, any>, ctx: Ctx) {
   for (let _p of ctx) {
-    if ((activeFlow as string) === 'confirm') {
+    const flow = activeFlow();
+
+    if (flow === 'confirm') {
       const ok = yield* confirmDialog({
         title: 'Purge Global Edge Cache?',
-        description: 'This confirmation ran via native `yield* confirmDialog()`.',
+        description: 'Ran via native `yield* confirmDialog()`.',
         confirmLabel: 'Purge Cache',
         danger: true,
       });
-      activeFlow = 'idle';
+      activeFlow.set('idle');
       if (ok) toast.success('Edge cache purged');
       else toast.show('Purge cancelled');
-    }
-
-    if ((activeFlow as string) === 'pickCmd') {
+    } else if (flow === 'destructive') {
+      const ok = yield* confirmDestructive({
+        title: 'Destroy Canary Cluster?',
+        description: 'Type DESTROY to confirm tearing down ap-northeast (NRT).',
+        confirmPhrase: 'DESTROY',
+        confirmLabel: 'Destroy Cluster',
+      });
+      activeFlow.set('idle');
+      if (ok) toast.warning('Canary cluster destroyed');
+      else toast.show('Action cancelled');
+    } else if (flow === 'pickCmd') {
       const chosen = yield* pickCommand(
-        DEPLOYMENTS.map((d) => ({
+        deployments().map((d) => ({
           id: d.id,
           group: 'Environments',
           label: d.env,
@@ -331,477 +331,323 @@ export function* ShowcaseApp(_props: Record<string, any>, ctx: Ctx) {
         })),
         { placeholder: 'Jump to environment…' },
       );
-      activeFlow = 'idle';
+      activeFlow.set('idle');
       if (chosen) toast.success(`Switched to ${chosen.label}`, chosen.hint);
+    } else if (flow === 'pickDate') {
+      const iso = yield* pickDate({
+        title: 'Select Release Date',
+        description: 'Use Month/Year dropdowns or type YYYY-MM-DD directly.',
+        initial: releaseConfig().deployDate,
+      });
+      activeFlow.set('idle');
+      if (iso) {
+        updateRelease('deployDate', iso);
+        toast.success('Release date updated', iso);
+      }
+    } else if (flow === 'drawer') {
+      const action = yield* promptDrawer({
+        title: 'Deployment Actions',
+        description: 'Choose an edge operation for Production.',
+        actions: [
+          { id: 'redeploy', label: 'Trigger Instant Redeploy' },
+          { id: 'rollback', label: 'Rollback to v1.0.0-alpha.1' },
+          { id: 'drain', label: 'Drain NRT Traffic', danger: true },
+        ],
+      });
+      activeFlow.set('idle');
+      if (action === 'redeploy') deployRelease('Production');
+      else if (action) toast.show('Drawer action selected', action);
+    } else if (flow === 'wizard') {
+      const result = yield* runWizard(
+        [
+          {
+            id: 'name',
+            title: 'Project Slug',
+            render: (st, update) => (
+              <Input
+                label="Project Name"
+                value={st.name}
+                onInput={(e: Event) => update({ name: (e.target as HTMLInputElement).value })}
+              />
+            ),
+            canProceed: (st) => st.name.trim().length > 0,
+          },
+          {
+            id: 'env',
+            title: 'Target Environment',
+            render: (st, update) => (
+              <Input
+                label="Environment"
+                value={st.env}
+                onInput={(e: Event) => update({ env: (e.target as HTMLInputElement).value })}
+              />
+            ),
+          },
+        ],
+        { name: releaseConfig().projectName, env: 'Production' },
+        { finishLabel: 'Deploy' },
+      );
+      activeFlow.set('idle');
+      if (result) {
+        updateRelease('projectName', result.name);
+        deployRelease(result.env);
+      }
+    } else if (flow === 'tour') {
+      const finished = yield* runTour([
+        {
+          id: 't1',
+          title: '104 Code-Owned Components',
+          description:
+            'Use the left sidebar to explore Telemetry, Ops, AI Studio, Forms, Overlays, and the full Directory.',
+        },
+        {
+          id: 't2',
+          title: 'Live Connected State',
+          description:
+            'Deployments, approvals, and theme seeds update every workspace in real time.',
+        },
+      ]);
+      activeFlow.set('idle');
+      if (finished) toast.success('Tour completed');
+    } else if (flow === 'approval') {
+      const approved = yield* requestApproval({
+        title: 'Approve Production Index Migration',
+        description: 'Paused inline via `yield* requestApproval()`.',
+        assigneeRole: 'Staff DBA',
+        artifactHash: 'sha256:9f4c2a8e1b7d',
+        codePreview:
+          'CREATE INDEX CONCURRENTLY idx_deployments_region_created ON deployments (region, created_at DESC);',
+        danger: true,
+      });
+      activeFlow.set('idle');
+      resolveMigration(approved);
     }
 
-    if ((activeFlow as string) === 'pickDate') {
-      const iso = yield* pickDate({
-        title: 'Select Date (e.g. Birth Date or Rollout)',
-        description: 'Use the Month & Year dropdowns or type YYYY-MM-DD directly.',
-        initial: deployDate,
-      });
-      activeFlow = 'idle';
-      if (iso) {
-        deployDate = iso;
-        toast.success('Date selected', `Selected: ${iso}`);
-      }
+    if (activeFlow() === 'idle') {
+      yield null;
+    }
+  }
+}
+
+export function* ShowcaseApp(_props: Record<string, any>, ctx: Ctx) {
+  const commands: CommandItem[] = [
+    {
+      id: 'go-overview',
+      group: 'Workspaces',
+      label: 'Overview & Telemetry',
+      onSelect: () => navSection.set('overview'),
+    },
+    {
+      id: 'go-ops',
+      group: 'Workspaces',
+      label: 'Deployments & Ops',
+      onSelect: () => navSection.set('ops'),
+    },
+    {
+      id: 'go-ai',
+      group: 'Workspaces',
+      label: 'AI Agent Studio',
+      onSelect: () => navSection.set('ai'),
+    },
+    {
+      id: 'go-forms',
+      group: 'Workspaces',
+      label: 'Release & Billing Forms',
+      onSelect: () => navSection.set('forms'),
+    },
+    {
+      id: 'go-overlays',
+      group: 'Workspaces',
+      label: 'Navigation & Overlays',
+      onSelect: () => navSection.set('overlays'),
+    },
+    {
+      id: 'go-dir',
+      group: 'Workspaces',
+      label: 'All 104 Components Directory',
+      onSelect: () => navSection.set('directory'),
+    },
+    {
+      id: 'act-deploy',
+      group: 'Actions',
+      label: 'Deploy Production Now',
+      onSelect: () => deployRelease('Production'),
+    },
+    {
+      id: 'flow-date',
+      group: 'yield* Flows',
+      label: 'Pick Release Date…',
+      onSelect: () => activeFlow.set('pickDate'),
+    },
+    {
+      id: 'flow-wizard',
+      group: 'yield* Flows',
+      label: 'Launch Release Wizard…',
+      onSelect: () => activeFlow.set('wizard'),
+    },
+    {
+      id: 'flow-confirm',
+      group: 'yield* Flows',
+      label: 'Purge Global Edge Cache…',
+      onSelect: () => activeFlow.set('confirm'),
+    },
+  ];
+
+  for (let _p of ctx) {
+    const section = navSection();
+    const isMobileFrame = !isEmbeddedMobile && mobilePreview();
+
+    if (isMobileFrame) {
+      const base =
+        typeof window !== 'undefined'
+          ? `${window.location.origin}${window.location.pathname}`
+          : '/';
+      const iframeSrc = `${base}?mobile=1&section=${section}`;
+
+      yield (
+        <div class={mobileFrameScope}>
+          <div class="mf-bar">
+            <Icon icon={Smartphone} size={14} />
+            <strong>Mobile Preview</strong>
+            <span style="color:var(--aster-on-surface-muted)">390 × 844</span>
+            <Button size="sm" variant="outline" onClick={() => mobilePreview.set(false)}>
+              <Icon icon={X} size={13} />
+              <span>Desktop View</span>
+            </Button>
+          </div>
+          <div class="mf-shell">
+            <iframe class="mf-iframe" src={iframeSrc} title="AsterUI Mobile Preview" />
+          </div>
+        </div>
+      );
+      continue;
     }
 
     yield (
-      <AppShell
-        brand={
-          <span class="row" style="font-weight:600; letter-spacing:-0.015em">
-            <Icon icon={Sparkles} size={16} />
-            <span>AsterUI</span>
-            <Badge tone="neutral">26 Items</Badge>
-          </span>
-        }
-        topbar={<TopbarControls onOpenCommand={() => (commandOpen = true)} />}
-        sidebar={({ collapsed, closeMobile }) => (
-          <Sidebar
-            collapsed={collapsed}
-            header={
-              <>
-                <Avatar name="Fierst Studio" size="sm" status="online" />
-                <div class="sb-text" style="min-width:0; line-height:1.25">
-                  <div style="font-size:0.875rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
-                    Fierst Studio
+      <>
+        <SkipLink href="#main-content" />
+        <AppShell
+          brand={
+            <span style="display:inline-flex; align-items:center; gap:0.45rem; font-weight:600; letter-spacing:-0.015em">
+              <Icon icon={Sparkles} size={16} />
+              <span>AsterUI</span>
+              <Badge tone="neutral">104 Items</Badge>
+            </span>
+          }
+          topbar={<TopbarControls onOpenCommand={() => commandOpen.set(true)} />}
+          sidebar={({ collapsed, closeMobile }) => (
+            <Sidebar
+              collapsed={collapsed}
+              header={
+                <>
+                  <Avatar name="Fierst Studio" size="sm" status="online" />
+                  <div class="sb-text" style="min-width:0; line-height:1.25">
+                    <div style="font-size:0.875rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">
+                      Fierst Studio
+                    </div>
+                    <div style="font-size:0.75rem; color:var(--aster-on-surface-muted)">
+                      ui.fierst.dev
+                    </div>
                   </div>
-                  <div style="font-size:0.75rem; color:var(--aster-on-surface-muted)">
-                    ui.fierst.dev
+                </>
+              }
+              footer={
+                <>
+                  <Avatar name="Ada Lovelace" size="sm" status="online" />
+                  <div class="sb-text" style="min-width:0; line-height:1.25">
+                    <div style="font-size:0.8125rem; font-weight:500">Ada Lovelace</div>
+                    <div style="font-size:0.72rem; color:var(--aster-on-surface-muted)">
+                      @fierst/ui
+                    </div>
                   </div>
-                </div>
-              </>
-            }
-            footer={
-              <>
-                <Avatar name="Ada Lovelace" size="sm" status="online" />
-                <div class="sb-text" style="min-width:0; line-height:1.25">
-                  <div style="font-size:0.8125rem; font-weight:500">Ada Lovelace</div>
-                  <div style="font-size:0.72rem; color:var(--aster-on-surface-muted)">
-                    @fierst/ui
-                  </div>
-                </div>
-              </>
-            }
-          >
-            <NavItem
-              label="Overview"
-              icon={LayoutDashboard}
-              active={navSection === 'overview'}
-              compact={collapsed}
-              onClick={() => {
-                navSection = 'overview';
-                closeMobile();
-              }}
-            />
-            <NavItem
-              label="Form Controls"
-              icon={SlidersHorizontal}
-              active={navSection === 'forms'}
-              compact={collapsed}
-              onClick={() => {
-                navSection = 'forms';
-                closeMobile();
-              }}
-            />
-            <NavItem
-              label="Deployments"
-              icon={Activity}
-              active={navSection === 'deploys'}
-              compact={collapsed}
-              badge={<Badge tone="neutral">4</Badge>}
-              onClick={() => {
-                navSection = 'deploys';
-                closeMobile();
-              }}
-            />
-            <NavItem
-              label="Team"
-              icon={Users}
-              active={navSection === 'team'}
-              compact={collapsed}
-              onClick={() => {
-                navSection = 'team';
-                closeMobile();
-              }}
-            />
-            <NavItem
-              label="Settings"
-              icon={Settings}
-              active={navSection === 'settings'}
-              compact={collapsed}
-              onClick={() => {
-                navSection = 'settings';
-                closeMobile();
-              }}
-            />
-          </Sidebar>
-        )}
-      >
-        <div class={pageScope}>
-          <CommandPalette
-            items={commands}
-            open={commandOpen}
-            onOpenChange={(v) => (commandOpen = v)}
-          />
-
-          <Breadcrumb
-            items={[
-              { label: 'Fierst', href: '#fierst' },
-              { label: 'AsterUI', href: '#asterui' },
-              { label: 'Component Library' },
-            ]}
-          />
-
-          <section class="hero">
-            <h1>Proven UI ergonomics, engineered for Aster.</h1>
-            <p>
-              26 code-owned, mobile-first components built on crisp opaque surfaces, 1px hairline
-              borders, single-seed OKLCH theming, sensible micro-animations, and tree-shakeable{' '}
-              <code>@lucide/icons</code>.
-            </p>
-          </section>
-
-          <Alert
-            tone="info"
-            title="Consensus-Driven Component Design"
-            description="Crisp neutral surfaces with Zinc monochrome or OKLCH chromatic seeds, Month/Year Calendar dropdowns, and single or multiple-expand Accordions."
-            dismissible
-          />
-
-          <div class="grid-2">
-            <Card
-              title="Buttons, Overlays & yield* Flows"
-              description="Six proven button variants, inverted tooltips, and native modal flows."
-            >
-              <div class="row">
-                <Button
-                  variant="primary"
-                  onClick={() => toast.success('Deployed', `Target date: ${deployDate}`)}
-                >
-                  <Icon icon={Rocket} size={15} />
-                  <span>Primary</span>
-                </Button>
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    sheetSide = 'right';
-                    sheetOpen = true;
-                    ctx.refresh();
-                  }}
-                >
-                  <Icon icon={PanelRight} size={15} />
-                  <span>Sheet</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    sheetSide = 'bottom';
-                    sheetOpen = true;
-                    ctx.refresh();
-                  }}
-                >
-                  <Icon icon={PanelBottom} size={15} />
-                  <span>Drawer</span>
-                </Button>
-                <Button variant="outline" onClick={() => (activeFlow = 'pickDate')}>
-                  <Icon icon={CalendarIcon} size={15} />
-                  <span>yield* Date</span>
-                </Button>
-                <Button variant="outline" onClick={() => (activeFlow = 'pickCmd')}>
-                  <Icon icon={Command} size={14} />
-                  <span>yield* Pick</span>
-                </Button>
-                <Button variant="destructive" onClick={() => (activeFlow = 'confirm')}>
-                  <Icon icon={Trash2} size={15} />
-                  <span>Confirm</span>
-                </Button>
-                <DropdownMenu
-                  label="More"
-                  items={[
-                    {
-                      id: 'dlg',
-                      label: 'Open Dialog',
-                      onSelect: () => {
-                        dialogOpen = true;
-                        ctx.refresh();
-                      },
-                    },
-                    {
-                      id: 'cmd',
-                      label: 'Command Palette',
-                      shortcut: '⌘K',
-                      onSelect: () => {
-                        commandOpen = true;
-                        ctx.refresh();
-                      },
-                    },
-                    {
-                      id: 'del',
-                      label: 'Purge cache…',
-                      danger: true,
-                      separatorBefore: true,
-                      onSelect: () => {
-                        activeFlow = 'confirm';
-                        ctx.refresh();
-                      },
-                    },
-                  ]}
-                />
-              </div>
-
-              <div class="row" style="justify-content:space-between; padding-top:0.35rem">
-                <AvatarGroup items={TEAM} max={4} />
-                <Badge tone="neutral">Selected: {deployDate}</Badge>
-              </div>
-
-              <Dialog
-                open={[() => dialogOpen, (v: boolean) => (dialogOpen = v)]}
-                title="AsterUI Dialog"
-                description="Crisp opaque dialog with cross-browser backdrop dismiss."
-                footer={
-                  <Button variant="primary" onClick={() => (dialogOpen = false)}>
-                    Done
-                  </Button>
-                }
-              >
-                <p style="margin:0; font-size:0.875rem; color:var(--aster-on-surface-muted)">
-                  Click outside or press Escape across Chrome, Safari, Firefox, and Edge.
-                </p>
-              </Dialog>
-
-              <Sheet
-                open={[() => sheetOpen, (v: boolean) => (sheetOpen = v)]}
-                side={sheetSide}
-                title={(sheetSide as string) === 'bottom' ? 'Quick Drawer' : 'Inspector Sheet'}
-                footer={
-                  <Button variant="primary" onClick={() => (sheetOpen = false)}>
-                    Apply
-                  </Button>
-                }
-              >
-                <Select
-                  label="Region"
-                  options={REGIONS}
-                  value={region}
-                  searchable
-                  onChange={(v) => (region = v)}
-                />
-                <DatePicker
-                  label="Date"
-                  value={deployDate}
-                  onChange={(iso) => (deployDate = iso)}
-                />
-              </Sheet>
-            </Card>
-
-            <Card
-              title="Forms, DatePicker & Slider"
-              description="Month/Year dropdowns + direct YYYY-MM-DD input for effortless date entry."
-            >
-              <div class="stack">
-                <Input
-                  label="Project Slug"
-                  bind:value={projectName}
-                  leading="aster.fierst.dev/"
-                  error={!projectName.trim() ? 'Project slug is required.' : null}
-                />
-                <div class="grid-2" style="gap:0.75rem">
-                  <Select
-                    label="Edge Region"
-                    options={REGIONS}
-                    value={region}
-                    searchable
-                    onChange={(v) => (region = v)}
-                  />
-                  <DatePicker
-                    label="Date (try 1995!)"
-                    value={deployDate}
-                    onChange={(iso) => (deployDate = iso)}
-                  />
-                </div>
-                <Slider
-                  label="Traffic Rollout"
-                  value={rolloutPct}
-                  min={0}
-                  max={100}
-                  unit="%"
-                  showMarks
-                  onChange={(v) => (rolloutPct = v)}
-                />
-                <Textarea
-                  label="Release Notes"
-                  bind:value={notes}
-                  placeholder="Summarize this deployment…"
-                />
-                <Switch
-                  checked={autoRevive}
-                  label="Automatic Lazy Revival"
-                  description="Zero upfront hydration until interaction."
-                  onChange={(v) => (autoRevive = v)}
-                />
-              </div>
-            </Card>
-          </div>
-
-          <div class="grid-2">
-            <Card
-              title="Checkboxes & Radio Cards"
-              description="Indeterminate state, card selection, and full keyboard accessibility."
-            >
-              <div class="stack">
-                <CheckboxGroup
-                  legend="Enabled Capabilities"
-                  value={features}
-                  options={[
-                    {
-                      value: 'ssr',
-                      label: 'Streaming SSR',
-                      description: 'Out-of-order async function* flushes',
-                    },
-                    {
-                      value: 'revive',
-                      label: 'Lazy Revival',
-                      description: '~0.6 KB delegated event loader',
-                    },
-                    {
-                      value: 'wc',
-                      label: 'Web Components',
-                      description: 'Export Shadow DOM custom elements',
-                    },
-                  ]}
-                  onChange={(next) => (features = next)}
-                />
-                <Checkbox
-                  indeterminate={features.length > 0 && features.length < 3}
-                  checked={features.length === 3}
-                  label="Select all capabilities"
-                  onChange={(all) => (features = all ? ['ssr', 'revive', 'wc'] : [])}
-                />
-                <RadioGroup
-                  legend="Deployment Tier"
-                  card
-                  value={plan}
-                  options={[
-                    {
-                      value: 'hobby',
-                      label: 'Starter — Free',
-                      description: '100k edge requests/day',
-                    },
-                    {
-                      value: 'pro',
-                      label: 'Studio Pro — $20/mo',
-                      description: 'Unlimited edge isolates & custom domains',
-                    },
-                  ]}
-                  onChange={(v) => (plan = v)}
-                />
-              </div>
-            </Card>
-
-            <Card
-              title="Progress, Probe & Accordion"
-              action={
-                <div class="row">
-                  <Button
-                    size="sm"
-                    variant={accordionMode === 'single' ? 'secondary' : 'outline'}
-                    onClick={() => (accordionMode = 'single')}
-                  >
-                    Single
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant={(accordionMode as string) === 'multiple' ? 'secondary' : 'outline'}
-                    onClick={() => (accordionMode = 'multiple')}
-                  >
-                    Multiple
-                  </Button>
-                  <Button size="sm" variant="outline" onClick={() => probeRun++}>
-                    <Icon icon={RefreshCw} size={14} />
-                  </Button>
-                </div>
+                </>
               }
             >
-              <div class="stack">
-                <div class="row" style="justify-content:space-between">
-                  <div style="flex:1; min-width:160px">
-                    <Progress label="Rollout Completion" value={rolloutPct} showValue />
-                  </div>
-                  <ProgressRing value={rolloutPct} />
-                </div>
-                <EdgeHealthProbe run={probeRun} />
-                <Accordion
-                  type={accordionMode}
-                  items={[
-                    {
-                      id: 'a1',
-                      title: 'Single vs. Multiple Accordion Mode',
-                      defaultOpen: true,
-                      content:
-                        'Pass type="single" to auto-close inactive panels via native <details name>, or type="multiple" to expand all panels simultaneously.',
-                    },
-                    {
-                      id: 'a2',
-                      title: 'Fast Year & Month Jumping in Calendar',
-                      content:
-                        'Month and Year dropdowns (1900–2046) plus direct YYYY-MM-DD entry make picking birth dates like 1995-07-14 effortless.',
-                    },
-                    {
-                      id: 'a3',
-                      title: 'Single-Seed OKLCH Theming',
-                      content:
-                        'Switch between monochrome Zinc and chromatic seeds (Blue, Emerald, Violet, Rose, Amber) with zero runtime CSS-in-JS.',
-                    },
-                  ]}
-                />
-              </div>
-            </Card>
-          </div>
-
-          <Card title="Tabs, Mobile-First DataTable & Pagination">
-            <Tabs
-              variant="underline"
-              items={[
-                {
-                  id: 'deployments',
-                  label: 'Edge Deployments',
-                  content: () => (
-                    <div class="stack">
-                      <DataTable
-                        rows={DEPLOYMENTS}
-                        columns={COLUMNS}
-                        rowKey={(r) => r.id}
-                        searchable
-                      />
-                      <Pagination
-                        page={currentPage}
-                        totalPages={12}
-                        onChange={(p) => (currentPage = p)}
-                      />
-                    </div>
-                  ),
-                },
-                {
-                  id: 'cli',
-                  label: 'Install All 26 Items',
-                  content: () => (
-                    <pre style="margin:0; padding:1rem; border-radius:var(--aster-radius-md); background:var(--aster-surface-muted); border:1px solid var(--aster-border); overflow-x:auto; font-family:var(--aster-font-mono); font-size:0.82rem">
-                      {`vp dlx @fierst/ui init
-vp add @lucide/icons
-vp dlx @fierst/ui add app-shell alert avatar badge breadcrumb button calendar card checkbox command data-table dialog input pagination popover progress select sheet slider switch tabs toast tooltip`}
-                    </pre>
-                  ),
-                },
-              ]}
+              <NavItem
+                label="Overview & Telemetry"
+                icon={LayoutDashboard}
+                active={section === 'overview'}
+                compact={collapsed}
+                onClick={() => {
+                  navSection.set('overview');
+                  closeMobile();
+                }}
+              />
+              <NavItem
+                label="Deployments & Ops"
+                icon={Activity}
+                active={section === 'ops'}
+                compact={collapsed}
+                badge={<Badge tone="neutral">{deployments().length}</Badge>}
+                onClick={() => {
+                  navSection.set('ops');
+                  closeMobile();
+                }}
+              />
+              <NavItem
+                label="AI Agent Studio"
+                icon={Bot}
+                active={section === 'ai'}
+                compact={collapsed}
+                badge={<Badge tone="primary">HITL</Badge>}
+                onClick={() => {
+                  navSection.set('ai');
+                  closeMobile();
+                }}
+              />
+              <NavItem
+                label="Release & Billing"
+                icon={SlidersHorizontal}
+                active={section === 'forms'}
+                compact={collapsed}
+                onClick={() => {
+                  navSection.set('forms');
+                  closeMobile();
+                }}
+              />
+              <NavItem
+                label="Navigation & Overlays"
+                icon={Layers}
+                active={section === 'overlays'}
+                compact={collapsed}
+                onClick={() => {
+                  navSection.set('overlays');
+                  closeMobile();
+                }}
+              />
+              <NavItem
+                label="All 104 Directory"
+                icon={LayoutGrid}
+                active={section === 'directory'}
+                compact={collapsed}
+                badge={<Badge tone="neutral">104</Badge>}
+                onClick={() => {
+                  navSection.set('directory');
+                  closeMobile();
+                }}
+              />
+            </Sidebar>
+          )}
+        >
+          <div id="main-content" class={pageScope}>
+            <CommandPalette
+              items={commands}
+              open={commandOpen()}
+              onOpenChange={(v) => commandOpen.set(v)}
             />
-          </Card>
+            <FlowHost />
 
-          <Toaster />
-        </div>
-      </AppShell>
+            {section === 'overview' ? <OverviewWorkspace /> : null}
+            {section === 'ops' ? <OpsWorkspace /> : null}
+            {section === 'ai' ? <AiStudioWorkspace /> : null}
+            {section === 'forms' ? <FormsWorkspace /> : null}
+            {section === 'overlays' ? <OverlaysWorkspace /> : null}
+            {section === 'directory' ? <DirectoryWorkspace /> : null}
+
+            <Toaster />
+          </div>
+        </AppShell>
+      </>
     );
   }
 }

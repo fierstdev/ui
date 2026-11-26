@@ -198,7 +198,7 @@
       "name": "command",
       "type": "ui:component",
       "title": "CommandPalette & yield* pickCommand()",
-      "description": "Opaque \u2318K command palette with grouped search, auto-focus, keyboard nav, ctx.signal cleanup, and yield* pickCommand().",
+      "description": "Opaque ⌘K command palette with grouped search, auto-focus, keyboard nav, ctx.signal cleanup, and yield* pickCommand().",
       "dependencies": [
         "@lucide/icons"
       ],
@@ -362,7 +362,7 @@
       "name": "calendar",
       "type": "ui:component",
       "title": "Calendar, DatePicker & yield* pickDate()",
-      "description": "Zero-dependency Intl Calendar with Month & Year dropdowns (1900\u20132046) + direct date input, Popover DatePicker, and yield* pickDate().",
+      "description": "Zero-dependency Intl Calendar with Month & Year dropdowns (1900–2046) + direct date input, Popover DatePicker, and yield* pickDate().",
       "dependencies": [
         "@lucide/icons"
       ],

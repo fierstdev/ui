@@ -47,14 +47,10 @@ const sheetScope = scope`
     border-bottom: none;
     transform: translateX(0);
   }
-  @media (min-width: 640px) {
-    :scope.side-right,
-    :scope.side-left { width: min(420px, 90vw); }
-  }
   :scope.side-bottom {
-    margin-top: auto;
+    margin: auto auto 0 auto;
     width: 100vw;
-    height: auto;
+    height: fit-content;
     max-height: 85dvh;
     border-radius: var(--aster-radius-lg) var(--aster-radius-lg) 0 0;
     border-left: none;
@@ -62,6 +58,17 @@ const sheetScope = scope`
     border-bottom: none;
     padding-bottom: var(--aster-safe-bottom);
     transform: translateY(0);
+  }
+  @media (min-width: 640px) {
+    :scope.side-right,
+    :scope.side-left {
+      width: min(420px, 90vw);
+    }
+    :scope.side-bottom {
+      width: min(560px, calc(100vw - 2rem));
+      border-left: 1px solid var(--aster-border);
+      border-right: 1px solid var(--aster-border);
+    }
   }
 
   @starting-style {
@@ -161,23 +168,38 @@ export function Sheet({
   class?: string;
   children?: View;
 }) {
+  let dialogEl: HTMLDialogElement | null = null;
+
+  const getOpen = () =>
+    Array.isArray(open)
+      ? Boolean(open[0]?.())
+      : typeof open === 'function'
+        ? Boolean(open())
+        : Boolean(open);
+
+  const setOpen = (v: boolean) => {
+    if (Array.isArray(open)) open[1]?.(v);
+    else open?.set?.(v);
+  };
+
   const closeSheet = () => {
-    if (Array.isArray(open)) open[1]?.(false);
-    else open?.set?.(false);
-    onClose?.();
+    setOpen(false);
+    dialogEl?.close?.();
   };
 
   const onBackdropClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
       closeSheet();
-      (e.currentTarget as HTMLDialogElement).close?.();
     }
   };
 
   return (
     <dialog
       id={id}
-      bind:open={open}
+      ref={(el: Element) => {
+        dialogEl = el as HTMLDialogElement;
+      }}
+      bind:open={[getOpen, setOpen]}
       closedby="any"
       onClick={onBackdropClick}
       onClose={onClose}

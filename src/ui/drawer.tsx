@@ -1,4 +1,4 @@
-import { type View } from '@fierst/aster';
+import { signal, type View } from '@fierst/aster';
 import { Sheet } from './sheet.tsx';
 import { Button } from './button.tsx';
 
@@ -53,20 +53,18 @@ export function* promptDrawer(opts: {
   actions: readonly DrawerAction[];
   cancelLabel?: string;
 }): Generator<View, string | null, any> {
-  let decided = false;
+  const decided = signal(false);
   let picked: string | null = null;
-  let open = true;
 
-  while (!decided) {
+  while (!decided()) {
     yield (
       <Drawer
         open={[
-          () => open,
+          () => !decided(),
           (v: boolean) => {
-            open = v;
-            if (!v && !decided) {
+            if (!v && !decided()) {
               picked = null;
-              decided = true;
+              decided.set(true);
             }
           },
         ]}
@@ -77,9 +75,8 @@ export function* promptDrawer(opts: {
             variant="outline"
             style="width:100%"
             onClick={() => {
-              open = false;
               picked = null;
-              decided = true;
+              decided.set(true);
             }}
           >
             {opts.cancelLabel ?? 'Cancel'}
@@ -93,9 +90,8 @@ export function* promptDrawer(opts: {
               variant={act.danger ? 'destructive' : 'outline'}
               style="width:100%; justify-content:flex-start"
               onClick={() => {
-                open = false;
                 picked = act.id;
-                decided = true;
+                decided.set(true);
               }}
             >
               {act.label}

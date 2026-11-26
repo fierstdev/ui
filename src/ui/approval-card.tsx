@@ -1,5 +1,5 @@
 import { ShieldCheck } from '@lucide/icons';
-import { scope, type View } from '@fierst/aster';
+import { scope, signal, type View } from '@fierst/aster';
 import { Badge } from './badge.tsx';
 import { Button } from './button.tsx';
 import { Icon } from './icon.tsx';
@@ -124,15 +124,15 @@ export function* requestApproval(opts: {
   codePreview?: string;
   danger?: boolean;
 }): Generator<View, boolean, any> {
-  let decided: boolean | null = null;
-  while (decided === null) {
+  const decided = signal<boolean | null>(null);
+  while (decided() === null) {
     yield (
       <ApprovalCard
         {...opts}
-        onApprove={() => (decided = true)}
-        onReject={() => (decided = false)}
+        onApprove={() => decided.set(true)}
+        onReject={() => decided.set(false)}
       />
     );
   }
-  return decided;
+  return decided()!;
 }
