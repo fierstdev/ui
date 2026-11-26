@@ -13,8 +13,8 @@ importers:
         version: 26.6.10
     devDependencies:
       '@fierst/aster':
-        specifier: ^1.0.0-alpha.1
-        version: 1.0.0-alpha.1
+        specifier: ^1.0.0-alpha.2
+        version: 1.0.0-alpha.2
       '@lucide/icons':
         specifier: ^1.77.0
         version: 1.80.0
@@ -39,8 +39,8 @@ packages:
   '@blazediff/core@1.10.0':
     resolution: {integrity: sha512-AOQff0zgR7cGsZL+4E7hVkmujoPUpm0J9xzWGWZj5wCjd3gmxESXAPfKyuzs93VdpQNFhHlBhfOjrcZ+XTERtQ==}
 
-  '@fierst/aster@1.0.0-alpha.1':
-    resolution: {integrity: sha512-KD9XifVztsY0RisG+0snfhbX2aC18Kv0mPWpPaUj59xutoUaLhbnX+4h0ckY7u5KNnynG6rfb4sfnHkVp+BVwg==}
+  '@fierst/aster@1.0.0-alpha.2':
+    resolution: {integrity: sha512-hgWupSLuzk9FjRIkxyl5HnvrmlQsr4JopoSAcRf/ZkdWxsuFVRHIlJpfDy3PCNmWZpIwJVId6r9p+aem8IX5tw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -975,7 +975,7 @@ snapshots:
 
   '@blazediff/core@1.10.0': {}
 
-  '@fierst/aster@1.0.0-alpha.1': {}
+  '@fierst/aster@1.0.0-alpha.2': {}
 
   '@jridgewell/resolve-uri@3.1.3': {}
 
