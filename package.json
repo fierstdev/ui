@@ -33,7 +33,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@fierst/aster": "^1.0.0-alpha.2",
+    "@fierst/aster": "^1.0.0-alpha.4",
     "@lucide/icons": "^1.77.0",
     "@types/node": "^26.6.10",
     "vite-plus": "^1.0.0"
