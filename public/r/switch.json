@@ -1,0 +1,18 @@
+{
+  "name": "switch",
+  "type": "ui:component",
+  "title": "Switch",
+  "description": "Clean pill toggle switch with smooth spring thumb slide, role='switch', and controlled/uncontrolled support.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/switch.tsx",
+      "target": "src/ui/switch.tsx",
+      "sha256": "dc2abed5d6d117d8760ad98255996a76e7441908b55fd82b3515d65692d45866",
+      "content": "import { scope, type Ctx } from '@fierst/aster';\n\nconst switchScope = scope`\n  :scope {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 0.85rem;\n    cursor: pointer;\n    user-select: none;\n    touch-action: manipulation;\n  }\n  :scope.is-disabled { opacity: 0.5; cursor: not-allowed; }\n  .copy { display: grid; gap: 0.1rem; }\n  .label { font-size: 0.875rem; font-weight: 500; color: var(--aster-on-surface); }\n  .desc { font-size: 0.8125rem; color: var(--aster-on-surface-muted); }\n\n  .track {\n    position: relative;\n    width: 40px;\n    height: 22px;\n    padding: 2px;\n    border-radius: 9999px;\n    border: 1px solid transparent;\n    background: var(--aster-border-strong);\n    display: inline-flex;\n    align-items: center;\n    cursor: inherit;\n    flex-shrink: 0;\n    transition:\n      background-color var(--aster-dur-med) var(--aster-ease-standard),\n      box-shadow var(--aster-dur-fast) var(--aster-ease-standard);\n  }\n  .track:focus-visible { outline: none; box-shadow: var(--aster-focus-ring); }\n  .track.is-on { background: var(--aster-primary); }\n  .thumb {\n    width: 16px;\n    height: 16px;\n    border-radius: 9999px;\n    background: var(--aster-on-primary);\n    box-shadow: var(--aster-shadow-sm);\n    transition: transform var(--aster-dur-med) var(--aster-ease-spring);\n  }\n  .track:not(.is-on) .thumb { background: #ffffff; }\n  .track.is-on .thumb { transform: translateX(18px); }\n`;\n\nexport function* Switch(\n  props: {\n    checked?: boolean;\n    defaultChecked?: boolean;\n    label?: string;\n    description?: string;\n    disabled?: boolean;\n    onChange?: (checked: boolean) => void;\n    class?: string;\n  },\n  ctx: Ctx,\n) {\n  let internal = props.defaultChecked ?? false;\n\n  for (props of ctx) {\n    const isControlled = props.checked !== undefined;\n    const isOn = isControlled ? Boolean(props.checked) : internal;\n\n    const toggle = () => {\n      if (props.disabled) return;\n      const next = !isOn;\n      if (!isControlled) internal = next;\n      props.onChange?.(next);\n    };\n\n    yield (\n      <div\n        class={[switchScope, props.class].filter(Boolean).join(' ')}\n        class:is-disabled={Boolean(props.disabled)}\n        onClick={toggle}\n      >\n        {props.label || props.description ? (\n          <div class=\"copy\">\n            {props.label ? <span class=\"label\">{props.label}</span> : null}\n            {props.description ? <span class=\"desc\">{props.description}</span> : null}\n          </div>\n        ) : null}\n        <button\n          type=\"button\"\n          role=\"switch\"\n          aria-checked={isOn}\n          aria-label={props.label ?? 'Toggle'}\n          disabled={props.disabled}\n          class=\"track\"\n          class:is-on={isOn}\n          onClick={(e: MouseEvent) => {\n            e.stopPropagation();\n            toggle();\n          }}\n        >\n          <span class=\"thumb\" aria-hidden=\"true\" />\n        </button>\n      </div>\n    );\n  }\n}\n"
+    }
+  ]
+}

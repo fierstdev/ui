@@ -1,0 +1,21 @@
+{
+  "name": "search-input",
+  "type": "ui:component",
+  "title": "SearchInput",
+  "description": "Search input with leading magnifier, animated loading spinner, clear button, and shortcut hint.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "src/ui/search-input.tsx",
+      "target": "src/ui/search-input.tsx",
+      "sha256": "64b3d5b2a9a0fa91378b631422ff50bcabb430638187bc403bc9c7f4b29cc2b4",
+      "content": "import { LoaderCircle, Search, X } from '@lucide/icons';\nimport { scope, type Ctx } from '@fierst/aster';\nimport { Icon } from './icon.tsx';\n\nconst srchScope = scope`\n  :scope {\n    display: flex;\n    align-items: center;\n    gap: 0.45rem;\n    min-height: var(--aster-control-md);\n    padding: 0 0.55rem 0 0.7rem;\n    border-radius: var(--aster-radius-control);\n    border: 1px solid var(--aster-input-border);\n    background: var(--aster-surface);\n    box-shadow: var(--aster-shadow-xs);\n    font-family: var(--aster-font-sans);\n    transition: border-color var(--aster-dur-fast), box-shadow var(--aster-dur-fast);\n  }\n  :scope:focus-within { border-color: var(--aster-primary); box-shadow: var(--aster-focus-ring); }\n  .lead { color: var(--aster-on-surface-subtle); display: inline-flex; flex-shrink: 0; }\n  input {\n    flex: 1;\n    min-width: 0;\n    border: none;\n    outline: none;\n    background: transparent;\n    color: var(--aster-on-surface);\n    font: inherit;\n    font-size: 1rem;\n  }\n  @media (min-width: 640px) { input { font-size: 0.875rem; } }\n  input::placeholder { color: var(--aster-on-surface-subtle); }\n  .clr-btn {\n    width: 24px;\n    height: 24px;\n    border: none;\n    border-radius: var(--aster-radius-xs);\n    background: transparent;\n    color: var(--aster-on-surface-muted);\n    display: inline-grid;\n    place-items: center;\n    cursor: pointer;\n  }\n  .clr-btn:hover { background: var(--aster-surface-muted); color: var(--aster-on-surface); }\n  .kbd-hint {\n    font-family: var(--aster-font-mono);\n    font-size: 0.7rem;\n    padding: 0.1rem 0.35rem;\n    border-radius: var(--aster-radius-xs);\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface-muted);\n    color: var(--aster-on-surface-subtle);\n  }\n`;\n\nexport function* SearchInput(\n  props: {\n    value?: string;\n    defaultValue?: string;\n    placeholder?: string;\n    loading?: boolean;\n    shortcutHint?: string;\n    onChange?: (val: string) => void;\n    onSubmit?: (val: string) => void;\n    class?: string;\n  },\n  ctx: Ctx,\n) {\n  let internal = props.defaultValue ?? '';\n\n  for (props of ctx) {\n    const isControlled = props.value !== undefined;\n    const current = isControlled ? props.value! : internal;\n\n    const setVal = (v: string) => {\n      if (!isControlled) internal = v;\n      props.onChange?.(v);\n    };\n\n    yield (\n      <div class={[srchScope, props.class].filter(Boolean).join(' ')}>\n        <span class=\"lead\" aria-hidden=\"true\">\n          {props.loading ? <Icon icon={LoaderCircle} size={15} spin /> : <Icon icon={Search} size={15} />}\n        </span>\n        <input\n          type=\"search\"\n          aria-label={props.placeholder ?? 'Search'}\n          placeholder={props.placeholder ?? 'Search\u2026'}\n          value={current}\n          onInput={(e: Event) => setVal((e.target as HTMLInputElement).value)}\n          onKeyDown={(e: KeyboardEvent) => {\n            if (e.key === 'Enter') props.onSubmit?.(current);\n            else if (e.key === 'Escape' && current) setVal('');\n          }}\n        />\n        {current ? (\n          <button type=\"button\" class=\"clr-btn\" aria-label=\"Clear search\" onClick={() => setVal('')}>\n            <Icon icon={X} size={13} />\n          </button>\n        ) : props.shortcutHint ? (\n          <span class=\"kbd-hint\">{props.shortcutHint}</span>\n        ) : null}\n      </div>\n    );\n  }\n}\n"
+    }
+  ]
+}

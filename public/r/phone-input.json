@@ -1,0 +1,18 @@
+{
+  "name": "phone-input",
+  "type": "ui:component",
+  "title": "PhoneInput",
+  "description": "International dial-code selector paired with a national telephone input.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/phone-input.tsx",
+      "target": "src/ui/phone-input.tsx",
+      "sha256": "f4f1241e5142c1d7a31496e90ecd99d24a9ad4203c8c802be69923780e84a900",
+      "content": "import { scope, type Ctx } from '@fierst/aster';\n\nconst phInScope = scope`\n  :scope { display: grid; gap: 0.375rem; font-family: var(--aster-font-sans); }\n  .ph-label { font-size: 0.84rem; font-weight: 500; color: var(--aster-on-surface); }\n  .ph-wrap {\n    display: flex;\n    align-items: stretch;\n    min-height: var(--aster-control-md);\n    border-radius: var(--aster-radius-control);\n    border: 1px solid var(--aster-input-border);\n    background: var(--aster-surface);\n    box-shadow: var(--aster-shadow-xs);\n    overflow: hidden;\n    transition: border-color var(--aster-dur-fast), box-shadow var(--aster-dur-fast);\n  }\n  .ph-wrap:focus-within { border-color: var(--aster-primary); box-shadow: var(--aster-focus-ring); }\n  select {\n    border: none;\n    border-right: 1px solid var(--aster-border);\n    background: var(--aster-surface-muted);\n    color: var(--aster-on-surface);\n    padding: 0 0.55rem;\n    font: inherit;\n    font-size: 0.8125rem;\n    font-family: var(--aster-font-mono);\n    outline: none;\n    cursor: pointer;\n  }\n  input {\n    flex: 1;\n    min-width: 0;\n    border: none;\n    outline: none;\n    background: transparent;\n    color: var(--aster-on-surface);\n    padding: 0 0.75rem;\n    font: inherit;\n    font-size: 1rem;\n  }\n  @media (min-width: 640px) { input { font-size: 0.875rem; } }\n`;\n\nconst DIAL_CODES = [\n  { code: '+1', label: 'US +1' },\n  { code: '+44', label: 'UK +44' },\n  { code: '+49', label: 'DE +49' },\n  { code: '+33', label: 'FR +33' },\n  { code: '+81', label: 'JP +81' },\n  { code: '+61', label: 'AU +61' },\n];\n\nlet phSeq = 0;\n\nexport function* PhoneInput(\n  props: {\n    label?: string;\n    value?: string;\n    defaultCountry?: string;\n    placeholder?: string;\n    onChange?: (e164: string) => void;\n    class?: string;\n  },\n  ctx: Ctx,\n) {\n  const uid = `aster-phone-${++phSeq}`;\n  let dial = props.defaultCountry ?? '+1';\n  let localNum = '';\n\n  for (props of ctx) {\n    const emit = () => {\n      const digits = localNum.replace(/[^\\d]/g, '');\n      props.onChange?.(digits ? `${dial}${digits}` : '');\n    };\n\n    yield (\n      <div class={[phInScope, props.class].filter(Boolean).join(' ')}>\n        {props.label ? <label class=\"ph-label\" for={uid}>{props.label}</label> : null}\n        <div class=\"ph-wrap\">\n          <select\n            aria-label=\"Country dial code\"\n            value={dial}\n            onChange={(e: Event) => {\n              dial = (e.target as HTMLSelectElement).value;\n              emit();\n            }}\n          >\n            {DIAL_CODES.map((c) => (\n              <option key={c.code} value={c.code} selected={c.code === dial}>\n                {c.label}\n              </option>\n            ))}\n          </select>\n          <input\n            id={uid}\n            type=\"tel\"\n            autocomplete=\"tel-national\"\n            placeholder={props.placeholder ?? '(555) 234-5678'}\n            value={localNum}\n            onInput={(e: Event) => {\n              localNum = (e.target as HTMLInputElement).value;\n              emit();\n            }}\n          />\n        </div>\n      </div>\n    );\n  }\n}\n"
+    }
+  ]
+}

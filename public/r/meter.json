@@ -1,0 +1,18 @@
+{
+  "name": "meter",
+  "type": "ui:component",
+  "title": "Meter",
+  "description": "Semantic capacity and quota meter bar with automatic ok/warning/danger color thresholds.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/meter.tsx",
+      "target": "src/ui/meter.tsx",
+      "sha256": "10d2e2a6fabe5477115464f4228e9115ce0eb660173d7b11e7c5025dec6ad3fd",
+      "content": "import { scope } from '@fierst/aster';\n\nconst meterScope = scope`\n  :scope { display: grid; gap: 0.35rem; font-family: var(--aster-font-sans); }\n  .mt-head { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.8125rem; }\n  .mt-label { font-weight: 500; color: var(--aster-on-surface); }\n  .mt-val { font-family: var(--aster-font-mono); color: var(--aster-on-surface-muted); }\n  .mt-track {\n    height: 8px;\n    border-radius: 9999px;\n    background: var(--aster-surface-muted);\n    border: 1px solid var(--aster-border);\n    overflow: hidden;\n  }\n  .mt-fill {\n    height: 100%;\n    border-radius: 9999px;\n    transition: width var(--aster-dur-med) var(--aster-ease-motion);\n  }\n  .mt-fill.lvl-ok { background: var(--aster-success); }\n  .mt-fill.lvl-warn { background: var(--aster-warning); }\n  .mt-fill.lvl-high { background: var(--aster-danger); }\n`;\n\nexport function Meter({\n  label,\n  value,\n  max = 100,\n  warnAt = 75,\n  dangerAt = 90,\n  valueLabel,\n  class: extraClass,\n}: {\n  label: string;\n  value: number;\n  max?: number;\n  warnAt?: number;\n  dangerAt?: number;\n  valueLabel?: string;\n  class?: string;\n}) {\n  const pct = Math.max(0, Math.min(100, (value / Math.max(1, max)) * 100));\n  const lvl = pct >= dangerAt ? 'lvl-high' : pct >= warnAt ? 'lvl-warn' : 'lvl-ok';\n  return (\n    <div class={[meterScope, extraClass].filter(Boolean).join(' ')}>\n      <div class=\"mt-head\">\n        <span class=\"mt-label\">{label}</span>\n        <span class=\"mt-val\">{valueLabel ?? `${Math.round(pct)}%`}</span>\n      </div>\n      <div class=\"mt-track\" role=\"meter\" aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={value}>\n        <div class={`mt-fill ${lvl}`} style={{ width: `${pct}%` }} />\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "sticky-bar",
+  "type": "ui:component",
+  "title": "StickyActionBar",
+  "description": "Bottom-pinned floating bar for unsaved-changes prompts or bulk-selection actions with safe-area padding.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/sticky-bar.tsx",
+      "target": "src/ui/sticky-bar.tsx",
+      "sha256": "3a790e3a67c6bb3077642bf6d880886d412989158bdae8691e0ebc6fe43f9aa9",
+      "content": "import { scope, type View } from '@fierst/aster';\n\nconst barScope = scope`\n  :scope {\n    position: fixed;\n    left: 50%;\n    bottom: calc(1rem + var(--aster-safe-bottom));\n    transform: translateX(-50%) translateY(0);\n    z-index: 45;\n    width: min(560px, calc(100vw - 1.5rem));\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 0.75rem;\n    flex-wrap: wrap;\n    padding: 0.65rem 0.9rem;\n    border-radius: var(--aster-radius-lg);\n    font-family: var(--aster-font-sans);\n    transition:\n      opacity var(--aster-dur-med) var(--aster-ease-standard),\n      transform var(--aster-dur-med) var(--aster-ease-motion);\n  }\n  .sb-msg { font-size: 0.85rem; font-weight: 500; color: var(--aster-on-surface); }\n  .sb-actions { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }\n`;\n\nexport function StickyActionBar({\n  open = true,\n  message,\n  actions,\n  class: extraClass,\n}: {\n  open?: boolean;\n  message: View;\n  actions?: View;\n  class?: string;\n}) {\n  if (!open) return null;\n  return (\n    <div role=\"region\" aria-label=\"Action bar\" class={['aster-surface-popover', barScope, extraClass].filter(Boolean).join(' ')}>\n      <div class=\"sb-msg\">{message}</div>\n      {actions ? <div class=\"sb-actions\">{actions}</div> : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

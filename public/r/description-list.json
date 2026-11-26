@@ -1,0 +1,18 @@
+{
+  "name": "description-list",
+  "type": "ui:component",
+  "title": "DescriptionList",
+  "description": "Structured semantic <dl> key-value detail list with responsive stacked mobile layout and optional striping.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/description-list.tsx",
+      "target": "src/ui/description-list.tsx",
+      "sha256": "a754c5c9d7513fc4647164dadb064378c6e1619848a498f2cbec11f3a3c7e322",
+      "content": "import { scope, type View } from '@fierst/aster';\n\nconst dlScope = scope`\n  :scope {\n    margin: 0;\n    border-radius: var(--aster-radius-lg);\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface);\n    overflow: hidden;\n    font-family: var(--aster-font-sans);\n  }\n  .dl-row {\n    display: grid;\n    grid-template-columns: 1fr;\n    gap: 0.25rem;\n    padding: 0.85rem 1.15rem;\n    border-bottom: 1px solid var(--aster-border);\n  }\n  .dl-row:last-child { border-bottom: none; }\n  :scope.is-striped .dl-row:nth-child(even) { background: var(--aster-surface-muted); }\n  @media (min-width: 640px) {\n    .dl-row {\n      grid-template-columns: minmax(140px, 32%) minmax(0, 1fr);\n      gap: 1rem;\n      align-items: baseline;\n    }\n  }\n  dt {\n    font-size: 0.8125rem;\n    font-weight: 500;\n    color: var(--aster-on-surface-muted);\n  }\n  dd {\n    margin: 0;\n    font-size: 0.875rem;\n    color: var(--aster-on-surface);\n    min-width: 0;\n  }\n`;\n\nexport interface DescriptionItem {\n  id?: string;\n  term: string;\n  detail: View;\n}\n\nexport function DescriptionList({\n  items,\n  striped = false,\n  class: extraClass,\n}: {\n  items: readonly DescriptionItem[];\n  striped?: boolean;\n  class?: string;\n}) {\n  return (\n    <dl class={[dlScope, striped ? 'is-striped' : '', extraClass].filter(Boolean).join(' ')}>\n      {items.map((item, idx) => (\n        <div key={item.id ?? `${item.term}-${idx}`} class=\"dl-row\">\n          <dt>{item.term}</dt>\n          <dd>{item.detail}</dd>\n        </div>\n      ))}\n    </dl>\n  );\n}\n"
+    }
+  ]
+}

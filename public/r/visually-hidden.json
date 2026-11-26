@@ -1,0 +1,18 @@
+{
+  "name": "visually-hidden",
+  "type": "ui:component",
+  "title": "VisuallyHidden & SkipLink",
+  "description": "Accessible screen-reader-only text wrapper and keyboard SkipLink to main content.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/visually-hidden.tsx",
+      "target": "src/ui/visually-hidden.tsx",
+      "sha256": "14123be3ec1715ec5e9186eedbc961ade6031c66f5271dc22c173c593aca6a6f",
+      "content": "import { scope, type View } from '@fierst/aster';\n\nconst vhScope = scope`\n  :scope {\n    position: absolute;\n    width: 1px;\n    height: 1px;\n    padding: 0;\n    margin: -1px;\n    overflow: hidden;\n    clip: rect(0, 0, 0, 0);\n    white-space: nowrap;\n    border: 0;\n  }\n`;\n\nconst skipScope = scope`\n  :scope {\n    position: fixed;\n    left: 0.75rem;\n    top: 0.75rem;\n    z-index: 100;\n    padding: 0.5rem 0.9rem;\n    border-radius: var(--aster-radius-control);\n    background: var(--aster-primary);\n    color: var(--aster-on-primary);\n    font-family: var(--aster-font-sans);\n    font-size: 0.85rem;\n    font-weight: 600;\n    text-decoration: none;\n    box-shadow: var(--aster-shadow-md);\n    transform: translateY(-140%);\n    transition: transform var(--aster-dur-fast);\n  }\n  :scope:focus {\n    transform: translateY(0);\n    outline: none;\n    box-shadow: var(--aster-focus-ring), var(--aster-shadow-md);\n  }\n`;\n\nexport function VisuallyHidden(props: { children?: View }) {\n  return <span class={vhScope}>{props.children}</span>;\n}\n\nexport function SkipLink({\n  href = '#main-content',\n  label = 'Skip to main content',\n}: {\n  href?: string;\n  label?: string;\n}) {\n  return <a href={href} class={skipScope}>{label}</a>;\n}\n"
+    }
+  ]
+}

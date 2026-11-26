@@ -1,0 +1,21 @@
+{
+  "name": "empty-state",
+  "type": "ui:component",
+  "title": "EmptyState",
+  "description": "Dashed-border empty state placeholder with centered Lucide icon, copy, and call-to-action slot.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "src/ui/empty-state.tsx",
+      "target": "src/ui/empty-state.tsx",
+      "sha256": "496c64657807d665aa3c4f9058cae384a4a30f6c29d8b68992ffa6ca6a52effb",
+      "content": "import { Inbox } from '@lucide/icons';\nimport { scope, type View } from '@fierst/aster';\nimport { Icon, type LucideIconInput } from './icon.tsx';\n\nconst emptyScope = scope`\n  :scope {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n    gap: 0.55rem;\n    padding: 2.25rem 1.5rem;\n    border-radius: var(--aster-radius-lg);\n    border: 1px dashed var(--aster-border-strong);\n    background: var(--aster-surface);\n    font-family: var(--aster-font-sans);\n  }\n  .em-icon {\n    width: 44px;\n    height: 44px;\n    border-radius: var(--aster-radius-md);\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface-muted);\n    color: var(--aster-on-surface-muted);\n    display: inline-grid;\n    place-items: center;\n    margin-bottom: 0.2rem;\n  }\n  .em-title {\n    margin: 0;\n    font-size: 0.95rem;\n    font-weight: 600;\n    color: var(--aster-on-surface);\n  }\n  .em-desc {\n    margin: 0;\n    font-size: 0.84rem;\n    color: var(--aster-on-surface-muted);\n    max-width: 42ch;\n    line-height: 1.5;\n  }\n  .em-actions {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 0.5rem;\n    flex-wrap: wrap;\n    margin-top: 0.5rem;\n  }\n`;\n\nexport function EmptyState({\n  title,\n  description,\n  icon = Inbox,\n  action,\n  class: extraClass,\n}: {\n  title: string;\n  description?: string;\n  icon?: LucideIconInput;\n  action?: View;\n  class?: string;\n}) {\n  return (\n    <div class={[emptyScope, extraClass].filter(Boolean).join(' ')}>\n      <span class=\"em-icon\" aria-hidden=\"true\">\n        <Icon icon={icon} size={20} />\n      </span>\n      <h4 class=\"em-title\">{title}</h4>\n      {description ? <p class=\"em-desc\">{description}</p> : null}\n      {action ? <div class=\"em-actions\">{action}</div> : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

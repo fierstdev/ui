@@ -1,0 +1,18 @@
+{
+  "name": "form",
+  "type": "ui:component",
+  "title": "Form, FormSection & FormActions",
+  "description": "Structured two-column split or stacked Tailwind UI settings form layout.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/form.tsx",
+      "target": "src/ui/form.tsx",
+      "sha256": "f3255c32a9f2a7b55b85415436634e7f30ac565361c28602ef1c4ae222fb9822",
+      "content": "import { scope, type View } from '@fierst/aster';\n\nconst formScope = scope`\n  :scope {\n    display: grid;\n    gap: 1.5rem;\n    font-family: var(--aster-font-sans);\n  }\n`;\n\nconst secScope = scope`\n  :scope {\n    display: grid;\n    grid-template-columns: 1fr;\n    gap: 1rem 1.75rem;\n    padding-bottom: 1.5rem;\n    border-bottom: 1px solid var(--aster-border);\n  }\n  @media (min-width: 768px) {\n    :scope.is-split { grid-template-columns: minmax(200px, 34%) minmax(0, 1fr); }\n  }\n  .fs-title { margin: 0; font-size: 0.94rem; font-weight: 600; color: var(--aster-on-surface); }\n  .fs-desc { margin: 0.25rem 0 0; font-size: 0.82rem; color: var(--aster-on-surface-muted); line-height: 1.5; }\n  .fs-fields { display: grid; gap: 0.95rem; min-width: 0; }\n`;\n\nconst actScope = scope`\n  :scope {\n    display: flex;\n    align-items: center;\n    justify-content: flex-end;\n    gap: 0.5rem;\n    flex-wrap: wrap;\n  }\n`;\n\nexport function Form({\n  onSubmit,\n  class: extraClass,\n  children,\n}: {\n  onSubmit?: (e: SubmitEvent) => void;\n  class?: string;\n  children?: View;\n}) {\n  return (\n    <form\n      class={[formScope, extraClass].filter(Boolean).join(' ')}\n      onSubmit={(e: SubmitEvent) => {\n        e.preventDefault();\n        onSubmit?.(e);\n      }}\n    >\n      {children}\n    </form>\n  );\n}\n\nexport function FormSection({\n  title,\n  description,\n  layout = 'split',\n  class: extraClass,\n  children,\n}: {\n  title: string;\n  description?: string;\n  layout?: 'split' | 'stacked';\n  class?: string;\n  children?: View;\n}) {\n  return (\n    <section class={[secScope, layout === 'split' ? 'is-split' : '', extraClass].filter(Boolean).join(' ')}>\n      <div>\n        <h3 class=\"fs-title\">{title}</h3>\n        {description ? <p class=\"fs-desc\">{description}</p> : null}\n      </div>\n      <div class=\"fs-fields\">{children}</div>\n    </section>\n  );\n}\n\nexport function FormActions(props: { class?: string; children?: View }) {\n  return <div class={[actScope, props.class].filter(Boolean).join(' ')}>{props.children}</div>;\n}\n"
+    }
+  ]
+}

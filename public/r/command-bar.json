@@ -1,0 +1,22 @@
+{
+  "name": "command-bar",
+  "type": "ui:component",
+  "title": "FilterBar",
+  "description": "Interactive dashboard and table filter toolbar with search, toggleable filter chips, and reset.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon",
+    "search-input"
+  ],
+  "files": [
+    {
+      "path": "src/ui/command-bar.tsx",
+      "target": "src/ui/command-bar.tsx",
+      "sha256": "a2082db90603340dd4e2716c9034b81b8cca4aed988e81e3acd4db63b9a6f8b0",
+      "content": "import { X } from '@lucide/icons';\nimport { scope, type View } from '@fierst/aster';\nimport { SearchInput } from './search-input.tsx';\nimport { Icon } from './icon.tsx';\n\nconst fbScope = scope`\n  :scope {\n    display: flex;\n    flex-wrap: wrap;\n    align-items: center;\n    justify-content: space-between;\n    gap: 0.6rem;\n    font-family: var(--aster-font-sans);\n  }\n  .fb-left { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; flex: 1; min-width: 200px; }\n  .fb-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }\n  .fb-chip {\n    display: inline-flex;\n    align-items: center;\n    gap: 0.3rem;\n    height: 30px;\n    padding: 0 0.6rem;\n    border-radius: var(--aster-radius-control);\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface);\n    color: var(--aster-on-surface-muted);\n    font: inherit;\n    font-size: 0.8rem;\n    font-weight: 500;\n    cursor: pointer;\n    transition: background-color var(--aster-dur-fast), border-color var(--aster-dur-fast), color var(--aster-dur-fast);\n  }\n  .fb-chip:hover { background: var(--aster-surface-muted); color: var(--aster-on-surface); }\n  .fb-chip.is-active {\n    background: var(--aster-primary-subtle);\n    border-color: var(--aster-primary-border);\n    color: var(--aster-on-primary-subtle);\n  }\n  .fb-clear {\n    border: none;\n    background: transparent;\n    color: var(--aster-on-surface-muted);\n    font-size: 0.8rem;\n    font-weight: 500;\n    display: inline-flex;\n    align-items: center;\n    gap: 0.25rem;\n    cursor: pointer;\n    padding: 0.25rem 0.45rem;\n    border-radius: var(--aster-radius-xs);\n  }\n  .fb-clear:hover { background: var(--aster-surface-muted); color: var(--aster-on-surface); }\n`;\n\nexport function FilterBar({\n  query,\n  onQueryChange,\n  searchPlaceholder = 'Filter items\u2026',\n  filters = [],\n  activeFilters = [],\n  onToggleFilter,\n  onClearAll,\n  right,\n  class: extraClass,\n}: {\n  query?: string;\n  onQueryChange?: (q: string) => void;\n  searchPlaceholder?: string;\n  filters?: readonly { id: string; label: string }[];\n  activeFilters?: readonly string[];\n  onToggleFilter?: (id: string) => void;\n  onClearAll?: () => void;\n  right?: View;\n  class?: string;\n}) {\n  const hasActive = Boolean(query?.trim() || activeFilters.length > 0);\n  return (\n    <div class={[fbScope, extraClass].filter(Boolean).join(' ')}>\n      <div class=\"fb-left\">\n        {onQueryChange ? (\n          <SearchInput\n            value={query ?? ''}\n            placeholder={searchPlaceholder}\n            onChange={onQueryChange}\n          />\n        ) : null}\n        {filters.length > 0 ? (\n          <div class=\"fb-chips\" role=\"group\" aria-label=\"Filters\">\n            {filters.map((f) => {\n              const active = activeFilters.includes(f.id);\n              return (\n                <button\n                  key={f.id}\n                  type=\"button\"\n                  aria-pressed={active}\n                  class=\"fb-chip\"\n                  class:is-active={active}\n                  onClick={() => onToggleFilter?.(f.id)}\n                >\n                  {f.label}\n                </button>\n              );\n            })}\n          </div>\n        ) : null}\n        {hasActive && onClearAll ? (\n          <button type=\"button\" class=\"fb-clear\" onClick={onClearAll}>\n            <Icon icon={X} size={13} />\n            <span>Reset</span>\n          </button>\n        ) : null}\n      </div>\n      {right ?? null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

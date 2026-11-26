@@ -1,0 +1,21 @@
+{
+  "name": "reasoning-block",
+  "type": "ui:component",
+  "title": "ReasoningBlock",
+  "description": "Collapsible chain-of-thought disclosure block with duration label.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "src/ui/reasoning-block.tsx",
+      "target": "src/ui/reasoning-block.tsx",
+      "sha256": "5250696e20bbf8454e6925ae8a887b5d1c1c5d37a9d8cbe011ab9d8082d5de10",
+      "content": "import { Brain, ChevronDown } from '@lucide/icons';\nimport { scope, type View } from '@fierst/aster';\nimport { Icon } from './icon.tsx';\n\nconst rbScope = scope`\n  :scope {\n    border-radius: var(--aster-radius-md);\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface-muted);\n    font-family: var(--aster-font-sans);\n    overflow: hidden;\n  }\n  summary {\n    list-style: none;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 0.5rem;\n    padding: 0.55rem 0.8rem;\n    font-size: 0.8rem;\n    font-weight: 500;\n    color: var(--aster-on-surface-muted);\n    cursor: pointer;\n    user-select: none;\n  }\n  summary::-webkit-details-marker { display: none; }\n  summary:hover { color: var(--aster-on-surface); }\n  .rb-left { display: inline-flex; align-items: center; gap: 0.45rem; }\n  .rb-chev { display: inline-flex; transition: transform var(--aster-dur-fast); }\n  :scope[open] .rb-chev { transform: rotate(180deg); }\n  .rb-body {\n    padding: 0.65rem 0.85rem 0.8rem;\n    border-top: 1px solid var(--aster-border);\n    background: var(--aster-surface);\n    font-size: 0.8125rem;\n    color: var(--aster-on-surface-muted);\n    line-height: 1.55;\n    white-space: pre-wrap;\n  }\n`;\n\nexport function ReasoningBlock({\n  label = 'Thought process',\n  durationLabel,\n  defaultOpen = false,\n  class: extraClass,\n  children,\n}: {\n  label?: string;\n  durationLabel?: string;\n  defaultOpen?: boolean;\n  class?: string;\n  children?: View;\n}) {\n  return (\n    <details class={[rbScope, extraClass].filter(Boolean).join(' ')} open={defaultOpen}>\n      <summary>\n        <span class=\"rb-left\">\n          <Icon icon={Brain} size={14} />\n          <span>{durationLabel ? `${label} (${durationLabel})` : label}</span>\n        </span>\n        <span class=\"rb-chev\" aria-hidden=\"true\"><Icon icon={ChevronDown} size={14} /></span>\n      </summary>\n      <div class=\"rb-body\">{children}</div>\n    </details>\n  );\n}\n"
+    }
+  ]
+}

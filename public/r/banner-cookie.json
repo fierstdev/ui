@@ -1,0 +1,19 @@
+{
+  "name": "banner-cookie",
+  "type": "ui:component",
+  "title": "ConsentBanner",
+  "description": "Non-intrusive bottom privacy consent banner with Accept All and Essential Only actions.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "src/ui/banner-cookie.tsx",
+      "target": "src/ui/banner-cookie.tsx",
+      "sha256": "0084bc126c4c521613f9fea0b7a81f253f59a9f75dd6b9f362400e3ea3dc9f6b",
+      "content": "import { scope, type Ctx } from '@fierst/aster';\nimport { Button } from './button.tsx';\n\nconst cbScope = scope`\n  :scope {\n    position: fixed;\n    left: calc(0.75rem + var(--aster-safe-left));\n    right: calc(0.75rem + var(--aster-safe-right));\n    bottom: calc(0.75rem + var(--aster-safe-bottom));\n    z-index: 55;\n    max-width: 520px;\n    padding: 1rem 1.15rem;\n    border-radius: var(--aster-radius-lg);\n    display: grid;\n    gap: 0.75rem;\n    font-family: var(--aster-font-sans);\n  }\n  .cb-title { margin: 0; font-size: 0.9rem; font-weight: 600; color: var(--aster-on-surface); }\n  .cb-desc { margin: 0.2rem 0 0; font-size: 0.8125rem; color: var(--aster-on-surface-muted); line-height: 1.45; }\n  .cb-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.45rem; }\n`;\n\nexport function* ConsentBanner(\n  props: {\n    title?: string;\n    description?: string;\n    onAccept?: () => void;\n    onDecline?: () => void;\n    class?: string;\n  },\n  ctx: Ctx,\n) {\n  let dismissed = false;\n\n  for (props of ctx) {\n    if (dismissed) {\n      yield null;\n      continue;\n    }\n\n    yield (\n      <div role=\"dialog\" aria-label=\"Privacy preferences\" class={['aster-surface-popover', cbScope, props.class].filter(Boolean).join(' ')}>\n        <div>\n          <p class=\"cb-title\">{props.title ?? 'Cookie Preferences'}</p>\n          <p class=\"cb-desc\">\n            {props.description ??\n              'We use essential cookies to preserve your theme and session preferences. No third-party ad tracking.'}\n          </p>\n        </div>\n        <div class=\"cb-actions\">\n          <Button\n            size=\"sm\"\n            variant=\"outline\"\n            onClick={() => {\n              dismissed = true;\n              props.onDecline?.();\n            }}\n          >\n            Essential Only\n          </Button>\n          <Button\n            size=\"sm\"\n            variant=\"primary\"\n            onClick={() => {\n              dismissed = true;\n              props.onAccept?.();\n            }}\n          >\n            Accept All\n          </Button>\n        </div>\n      </div>\n    );\n  }\n}\n"
+    }
+  ]
+}

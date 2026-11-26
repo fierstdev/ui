@@ -1,0 +1,18 @@
+{
+  "name": "token-usage",
+  "type": "ui:component",
+  "title": "TokenUsageBar",
+  "description": "Context-window and input/cached/output token breakdown bar.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/token-usage.tsx",
+      "target": "src/ui/token-usage.tsx",
+      "sha256": "bbbf061f4044f7da41e57a9163b37a297b4a2282232cdfbdf852fcbdff96315e",
+      "content": "import { scope } from '@fierst/aster';\n\nconst tokScope = scope`\n  :scope { display: grid; gap: 0.45rem; font-family: var(--aster-font-sans); }\n  .tu-head { display: flex; justify-content: space-between; font-size: 0.8125rem; }\n  .tu-lbl { font-weight: 500; color: var(--aster-on-surface); }\n  .tu-num { font-family: var(--aster-font-mono); color: var(--aster-on-surface-muted); }\n  .tu-bar {\n    display: flex;\n    height: 8px;\n    border-radius: 9999px;\n    overflow: hidden;\n    background: var(--aster-surface-muted);\n    border: 1px solid var(--aster-border);\n  }\n  .seg-in { background: var(--aster-primary); }\n  .seg-cache { background: var(--aster-success); }\n  .seg-out { background: var(--aster-warning); }\n  .tu-leg { display: flex; flex-wrap: wrap; gap: 0.75rem; font-size: 0.75rem; color: var(--aster-on-surface-muted); }\n  .tu-item { display: inline-flex; align-items: center; gap: 0.35rem; }\n  .tu-dot { width: 8px; height: 8px; border-radius: 2px; }\n`;\n\nexport function TokenUsageBar({\n  inputTokens,\n  cachedTokens = 0,\n  outputTokens,\n  limit = 128000,\n  class: extraClass,\n}: {\n  inputTokens: number;\n  cachedTokens?: number;\n  outputTokens: number;\n  limit?: number;\n  class?: string;\n}) {\n  const total = inputTokens + cachedTokens + outputTokens;\n  const denom = Math.max(1, limit);\n  const inPct = Math.min(100, (inputTokens / denom) * 100);\n  const caPct = Math.min(100 - inPct, (cachedTokens / denom) * 100);\n  const outPct = Math.min(100 - inPct - caPct, (outputTokens / denom) * 100);\n\n  return (\n    <div class={[tokScope, extraClass].filter(Boolean).join(' ')}>\n      <div class=\"tu-head\">\n        <span class=\"tu-lbl\">Context Window</span>\n        <span class=\"tu-num\">{total.toLocaleString()} / {limit.toLocaleString()} tokens</span>\n      </div>\n      <div class=\"tu-bar\" role=\"img\" aria-label={`Used ${total} of ${limit} tokens`}>\n        <span class=\"seg-in\" style={{ width: `${inPct}%` }} />\n        <span class=\"seg-cache\" style={{ width: `${caPct}%` }} />\n        <span class=\"seg-out\" style={{ width: `${outPct}%` }} />\n      </div>\n      <div class=\"tu-leg\">\n        <span class=\"tu-item\"><span class=\"tu-dot seg-in\" /> Input: {inputTokens.toLocaleString()}</span>\n        {cachedTokens > 0 ? <span class=\"tu-item\"><span class=\"tu-dot seg-cache\" /> Replayed/Cached: {cachedTokens.toLocaleString()}</span> : null}\n        <span class=\"tu-item\"><span class=\"tu-dot seg-out\" /> Output: {outputTokens.toLocaleString()}</span>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

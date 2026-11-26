@@ -1,0 +1,22 @@
+{
+  "name": "navbar",
+  "type": "ui:component",
+  "title": "Navbar",
+  "description": "Responsive sticky top navigation bar with brand, links, action slot, and mobile Sheet drawer.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon",
+    "sheet"
+  ],
+  "files": [
+    {
+      "path": "src/ui/navbar.tsx",
+      "target": "src/ui/navbar.tsx",
+      "sha256": "851926325ee379f9c661eb17c009995234daae47a6a5a6874ac07c70da516088",
+      "content": "import { Menu } from '@lucide/icons';\nimport { scope, type Ctx, type View } from '@fierst/aster';\nimport { Icon } from './icon.tsx';\nimport { Sheet } from './sheet.tsx';\n\nconst navScope = scope`\n  :scope {\n    position: sticky;\n    top: 0;\n    z-index: 30;\n    border-bottom: 1px solid var(--aster-border);\n    background: var(--aster-surface);\n    font-family: var(--aster-font-sans);\n  }\n  .nb-inner {\n    max-width: 1240px;\n    margin: 0 auto;\n    height: 58px;\n    padding: 0 1rem;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 1rem;\n  }\n  @media (min-width: 640px) { .nb-inner { padding: 0 1.5rem; } }\n  .nb-left { display: flex; align-items: center; gap: 1.5rem; min-width: 0; }\n  .nb-links { display: none; align-items: center; gap: 0.25rem; }\n  @media (min-width: 820px) { .nb-links { display: flex; } }\n  .nb-link {\n    padding: 0.38rem 0.65rem;\n    border-radius: var(--aster-radius-control);\n    text-decoration: none;\n    font-size: 0.875rem;\n    font-weight: 500;\n    color: var(--aster-on-surface-muted);\n    transition: background-color var(--aster-dur-fast), color var(--aster-dur-fast);\n  }\n  .nb-link:hover, .nb-link.is-active { background: var(--aster-surface-muted); color: var(--aster-on-surface); }\n  .nb-right { display: flex; align-items: center; gap: 0.5rem; }\n  .nb-burger {\n    width: 34px;\n    height: 34px;\n    border-radius: var(--aster-radius-control);\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface);\n    color: var(--aster-on-surface);\n    display: inline-grid;\n    place-items: center;\n    cursor: pointer;\n  }\n  @media (min-width: 820px) { .nb-burger { display: none; } }\n  .mob-links { display: grid; gap: 0.25rem; }\n`;\n\nexport interface NavbarLink {\n  label: string;\n  href: string;\n  active?: boolean;\n}\n\nexport function* Navbar(\n  props: {\n    brand: View;\n    links: readonly NavbarLink[];\n    actions?: View;\n    class?: string;\n  },\n  ctx: Ctx,\n) {\n  let mobileOpen = false;\n\n  for (props of ctx) {\n    yield (\n      <header class={[navScope, props.class].filter(Boolean).join(' ')}>\n        <div class=\"nb-inner\">\n          <div class=\"nb-left\">\n            <div>{props.brand}</div>\n            <nav class=\"nb-links\" aria-label=\"Main navigation\">\n              {props.links.map((ln) => (\n                <a key={ln.href} href={ln.href} class=\"nb-link\" class:is-active={Boolean(ln.active)}>\n                  {ln.label}\n                </a>\n              ))}\n            </nav>\n          </div>\n          <div class=\"nb-right\">\n            {props.actions ?? null}\n            <button\n              type=\"button\"\n              class=\"nb-burger\"\n              aria-label=\"Open menu\"\n              onClick={() => (mobileOpen = true)}\n            >\n              <Icon icon={Menu} size={17} />\n            </button>\n          </div>\n        </div>\n        <Sheet open={[() => mobileOpen, (v: boolean) => (mobileOpen = v)]} side=\"right\" title=\"Menu\">\n          <nav class=\"mob-links\" aria-label=\"Mobile navigation\">\n            {props.links.map((ln) => (\n              <a\n                key={ln.href}\n                href={ln.href}\n                class=\"nb-link\"\n                class:is-active={Boolean(ln.active)}\n                onClick={() => (mobileOpen = false)}\n              >\n                {ln.label}\n              </a>\n            ))}\n          </nav>\n        </Sheet>\n      </header>\n    );\n  }\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+name: Publish @fierst/ui to npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      stage_only:
+        description: 'Stage release for manual 2FA approval (`npm stage publish`)'
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Run verification & npm publish --dry-run'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify Registry & Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: voidzero-dev/setup-vp@v1.22.0
+        with:
+          node-version-file: '.node-version'
+          cache: false
+          run-install: true
+
+      - name: Verify Tag Matches package.json
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG_VER="${GITHUB_REF_NAME#v}"
+          PKG_VER="$(node -p "require('./package.json').version")"
+          if [ "$TAG_VER" != "$PKG_VER" ]; then
+            echo "::error::Tag version ($TAG_VER) != package.json ($PKG_VER)"
+            exit 1
+          fi
+
+      - name: Build Registry & Run Checks
+        run: |
+          npm run build:registry
+          vp check
+          vp test
+          npm pack --dry-run
+
+  publish:
+    name: Publish @fierst/ui (OIDC)
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: voidzero-dev/setup-vp@v1.22.0
+        with:
+          node-version-file: '.node-version'
+          cache: false
+          run-install: true
+
+      - name: Rebuild Registry Manifests
+        run: npm run build:registry
+
+      - name: Determine Dist-Tag
+        id: dist_tag
+        run: |
+          PKG_VER="$(node -p "require('./package.json').version")"
+          if echo "$PKG_VER" | grep -qE '-'; then
+            echo "tag=next" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=latest" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish via OIDC + Provenance
+        run: |
+          TAG="${{ steps.dist_tag.outputs.tag }}"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            npm publish --dry-run --provenance --access public --tag "$TAG"
+          elif [ "${{ inputs.stage_only }}" = "true" ]; then
+            npm stage publish --provenance --access public --tag "$TAG"
+          else
+            npm publish --provenance --access public --tag "$TAG"
+          fi

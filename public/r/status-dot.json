@@ -1,0 +1,18 @@
+{
+  "name": "status-dot",
+  "type": "ui:component",
+  "title": "StatusDot & UptimeBar",
+  "description": "Pulsing live operational status dot and multi-day service uptime bar strip.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/status-dot.tsx",
+      "target": "src/ui/status-dot.tsx",
+      "sha256": "21ca367c4fc0352c2a90c116a5c72661d53a318aa199b839db25fed107e94ffd",
+      "content": "import { scope } from '@fierst/aster';\n\nconst dotScope = scope`\n  :scope {\n    display: inline-flex;\n    align-items: center;\n    gap: 0.45rem;\n    font-family: var(--aster-font-sans);\n    font-size: 0.8125rem;\n    font-weight: 500;\n    color: var(--aster-on-surface);\n  }\n  .pip-wrap { position: relative; width: 9px; height: 9px; display: inline-flex; }\n  .pip { width: 9px; height: 9px; border-radius: 50%; background: var(--aster-on-surface-subtle); position: relative; z-index: 1; }\n  .pulse {\n    position: absolute;\n    inset: 0;\n    border-radius: 50%;\n    opacity: 0.55;\n    animation: aster-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;\n  }\n  :scope.st-operational .pip, :scope.st-operational .pulse { background: var(--aster-success); }\n  :scope.st-degraded .pip, :scope.st-degraded .pulse { background: var(--aster-warning); }\n  :scope.st-outage .pip, :scope.st-outage .pulse { background: var(--aster-danger); }\n  @keyframes aster-ping {\n    75%, 100% { transform: scale(2.1); opacity: 0; }\n  }\n`;\n\nconst upScope = scope`\n  :scope { display: grid; gap: 0.4rem; font-family: var(--aster-font-sans); }\n  .up-head { display: flex; justify-content: space-between; font-size: 0.8125rem; }\n  .up-name { font-weight: 550; color: var(--aster-on-surface); }\n  .up-pct { font-family: var(--aster-font-mono); color: var(--aster-success); font-weight: 600; }\n  .up-bars { display: flex; gap: 2px; height: 26px; align-items: stretch; }\n  .up-seg { flex: 1; border-radius: 2px; background: var(--aster-success); opacity: 0.88; transition: opacity var(--aster-dur-fast); }\n  .up-seg:hover { opacity: 1; }\n  .up-seg.s-degraded { background: var(--aster-warning); }\n  .up-seg.s-outage { background: var(--aster-danger); }\n  .up-seg.s-empty { background: var(--aster-surface-accent); }\n`;\n\nexport function StatusDot({\n  status = 'operational',\n  label,\n  pulse = true,\n  class: extraClass,\n}: {\n  status?: 'operational' | 'degraded' | 'outage' | 'idle';\n  label?: string;\n  pulse?: boolean;\n  class?: string;\n}) {\n  return (\n    <span class={[dotScope, `st-${status}`, extraClass].filter(Boolean).join(' ')}>\n      <span class=\"pip-wrap\" aria-hidden=\"true\">\n        {pulse && status !== 'idle' ? <span class=\"pulse\" /> : null}\n        <span class=\"pip\" />\n      </span>\n      {label ? <span>{label}</span> : null}\n    </span>\n  );\n}\n\nexport function UptimeBar({\n  name,\n  uptimePct = '99.98%',\n  days,\n  class: extraClass,\n}: {\n  name: string;\n  uptimePct?: string;\n  days: readonly { label: string; status: 'operational' | 'degraded' | 'outage' | 'empty' }[];\n  class?: string;\n}) {\n  return (\n    <div class={[upScope, extraClass].filter(Boolean).join(' ')}>\n      <div class=\"up-head\">\n        <span class=\"up-name\">{name}</span>\n        <span class=\"up-pct\">{uptimePct}</span>\n      </div>\n      <div class=\"up-bars\" role=\"img\" aria-label={`${name} uptime ${uptimePct}`}>\n        {days.map((d, i) => (\n          <span key={`${d.label}-${i}`} class={`up-seg s-${d.status}`} title={`${d.label}: ${d.status}`} />\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

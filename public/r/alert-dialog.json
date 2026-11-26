@@ -1,0 +1,24 @@
+{
+  "name": "alert-dialog",
+  "type": "ui:component",
+  "title": "AlertDialog & yield* confirmDestructive()",
+  "description": "High-friction destructive confirmation dialog with optional phrase-typing guard and yield* confirmDestructive().",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon",
+    "dialog",
+    "button",
+    "input"
+  ],
+  "files": [
+    {
+      "path": "src/ui/alert-dialog.tsx",
+      "target": "src/ui/alert-dialog.tsx",
+      "sha256": "1eec234b3b73c9579f77611c36b225c80ed8d71c9ac953a6e108779b2c0af9d5",
+      "content": "import { AlertTriangle } from '@lucide/icons';\nimport { scope, type Ctx, type View } from '@fierst/aster';\nimport { Dialog } from './dialog.tsx';\nimport { Button } from './button.tsx';\nimport { Input } from './input.tsx';\nimport { Icon } from './icon.tsx';\n\nconst adScope = scope`\n  :scope { display: flex; align-items: flex-start; gap: 0.85rem; }\n  .ad-icon {\n    width: 38px;\n    height: 38px;\n    border-radius: 9999px;\n    background: var(--aster-danger-subtle);\n    color: var(--aster-danger);\n    border: 1px solid var(--aster-danger-border);\n    display: inline-grid;\n    place-items: center;\n    flex-shrink: 0;\n  }\n  .ad-copy { display: grid; gap: 0.65rem; flex: 1; min-width: 0; font-size: 0.86rem; color: var(--aster-on-surface-muted); }\n`;\n\nexport function* AlertDialog(\n  props: {\n    open?: any;\n    title: string;\n    description: string;\n    confirmPhrase?: string;\n    confirmLabel?: string;\n    cancelLabel?: string;\n    onConfirm: () => void;\n    onCancel?: () => void;\n  },\n  ctx: Ctx,\n) {\n  let typed = '';\n\n  for (props of ctx) {\n    const canConfirm = !props.confirmPhrase || typed.trim() === props.confirmPhrase;\n    const close = () => {\n      typed = '';\n      if (Array.isArray(props.open)) props.open[1]?.(false);\n      else props.open?.set?.(false);\n      props.onCancel?.();\n    };\n\n    yield (\n      <Dialog\n        open={props.open}\n        title={props.title}\n        showClose={false}\n        footer={\n          <>\n            <Button variant=\"outline\" onClick={close}>\n              {props.cancelLabel ?? 'Cancel'}\n            </Button>\n            <Button\n              variant=\"destructive\"\n              disabled={!canConfirm}\n              onClick={() => {\n                typed = '';\n                props.onConfirm();\n              }}\n            >\n              {props.confirmLabel ?? 'Delete Permanently'}\n            </Button>\n          </>\n        }\n      >\n        <div class={adScope}>\n          <span class=\"ad-icon\" aria-hidden=\"true\"><Icon icon={AlertTriangle} size={18} /></span>\n          <div class=\"ad-copy\">\n            <p style=\"margin:0\">{props.description}</p>\n            {props.confirmPhrase ? (\n              <Input\n                label={`Type \"${props.confirmPhrase}\" to confirm`}\n                bind:value={typed}\n                placeholder={props.confirmPhrase}\n              />\n            ) : null}\n          </div>\n        </div>\n      </Dialog>\n    );\n  }\n}\n\n/**\n * Aster-native `yield*` Destructive Guard Flow (supports optional slug typing confirmation):\n *   const ok = yield* confirmDestructive({ title: 'Delete project?', description: '...', confirmPhrase: 'aster-cloud' });\n */\nexport function* confirmDestructive(opts: {\n  title: string;\n  description: string;\n  confirmPhrase?: string;\n  confirmLabel?: string;\n}): Generator<View, boolean, any> {\n  let result: boolean | null = null;\n  let open = true;\n\n  while (result === null) {\n    yield (\n      <AlertDialog\n        open={[() => open, (v: boolean) => { open = v; if (!v && result === null) result = false; }]}\n        title={opts.title}\n        description={opts.description}\n        confirmPhrase={opts.confirmPhrase}\n        confirmLabel={opts.confirmLabel}\n        onCancel={() => { open = false; result = false; }}\n        onConfirm={() => { open = false; result = true; }}\n      />\n    );\n  }\n  return result;\n}\n"
+    }
+  ]
+}

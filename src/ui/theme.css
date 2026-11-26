@@ -1,0 +1,488 @@
+/* =============================================================================
+ * AsterUI — Sensible, Proven Design Tokens & Seed-Based OKLCH Theme Engine
+ *
+ * Principles:
+ *   1. Familiar, High-Clarity Surfaces: Crisp opaque surfaces and 1px hairline
+ *      borders modeled on proven modern UI conventions (clean visual hierarchy,
+ *      zero unnecessary visual noise or heavy glass blur on interactive controls).
+ *   2. Seed-Based OKLCH Chroma Engine: Override `--aster-seed-hue` and
+ *      `--aster-seed-chroma` (or pick a preset: zinc, blue, emerald, violet,
+ *      rose, amber) to re-theme accents and focus rings cleanly with sRGB fallbacks.
+ *   3. Sensible Micro-Animations: Crisp 140–200ms hover/focus transitions,
+ *      subtle press feedback, spring toggles, and gentle overlay scale-fades.
+ *   4. Cross-Browser & Mobile-First: Explicit Light/Dark parity across Chrome,
+ *      Safari, Firefox, and Edge; >= 44px touch targets on coarse pointers,
+ *      16px mobile form inputs, and safe-area insets.
+ * ============================================================================= */
+
+@layer aster.tokens, aster.base, aster.components;
+
+@layer aster.tokens {
+  :root {
+    color-scheme: light dark;
+
+    /* -------------------------------------------------------------------------
+     * TIER 1: Seed, Radius & Density Controls
+     * ------------------------------------------------------------------------- */
+    --aster-seed-hue: 255; /* Default: Blue/Indigo (255); switch to `zinc` for monochrome */
+    --aster-seed-chroma: 0.2;
+    --aster-neutral-tint: 0.004; /* Ultra-subtle tint on neutrals so grays stay clean & calm */
+    --aster-density: 1;
+
+    /* Typography — proven modern UI proportions */
+    --aster-font-sans:
+      'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      sans-serif;
+    --aster-font-display:
+      'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      sans-serif;
+    --aster-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* Sensible Radius Scale (Default: `default` = 0.5rem / 8px controls) */
+    --aster-radius-xs: 4px;
+    --aster-radius-sm: 6px;
+    --aster-radius-md: 8px;
+    --aster-radius-lg: 12px;
+    --aster-radius-xl: 14px;
+    --aster-radius-control: 8px;
+    --aster-radius-badge: 9999px;
+    --aster-radius-full: 9999px;
+
+    /* Sensible Micro-Animation Physics */
+    --aster-ease-motion: cubic-bezier(0.16, 1, 0.3, 1);
+    --aster-ease-spring: cubic-bezier(0.22, 1.18, 0.36, 1);
+    --aster-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --aster-dur-fast: 130ms;
+    --aster-dur-med: 200ms;
+    --aster-dur-slow: 280ms;
+
+    /* Control Sizing & Safe Areas */
+    --aster-control-sm: calc(32px * var(--aster-density));
+    --aster-control-md: calc(36px * var(--aster-density));
+    --aster-control-lg: calc(42px * var(--aster-density));
+    --aster-safe-bottom: env(safe-area-inset-bottom, 0px);
+    --aster-safe-left: env(safe-area-inset-left, 0px);
+    --aster-safe-right: env(safe-area-inset-right, 0px);
+
+    /* -------------------------------------------------------------------------
+     * TIER 2: Light Mode Semantic Roles (sRGB fallbacks + OKLCH enhancement)
+     * ------------------------------------------------------------------------- */
+    --aster-primary: #2563eb;
+    --aster-primary-hover: #1d4ed8;
+    --aster-on-primary: #ffffff;
+    --aster-primary-subtle: #eff6ff;
+    --aster-on-primary-subtle: #1e40af;
+    --aster-primary-border: #bfdbfe;
+
+    --aster-bg: #f8fafc;
+    --aster-surface: #ffffff;
+    --aster-surface-muted: #f4f4f5;
+    --aster-surface-accent: #e4e4e7;
+    --aster-on-surface: #09090b;
+    --aster-on-surface-muted: #52525b;
+    --aster-on-surface-subtle: #71717a;
+
+    --aster-border: #e4e4e7;
+    --aster-border-strong: #d4d4d8;
+    --aster-input-border: #d4d4d8;
+
+    /* Inverted tooltip / popover contrast tokens */
+    --aster-inverted-bg: #18181b;
+    --aster-inverted-fg: #fafafa;
+
+    /* Semantic Status Roles (crisp tinted surface + hairline ring) */
+    --aster-success: #15803d;
+    --aster-success-subtle: #f0fdf4;
+    --aster-on-success-subtle: #166534;
+    --aster-success-border: #bbf7d0;
+
+    --aster-warning: #b45309;
+    --aster-warning-subtle: #fffbeb;
+    --aster-on-warning-subtle: #92400e;
+    --aster-warning-border: #fde68a;
+
+    --aster-danger: #dc2626;
+    --aster-danger-hover: #b91c1c;
+    --aster-on-danger: #ffffff;
+    --aster-danger-subtle: #fef2f2;
+    --aster-on-danger-subtle: #991b1b;
+    --aster-danger-border: #fecaca;
+
+    /* Crisp Layered Shadows (Tailwind-style restrained depth) */
+    --aster-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --aster-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+    --aster-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    --aster-shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+    --aster-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.22);
+
+    /* Backward-compatible semantic aliases */
+    --aster-primary-container: var(--aster-primary-subtle);
+    --aster-on-primary-container: var(--aster-on-primary-subtle);
+    --aster-surface-low: var(--aster-surface-muted);
+    --aster-surface-high: var(--aster-surface-accent);
+    --aster-on-surface-variant: var(--aster-on-surface-muted);
+    --aster-outline: var(--aster-border-strong);
+    --aster-outline-variant: var(--aster-border);
+  }
+
+  /* Progressive OKLCH Seed Engine — Light Mode */
+  @supports (color: oklch(0.55 0.2 255)) {
+    :root {
+      --aster-primary: oklch(0.54 var(--aster-seed-chroma) var(--aster-seed-hue));
+      --aster-primary-hover: oklch(0.48 var(--aster-seed-chroma) var(--aster-seed-hue));
+      --aster-on-primary: oklch(0.99 0.002 var(--aster-seed-hue));
+      --aster-primary-subtle: oklch(
+        0.96 calc(var(--aster-seed-chroma) * 0.16) var(--aster-seed-hue)
+      );
+      --aster-on-primary-subtle: oklch(
+        0.38 calc(var(--aster-seed-chroma) * 0.78) var(--aster-seed-hue)
+      );
+      --aster-primary-border: oklch(
+        0.88 calc(var(--aster-seed-chroma) * 0.34) var(--aster-seed-hue)
+      );
+
+      --aster-bg: oklch(0.985 var(--aster-neutral-tint) var(--aster-seed-hue));
+      --aster-surface: oklch(1 0 0);
+      --aster-surface-muted: oklch(0.962 var(--aster-neutral-tint) var(--aster-seed-hue));
+      --aster-surface-accent: oklch(0.925 var(--aster-neutral-tint) var(--aster-seed-hue));
+      --aster-on-surface: oklch(0.145 0.005 var(--aster-seed-hue));
+      --aster-on-surface-muted: oklch(0.44 0.008 var(--aster-seed-hue));
+      --aster-on-surface-subtle: oklch(0.55 0.008 var(--aster-seed-hue));
+      --aster-border: oklch(0.9 0.005 var(--aster-seed-hue));
+      --aster-border-strong: oklch(0.82 0.007 var(--aster-seed-hue));
+      --aster-input-border: oklch(0.85 0.006 var(--aster-seed-hue));
+
+      --aster-focus-ring: 0 0 0 3px color-mix(in oklch, var(--aster-primary) 24%, transparent);
+    }
+
+    /* Monochrome `zinc` seed (classic crisp shadcn neutral contrast) */
+    :root[data-aster-preset='zinc'] {
+      --aster-primary: oklch(0.205 0.006 285);
+      --aster-primary-hover: oklch(0.28 0.006 285);
+      --aster-on-primary: oklch(0.985 0 0);
+      --aster-primary-subtle: oklch(0.955 0.004 285);
+      --aster-on-primary-subtle: oklch(0.21 0.006 285);
+      --aster-primary-border: oklch(0.87 0.006 285);
+    }
+  }
+
+  /* Dark Mode Semantic Roles */
+  :root[data-aster-mode='light'] {
+    color-scheme: light;
+  }
+  :root[data-aster-mode='dark'] {
+    color-scheme: dark;
+    --aster-primary: #3b82f6;
+    --aster-primary-hover: #60a5fa;
+    --aster-on-primary: #ffffff;
+    --aster-primary-subtle: #172554;
+    --aster-on-primary-subtle: #bfdbfe;
+    --aster-primary-border: #1e3a8a;
+
+    --aster-bg: #09090b;
+    --aster-surface: #111114;
+    --aster-surface-muted: #18181b;
+    --aster-surface-accent: #27272a;
+    --aster-on-surface: #fafafa;
+    --aster-on-surface-muted: #a1a1aa;
+    --aster-on-surface-subtle: #71717a;
+
+    --aster-border: #27272a;
+    --aster-border-strong: #3f3f46;
+    --aster-input-border: #303036;
+
+    --aster-inverted-bg: #fafafa;
+    --aster-inverted-fg: #09090b;
+
+    --aster-success: #22c55e;
+    --aster-success-subtle: #052e16;
+    --aster-on-success-subtle: #86efac;
+    --aster-success-border: #14532d;
+
+    --aster-warning: #f59e0b;
+    --aster-warning-subtle: #2e1d05;
+    --aster-on-warning-subtle: #fde68a;
+    --aster-warning-border: #78350f;
+
+    --aster-danger: #ef4444;
+    --aster-danger-hover: #f87171;
+    --aster-on-danger: #ffffff;
+    --aster-danger-subtle: #2f0d0d;
+    --aster-on-danger-subtle: #fecaca;
+    --aster-danger-border: #7f1d1d;
+
+    --aster-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+    --aster-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.45), 0 1px 2px -1px rgba(0, 0, 0, 0.35);
+    --aster-shadow-md: 0 6px 14px -2px rgba(0, 0, 0, 0.55), 0 2px 6px -2px rgba(0, 0, 0, 0.4);
+    --aster-shadow-lg: 0 20px 44px -8px rgba(0, 0, 0, 0.72), 0 8px 16px -6px rgba(0, 0, 0, 0.5);
+    --aster-focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.32);
+  }
+
+  @supports (color: oklch(0.65 0.19 255)) {
+    :root[data-aster-mode='dark'] {
+      --aster-primary: oklch(0.65 calc(var(--aster-seed-chroma) * 0.92) var(--aster-seed-hue));
+      --aster-primary-hover: oklch(
+        0.71 calc(var(--aster-seed-chroma) * 0.92) var(--aster-seed-hue)
+      );
+      --aster-on-primary: oklch(0.99 0.002 var(--aster-seed-hue));
+      --aster-primary-subtle: oklch(
+        0.24 calc(var(--aster-seed-chroma) * 0.38) var(--aster-seed-hue)
+      );
+      --aster-on-primary-subtle: oklch(
+        0.88 calc(var(--aster-seed-chroma) * 0.34) var(--aster-seed-hue)
+      );
+      --aster-primary-border: oklch(
+        0.35 calc(var(--aster-seed-chroma) * 0.48) var(--aster-seed-hue)
+      );
+
+      --aster-bg: oklch(0.135 var(--aster-neutral-tint) var(--aster-seed-hue));
+      --aster-surface: oklch(0.165 var(--aster-neutral-tint) var(--aster-seed-hue));
+      --aster-surface-muted: oklch(0.205 var(--aster-neutral-tint) var(--aster-seed-hue));
+      --aster-surface-accent: oklch(0.255 var(--aster-neutral-tint) var(--aster-seed-hue));
+      --aster-on-surface: oklch(0.975 0.003 var(--aster-seed-hue));
+      --aster-on-surface-muted: oklch(0.7 0.008 var(--aster-seed-hue));
+      --aster-on-surface-subtle: oklch(0.55 0.008 var(--aster-seed-hue));
+      --aster-border: oklch(0.265 0.006 var(--aster-seed-hue));
+      --aster-border-strong: oklch(0.36 0.008 var(--aster-seed-hue));
+      --aster-input-border: oklch(0.3 0.008 var(--aster-seed-hue));
+
+      --aster-focus-ring: 0 0 0 3px color-mix(in oklch, var(--aster-primary) 32%, transparent);
+    }
+
+    :root[data-aster-mode='dark'][data-aster-preset='zinc'] {
+      --aster-primary: oklch(0.97 0.002 285);
+      --aster-primary-hover: oklch(0.89 0.004 285);
+      --aster-on-primary: oklch(0.145 0.005 285);
+      --aster-primary-subtle: oklch(0.24 0.006 285);
+      --aster-on-primary-subtle: oklch(0.95 0.004 285);
+      --aster-primary-border: oklch(0.34 0.008 285);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-aster-mode='light']) {
+      color-scheme: dark;
+      --aster-primary: #3b82f6;
+      --aster-primary-hover: #60a5fa;
+      --aster-on-primary: #ffffff;
+      --aster-primary-subtle: #172554;
+      --aster-on-primary-subtle: #bfdbfe;
+      --aster-primary-border: #1e3a8a;
+      --aster-bg: #09090b;
+      --aster-surface: #111114;
+      --aster-surface-muted: #18181b;
+      --aster-surface-accent: #27272a;
+      --aster-on-surface: #fafafa;
+      --aster-on-surface-muted: #a1a1aa;
+      --aster-on-surface-subtle: #71717a;
+      --aster-border: #27272a;
+      --aster-border-strong: #3f3f46;
+      --aster-input-border: #303036;
+      --aster-inverted-bg: #fafafa;
+      --aster-inverted-fg: #09090b;
+      --aster-success: #22c55e;
+      --aster-success-subtle: #052e16;
+      --aster-on-success-subtle: #86efac;
+      --aster-success-border: #14532d;
+      --aster-warning: #f59e0b;
+      --aster-warning-subtle: #2e1d05;
+      --aster-on-warning-subtle: #fde68a;
+      --aster-warning-border: #78350f;
+      --aster-danger: #ef4444;
+      --aster-danger-hover: #f87171;
+      --aster-on-danger: #ffffff;
+      --aster-danger-subtle: #2f0d0d;
+      --aster-on-danger-subtle: #fecaca;
+      --aster-danger-border: #7f1d1d;
+      --aster-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+      --aster-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.45), 0 1px 2px -1px rgba(0, 0, 0, 0.35);
+      --aster-shadow-md: 0 6px 14px -2px rgba(0, 0, 0, 0.55), 0 2px 6px -2px rgba(0, 0, 0, 0.4);
+      --aster-shadow-lg: 0 20px 44px -8px rgba(0, 0, 0, 0.72), 0 8px 16px -6px rgba(0, 0, 0, 0.5);
+    }
+    @supports (color: oklch(0.65 0.19 255)) {
+      :root:not([data-aster-mode='light']) {
+        --aster-primary: oklch(0.65 calc(var(--aster-seed-chroma) * 0.92) var(--aster-seed-hue));
+        --aster-primary-hover: oklch(
+          0.71 calc(var(--aster-seed-chroma) * 0.92) var(--aster-seed-hue)
+        );
+        --aster-on-primary: oklch(0.99 0.002 var(--aster-seed-hue));
+        --aster-primary-subtle: oklch(
+          0.24 calc(var(--aster-seed-chroma) * 0.38) var(--aster-seed-hue)
+        );
+        --aster-on-primary-subtle: oklch(
+          0.88 calc(var(--aster-seed-chroma) * 0.34) var(--aster-seed-hue)
+        );
+        --aster-primary-border: oklch(
+          0.35 calc(var(--aster-seed-chroma) * 0.48) var(--aster-seed-hue)
+        );
+        --aster-bg: oklch(0.135 var(--aster-neutral-tint) var(--aster-seed-hue));
+        --aster-surface: oklch(0.165 var(--aster-neutral-tint) var(--aster-seed-hue));
+        --aster-surface-muted: oklch(0.205 var(--aster-neutral-tint) var(--aster-seed-hue));
+        --aster-surface-accent: oklch(0.255 var(--aster-neutral-tint) var(--aster-seed-hue));
+        --aster-on-surface: oklch(0.975 0.003 var(--aster-seed-hue));
+        --aster-on-surface-muted: oklch(0.7 0.008 var(--aster-seed-hue));
+        --aster-on-surface-subtle: oklch(0.55 0.008 var(--aster-seed-hue));
+        --aster-border: oklch(0.265 0.006 var(--aster-seed-hue));
+        --aster-border-strong: oklch(0.36 0.008 var(--aster-seed-hue));
+        --aster-input-border: oklch(0.3 0.008 var(--aster-seed-hue));
+        --aster-focus-ring: 0 0 0 3px color-mix(in oklch, var(--aster-primary) 32%, transparent);
+      }
+      :root:not([data-aster-mode='light'])[data-aster-preset='zinc'] {
+        --aster-primary: oklch(0.97 0.002 285);
+        --aster-primary-hover: oklch(0.89 0.004 285);
+        --aster-on-primary: oklch(0.145 0.005 285);
+        --aster-primary-subtle: oklch(0.24 0.006 285);
+        --aster-on-primary-subtle: oklch(0.95 0.004 285);
+        --aster-primary-border: oklch(0.34 0.008 285);
+      }
+    }
+  }
+
+  /* Built-In Curated OKLCH Seed Presets */
+  :root[data-aster-preset='zinc'] {
+    --aster-seed-hue: 285;
+    --aster-seed-chroma: 0.006;
+    --aster-neutral-tint: 0.002;
+  }
+  :root[data-aster-preset='blue'] {
+    --aster-seed-hue: 255;
+    --aster-seed-chroma: 0.2;
+  }
+  :root[data-aster-preset='emerald'] {
+    --aster-seed-hue: 158;
+    --aster-seed-chroma: 0.16;
+  }
+  :root[data-aster-preset='violet'] {
+    --aster-seed-hue: 285;
+    --aster-seed-chroma: 0.2;
+  }
+  :root[data-aster-preset='rose'] {
+    --aster-seed-hue: 16;
+    --aster-seed-chroma: 0.2;
+  }
+  :root[data-aster-preset='amber'] {
+    --aster-seed-hue: 55;
+    --aster-seed-chroma: 0.18;
+  }
+
+  /* Sensible Radius Scale Presets (familiar `none` / `sm` / `md` / `lg`) */
+  :root[data-aster-radius='none'] {
+    --aster-radius-xs: 0px;
+    --aster-radius-sm: 0px;
+    --aster-radius-md: 0px;
+    --aster-radius-lg: 0px;
+    --aster-radius-xl: 0px;
+    --aster-radius-control: 0px;
+    --aster-radius-badge: 2px;
+  }
+  :root[data-aster-radius='sm'] {
+    --aster-radius-xs: 3px;
+    --aster-radius-sm: 4px;
+    --aster-radius-md: 6px;
+    --aster-radius-lg: 8px;
+    --aster-radius-xl: 10px;
+    --aster-radius-control: 6px;
+    --aster-radius-badge: 6px;
+  }
+  :root[data-aster-radius='md'] {
+    --aster-radius-xs: 4px;
+    --aster-radius-sm: 6px;
+    --aster-radius-md: 8px;
+    --aster-radius-lg: 12px;
+    --aster-radius-xl: 14px;
+    --aster-radius-control: 8px;
+    --aster-radius-badge: 9999px;
+  }
+  :root[data-aster-radius='lg'] {
+    --aster-radius-xs: 6px;
+    --aster-radius-sm: 8px;
+    --aster-radius-md: 12px;
+    --aster-radius-lg: 16px;
+    --aster-radius-xl: 20px;
+    --aster-radius-control: 12px;
+    --aster-radius-badge: 9999px;
+  }
+
+  /* Density Presets */
+  :root[data-aster-density='compact'] {
+    --aster-density: 0.9;
+  }
+  :root[data-aster-density='comfortable'] {
+    --aster-density: 1;
+  }
+
+  /* Mobile Touch Ergonomics: enforce >= 44px comfortable tap targets on coarse pointers */
+  @media (pointer: coarse) {
+    :root {
+      --aster-control-sm: 38px;
+      --aster-control-md: 44px;
+      --aster-control-lg: 48px;
+    }
+  }
+
+  /* Automatic Accessibility Adaptation */
+  @media (prefers-contrast: more) {
+    :root {
+      --aster-border: var(--aster-border-strong);
+      --aster-input-border: var(--aster-on-surface-muted);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --aster-dur-fast: 1ms;
+      --aster-dur-med: 1ms;
+      --aster-dur-slow: 1ms;
+    }
+  }
+}
+
+@layer aster.base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+
+  /* Prevent background page scrolling while any modal <dialog> is open */
+  html:has(dialog:modal),
+  html:has(dialog:modal) body {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--aster-font-sans);
+    font-size: 0.875rem;
+    background: var(--aster-bg);
+    color: var(--aster-on-surface);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  /* Reset UA [popover] inset/margin so anchored popovers never collapse in Safari */
+  [popover].aster-surface-popover {
+    inset: auto;
+    margin: 0;
+    position: fixed;
+    height: auto;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* Proven Crisp Elevated Panel (replaces heavy glass blur on dialogs, menus & popovers) */
+  .aster-surface-popover {
+    background: var(--aster-surface);
+    color: var(--aster-on-surface);
+    border: 1px solid var(--aster-border);
+    box-shadow: var(--aster-shadow-lg);
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "citation-badge",
+  "type": "ui:component",
+  "title": "CitationBadge & SourceList",
+  "description": "Inline superscript [1] citation chip and footer source link cards.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "src/ui/citation-badge.tsx",
+      "target": "src/ui/citation-badge.tsx",
+      "sha256": "96360e5bc684af40fcea2ad3b5e69b14e0f4d228147d0bf2c195e715b581d16a",
+      "content": "import { ExternalLink } from '@lucide/icons';\nimport { scope } from '@fierst/aster';\nimport { Icon } from './icon.tsx';\n\nconst citScope = scope`\n  :scope {\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    min-width: 1.25rem;\n    height: 1.15rem;\n    padding: 0 0.3rem;\n    margin: 0 0.1rem;\n    border-radius: var(--aster-radius-xs);\n    border: 1px solid var(--aster-primary-border);\n    background: var(--aster-primary-subtle);\n    color: var(--aster-on-primary-subtle);\n    font-family: var(--aster-font-mono);\n    font-size: 0.68rem;\n    font-weight: 600;\n    text-decoration: none;\n    vertical-align: super;\n    line-height: 1;\n    transition: background-color var(--aster-dur-fast);\n  }\n  :scope:hover { background: var(--aster-primary); color: var(--aster-on-primary); }\n`;\n\nconst srcScope = scope`\n  :scope { display: flex; flex-wrap: wrap; gap: 0.45rem; font-family: var(--aster-font-sans); }\n  .src-card {\n    display: inline-flex;\n    align-items: center;\n    gap: 0.4rem;\n    padding: 0.35rem 0.65rem;\n    border-radius: var(--aster-radius-md);\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface);\n    color: var(--aster-on-surface);\n    text-decoration: none;\n    font-size: 0.78rem;\n    font-weight: 500;\n    transition: border-color var(--aster-dur-fast), background-color var(--aster-dur-fast);\n  }\n  .src-card:hover { background: var(--aster-surface-muted); border-color: var(--aster-border-strong); }\n  .src-idx { font-family: var(--aster-font-mono); font-size: 0.7rem; color: var(--aster-primary); font-weight: 600; }\n`;\n\nexport function CitationBadge({\n  index,\n  href,\n  title,\n}: {\n  index: number;\n  href?: string;\n  title?: string;\n}) {\n  return href ? (\n    <a href={href} target=\"_blank\" rel=\"noopener noreferrer\" title={title} class={citScope}>\n      {index}\n    </a>\n  ) : (\n    <span title={title} class={citScope}>{index}</span>\n  );\n}\n\nexport function SourceList({\n  sources,\n  class: extraClass,\n}: {\n  sources: readonly { title: string; href: string }[];\n  class?: string;\n}) {\n  return (\n    <div class={[srcScope, extraClass].filter(Boolean).join(' ')}>\n      {sources.map((s, idx) => (\n        <a key={s.href} href={s.href} target=\"_blank\" rel=\"noopener noreferrer\" class=\"src-card\">\n          <span class=\"src-idx\">[{idx + 1}]</span>\n          <span>{s.title}</span>\n          <Icon icon={ExternalLink} size={12} />\n        </a>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

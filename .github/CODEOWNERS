@@ -1,0 +1,4 @@
+# Protect CI/CD release pipelines and package metadata
+/.github/workflows/ @fierstdev
+/package.json       @fierstdev
+/src/               @fierstdev

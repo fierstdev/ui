@@ -1,0 +1,21 @@
+{
+  "name": "accordion",
+  "type": "ui:component",
+  "title": "Accordion",
+  "description": "Zero-JS native <details> Accordion supporting both type='single' (auto-close inactive panels) and type='multiple' (expand all simultaneously).",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "src/ui/accordion.tsx",
+      "target": "src/ui/accordion.tsx",
+      "sha256": "c2788d18906da9a72b47189ecf01ed47eec6a4575004a9520e1f4c04140ba14c",
+      "content": "import { ChevronDown } from '@lucide/icons';\nimport { scope, type View } from '@fierst/aster';\nimport { Icon } from './icon.tsx';\n\nconst accScope = scope`\n  :scope {\n    display: grid;\n    border: 1px solid var(--aster-border);\n    border-radius: var(--aster-radius-lg);\n    background: var(--aster-surface);\n    overflow: hidden;\n  }\n  details {\n    border-bottom: 1px solid var(--aster-border);\n  }\n  details:last-child { border-bottom: none; }\n\n  summary {\n    list-style: none;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 1rem;\n    padding: 0.85rem 1.05rem;\n    font-family: var(--aster-font-sans);\n    font-size: 0.875rem;\n    font-weight: 500;\n    color: var(--aster-on-surface);\n    cursor: pointer;\n    user-select: none;\n    transition: background-color var(--aster-dur-fast) var(--aster-ease-standard);\n  }\n  summary::-webkit-details-marker { display: none; }\n  summary:hover { background: var(--aster-surface-muted); }\n  summary:focus-visible { outline: none; box-shadow: inset var(--aster-focus-ring); }\n\n  .chev {\n    color: var(--aster-on-surface-muted);\n    display: inline-flex;\n    align-items: center;\n    flex-shrink: 0;\n    transition: transform var(--aster-dur-med) var(--aster-ease-motion);\n  }\n  details[open] .chev { transform: rotate(180deg); }\n\n  .acc-panel {\n    padding: 0 1.05rem 0.95rem;\n    font-size: 0.84rem;\n    color: var(--aster-on-surface-muted);\n    line-height: 1.55;\n  }\n`;\n\nexport interface AccordionItem {\n  id: string;\n  title: string;\n  content: View;\n  defaultOpen?: boolean;\n}\n\nlet accSeq = 0;\n\n/**\n * Native `<details>` Accordion.\n * - `type=\"single\"` (default, or `exclusive={true}`): shares an HTML `name` attribute so\n *   the browser natively auto-closes inactive panels with zero JavaScript state.\n * - `type=\"multiple\"` (or `exclusive={false}`): omits `name` so any or all items can stay\n *   expanded simultaneously.\n */\nexport function Accordion({\n  items,\n  type = 'single',\n  exclusive,\n  class: extraClass,\n}: {\n  items: readonly AccordionItem[];\n  type?: 'single' | 'multiple';\n  /** Legacy alias for `type === 'single'`. Takes precedence if explicitly passed. */\n  exclusive?: boolean;\n  class?: string;\n}) {\n  const isSingle = exclusive !== undefined ? exclusive : type === 'single';\n  const groupName = isSingle ? `aster-acc-${++accSeq}` : undefined;\n\n  return (\n    <div class={[accScope, extraClass].filter(Boolean).join(' ')}>\n      {items.map((item) => (\n        <details key={item.id} name={groupName} open={item.defaultOpen}>\n          <summary>\n            <span>{item.title}</span>\n            <span class=\"chev\" aria-hidden=\"true\"><Icon icon={ChevronDown} size={15} /></span>\n          </summary>\n          <div class=\"acc-panel\">{item.content}</div>\n        </details>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

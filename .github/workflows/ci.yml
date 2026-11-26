@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ui-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Build Registry, Check & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: voidzero-dev/setup-vp@v1.22.0
+        with:
+          node-version-file: '.node-version'
+          cache: true
+          run-install: true
+
+      - name: Rebuild & Verify Static Registry Manifests
+        run: |
+          npm run build:registry
+          test -f public/r/index.json
+          test -f public/r/icon.json
+          test -f public/r/button.json
+          test -f public/r/dialog.json
+          test -f public/r/command.json
+          test -f public/r/sheet.json
+          test -f public/r/select.json
+          test -f public/r/calendar.json
+          test -f public/r/app-shell.json
+          test -f public/r/checkbox.json
+          test -f public/r/stepper.json
+          test -f public/r/stat-card.json
+          test -f public/r/input-otp.json
+          test -f public/r/approval-card.json
+          test -f public/r/bar-chart.json
+          test -f public/r/workflow-graph.json
+
+      - name: Format, Lint & Type Check
+        run: vp check
+
+      - name: Registry & CLI Tests
+        run: vp test
+
+      - name: Build Showcase
+        run: vp build

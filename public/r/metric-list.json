@@ -1,0 +1,18 @@
+{
+  "name": "metric-list",
+  "type": "ui:component",
+  "title": "MetricList",
+  "description": "Ranked horizontal progress bar list for top routes, sources, or error breakdowns.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/metric-list.tsx",
+      "target": "src/ui/metric-list.tsx",
+      "sha256": "038ea6f55e50bf4cc00ac190e7d8dbe7effc5aa02b863e8e204950639c06986f",
+      "content": "import { scope } from '@fierst/aster';\n\nconst mlScope = scope`\n  :scope { display: grid; gap: 0.5rem; font-family: var(--aster-font-sans); }\n  .ml-row { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.45rem 0.65rem; border-radius: var(--aster-radius-sm); overflow: hidden; }\n  .ml-fill {\n    position: absolute;\n    left: 0;\n    top: 0;\n    bottom: 0;\n    background: var(--aster-primary-subtle);\n    border-radius: var(--aster-radius-sm);\n    z-index: 0;\n  }\n  .ml-name { position: relative; z-index: 1; font-size: 0.84rem; font-weight: 500; color: var(--aster-on-surface); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }\n  .ml-val { position: relative; z-index: 1; font-family: var(--aster-font-mono); font-size: 0.8rem; font-weight: 600; color: var(--aster-on-surface); flex-shrink: 0; }\n`;\n\nexport function MetricList({\n  items,\n  unit = '',\n  class: extraClass,\n}: {\n  items: readonly { label: string; value: number }[];\n  unit?: string;\n  class?: string;\n}) {\n  const max = Math.max(...items.map((i) => i.value), 1);\n  return (\n    <div class={[mlScope, extraClass].filter(Boolean).join(' ')}>\n      {items.map((it) => (\n        <div key={it.label} class=\"ml-row\">\n          <div class=\"ml-fill\" style={{ width: `${Math.max(4, (it.value / max) * 100)}%` }} />\n          <span class=\"ml-name\">{it.label}</span>\n          <span class=\"ml-val\">{it.value.toLocaleString()}{unit}</span>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

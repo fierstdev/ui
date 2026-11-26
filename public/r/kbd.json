@@ -1,0 +1,18 @@
+{
+  "name": "kbd",
+  "type": "ui:component",
+  "title": "Kbd & KbdGroup",
+  "description": "Monospace keyboard shortcut keycap primitive with crisp border bevel.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/kbd.tsx",
+      "target": "src/ui/kbd.tsx",
+      "sha256": "9f84279ee5c9ccf2a2113d3700c4b4aaab2eb714d20b387c3da56091ac23512a",
+      "content": "import { scope, type View } from '@fierst/aster';\n\nconst kbdScope = scope`\n  :scope {\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    min-width: 1.35rem;\n    height: 1.35rem;\n    padding: 0 0.35rem;\n    border-radius: var(--aster-radius-xs);\n    border: 1px solid var(--aster-border);\n    border-bottom-width: 2px;\n    background: var(--aster-surface-muted);\n    color: var(--aster-on-surface-muted);\n    font-family: var(--aster-font-mono);\n    font-size: 0.72rem;\n    font-weight: 500;\n    line-height: 1;\n    user-select: none;\n  }\n`;\n\nconst kbdGroupScope = scope`\n  :scope {\n    display: inline-flex;\n    align-items: center;\n    gap: 0.2rem;\n  }\n`;\n\nexport function Kbd(props: { class?: string; children?: View }) {\n  return <kbd class={[kbdScope, props.class].filter(Boolean).join(' ')}>{props.children}</kbd>;\n}\n\nexport function KbdGroup(props: { keys: readonly string[]; class?: string }) {\n  return (\n    <span class={[kbdGroupScope, props.class].filter(Boolean).join(' ')}>\n      {props.keys.map((k, i) => (\n        <Kbd key={`${k}-${i}`}>{k}</Kbd>\n      ))}\n    </span>\n  );\n}\n"
+    }
+  ]
+}

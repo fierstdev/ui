@@ -1,0 +1,18 @@
+{
+  "name": "table",
+  "type": "ui:component",
+  "title": "Table",
+  "description": "Lightweight composable semantic Table primitives (TableHeader, TableBody, TableRow, TableHead, TableCell).",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/table.tsx",
+      "target": "src/ui/table.tsx",
+      "sha256": "0d2cb78799c0f6e68069ed400e290eb69b399970f07180d7c1a2e24481256f6f",
+      "content": "import { scope, type View } from '@fierst/aster';\n\nconst tblScope = scope`\n  :scope {\n    width: 100%;\n    overflow-x: auto;\n    border-radius: var(--aster-radius-lg);\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface);\n    font-family: var(--aster-font-sans);\n  }\n  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }\n  caption { padding: 0.65rem 1rem; font-size: 0.78rem; color: var(--aster-on-surface-muted); caption-side: bottom; border-top: 1px solid var(--aster-border); }\n  thead { background: var(--aster-surface-muted); }\n  th {\n    padding: 0.65rem 0.9rem;\n    font-size: 0.75rem;\n    font-weight: 600;\n    color: var(--aster-on-surface-muted);\n    border-bottom: 1px solid var(--aster-border);\n    white-space: nowrap;\n  }\n  td {\n    padding: 0.7rem 0.9rem;\n    color: var(--aster-on-surface);\n    border-bottom: 1px solid var(--aster-border);\n  }\n  tbody tr:last-child td { border-bottom: none; }\n  tbody tr:hover { background: var(--aster-surface-muted); }\n  .is-num { text-align: right; font-family: var(--aster-font-mono); font-variant-numeric: tabular-nums; }\n`;\n\nexport function Table(props: { class?: string; children?: View }) {\n  return (\n    <div class={[tblScope, props.class].filter(Boolean).join(' ')}>\n      <table>{props.children}</table>\n    </div>\n  );\n}\nexport function TableHeader(props: { children?: View }) { return <thead>{props.children}</thead>; }\nexport function TableBody(props: { children?: View }) { return <tbody>{props.children}</tbody>; }\nexport function TableRow(props: { children?: View }) { return <tr>{props.children}</tr>; }\nexport function TableHead(props: { numeric?: boolean; children?: View }) {\n  return <th class={props.numeric ? 'is-num' : undefined}>{props.children}</th>;\n}\nexport function TableCell(props: { numeric?: boolean; children?: View }) {\n  return <td class={props.numeric ? 'is-num' : undefined}>{props.children}</td>;\n}\nexport function TableCaption(props: { children?: View }) { return <caption>{props.children}</caption>; }\n"
+    }
+  ]
+}

@@ -1,0 +1,1468 @@
+{
+  "$schema": "https://ui.fierst.dev/schema/registry.json",
+  "name": "@fierst/ui",
+  "version": "1.0.0-alpha.1",
+  "homepage": "https://ui.fierst.dev",
+  "items": [
+    {
+      "name": "theme",
+      "type": "ui:style",
+      "title": "Theme & Design Tokens",
+      "description": "Single-seed OKLCH token engine (zinc monochrome + 5 chromatic seeds), radius scale (none/sm/md/lg), cross-browser Light/Dark roles, and positionPopover() helper.",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/ui/theme.css",
+          "target": "src/ui/theme.css"
+        },
+        {
+          "path": "src/ui/theme.ts",
+          "target": "src/ui/theme.ts"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "icon",
+      "type": "ui:component",
+      "title": "Icon (Lucide)",
+      "description": "Zero-overhead Slot-Compiled SVG renderer for tree-shakeable `@lucide/icons` (and legacy `lucide` / `@lucide/lab` nodes) across Client, Shadow DOM, and SSR.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/icon.tsx",
+          "target": "src/ui/icon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "ui:component",
+      "title": "Button & ButtonGroup",
+      "description": "Proven primary/secondary/outline/ghost/destructive/link buttons with subtle press feedback, Lucide loading spinner, and connected ButtonGroup.",
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/button.tsx",
+          "target": "src/ui/button.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "badge",
+      "type": "ui:component",
+      "title": "Badge",
+      "description": "High-contrast semantic status pills with optional indicator dot.",
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/badge.tsx",
+          "target": "src/ui/badge.tsx"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "card",
+      "type": "ui:component",
+      "title": "Card",
+      "description": "Crisp opaque cards (default, elevated, muted) with 1px hairline borders, shadow-xs, and header/content/footer slots.",
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/card.tsx",
+          "target": "src/ui/card.tsx"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "input",
+      "type": "ui:component",
+      "title": "Input & Textarea",
+      "description": "Accessible form inputs with bind:value, label, hint, aria-invalid error announcements, and adornments.",
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/input.tsx",
+          "target": "src/ui/input.tsx"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "switch",
+      "type": "ui:component",
+      "title": "Switch",
+      "description": "Clean pill toggle switch with smooth spring thumb slide, role='switch', and controlled/uncontrolled support.",
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/switch.tsx",
+          "target": "src/ui/switch.tsx"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "tabs",
+      "type": "ui:component",
+      "title": "Tabs",
+      "description": "Accessible Tabs supporting both segmented pill and underline styles with ArrowLeft/ArrowRight/Home/End keyboard focus management.",
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/tabs.tsx",
+          "target": "src/ui/tabs.tsx"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "dialog",
+      "type": "ui:component",
+      "title": "Dialog & yield* confirmDialog()",
+      "description": "Opaque elevated native <dialog> with Safari-safe scrollable body, backdrop light-dismiss, and Aster's yield* confirmDialog() flow.",
+      "registryDependencies": ["theme", "button", "icon"],
+      "files": [
+        {
+          "path": "src/ui/dialog.tsx",
+          "target": "src/ui/dialog.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "popover",
+      "type": "ui:component",
+      "title": "Popover & DropdownMenu",
+      "description": "Viewport-clamped opaque overlays built on the native HTML Popover API with light-dismiss, shortcuts, and destructive items.",
+      "registryDependencies": ["theme", "button", "icon"],
+      "files": [
+        {
+          "path": "src/ui/popover.tsx",
+          "target": "src/ui/popover.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "toast",
+      "type": "ui:component",
+      "title": "Toast & Toaster",
+      "description": "signal()-driven crisp notification stack with mobile safe-area layout, auto-dismiss, and try/finally timer teardown.",
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/toast.tsx",
+          "target": "src/ui/toast.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "data-table",
+      "type": "ui:component",
+      "title": "DataTable",
+      "description": "Mobile-first sortable, searchable, O(n log n) LIS-keyed table that stacks into labeled cards on small screens.",
+      "registryDependencies": ["theme", "input", "icon"],
+      "files": [
+        {
+          "path": "src/ui/data-table.tsx",
+          "target": "src/ui/data-table.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "sheet",
+      "type": "ui:component",
+      "title": "Sheet (Drawer)",
+      "description": "Opaque slide-over Sheet & mobile bottom drawer built on native <dialog> with cross-browser backdrop dismiss and safe-area padding.",
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/sheet.tsx",
+          "target": "src/ui/sheet.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "command",
+      "type": "ui:component",
+      "title": "CommandPalette & yield* pickCommand()",
+      "description": "Opaque \u2318K command palette with grouped search, auto-focus, keyboard nav, ctx.signal cleanup, and yield* pickCommand().",
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/command.tsx",
+          "target": "src/ui/command.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "select",
+      "type": "ui:component",
+      "title": "Select (Searchable Combobox)",
+      "description": "Mobile-friendly searchable Select / combobox with viewport-clamped opaque Popover dropdown, Lucide indicators, and keyboard nav.",
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/select.tsx",
+          "target": "src/ui/select.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "accordion",
+      "type": "ui:component",
+      "title": "Accordion",
+      "description": "Zero-JS native <details> Accordion supporting both type='single' (auto-close inactive panels) and type='multiple' (expand all simultaneously).",
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/accordion.tsx",
+          "target": "src/ui/accordion.tsx"
+        }
+      ],
+      "dependencies": ["@lucide/icons"]
+    },
+    {
+      "name": "tooltip",
+      "type": "ui:component",
+      "title": "Tooltip",
+      "description": "High-contrast inverted hover/focus Tooltip with configurable delay, alignment, Escape dismiss, and try/finally timer cleanup.",
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/tooltip.tsx",
+          "target": "src/ui/tooltip.tsx"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "progress",
+      "type": "ui:component",
+      "title": "Progress, ProgressRing & Skeleton",
+      "description": "Determinate/indeterminate linear Progress bar, native SVG ProgressRing, and shimmer Skeleton placeholders for async function*.",
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/progress.tsx",
+          "target": "src/ui/progress.tsx"
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "checkbox",
+      "type": "ui:component",
+      "title": "Checkbox, CheckboxGroup & RadioGroup",
+      "description": "Accessible checkboxes (with indeterminate state), checkbox groups, and radio groups supporting inline and card layouts.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/checkbox.tsx",
+          "target": "src/ui/checkbox.tsx"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "ui:component",
+      "title": "Avatar & AvatarGroup",
+      "description": "Responsive user avatar with automatic initials fallback, status indicator dots, adaptive geometry, and overlapping AvatarGroup.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/avatar.tsx",
+          "target": "src/ui/avatar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "ui:component",
+      "title": "Alert & Banner",
+      "description": "Semantic status callouts and full-bleed banners with Lucide status icons, action slots, and optional dismissal.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/alert.tsx",
+          "target": "src/ui/alert.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "ui:component",
+      "title": "Breadcrumb",
+      "description": "Horizontally scrollable semantic breadcrumb trail with Lucide chevrons and plain <a href> links.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/breadcrumb.tsx",
+          "target": "src/ui/breadcrumb.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "ui:component",
+      "title": "Pagination",
+      "description": "Mobile-first pagination showing compact Page X / Y on phones and full windowed ellipsis navigation on desktop.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/pagination.tsx",
+          "target": "src/ui/pagination.tsx"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "ui:component",
+      "title": "Slider",
+      "description": "Accessible tactile range slider with dynamic filled track, live value badge, adaptive thumb geometry, and optional marks.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/slider.tsx",
+          "target": "src/ui/slider.tsx"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "ui:component",
+      "title": "Calendar, DatePicker & yield* pickDate()",
+      "description": "Zero-dependency Intl Calendar with Month & Year dropdowns (1900\u20132046) + direct date input, Popover DatePicker, and yield* pickDate().",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "button", "dialog"],
+      "files": [
+        {
+          "path": "src/ui/calendar.tsx",
+          "target": "src/ui/calendar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "app-shell",
+      "type": "ui:component",
+      "title": "AppShell, Sidebar & NavItem",
+      "description": "Mobile-first application layout with icon-only collapsible desktop sidebar, automatic mobile Sheet drawer, crisp topbar, and plain <a href> NavItem.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "sheet"],
+      "files": [
+        {
+          "path": "src/ui/app-shell.tsx",
+          "target": "src/ui/app-shell.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "ui:component",
+      "title": "Separator",
+      "description": "Horizontal or vertical 1px hairline divider with optional centered text label.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/separator.tsx",
+          "target": "src/ui/separator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "ui:component",
+      "title": "AspectRatio",
+      "description": "Native CSS aspect-ratio media wrapper for images, videos, and embeds.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/aspect-ratio.tsx",
+          "target": "src/ui/aspect-ratio.tsx"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "ui:component",
+      "title": "ScrollArea",
+      "description": "Styled thin-scrollbar overflow container with vertical, horizontal, or 2D scrolling.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/scroll-area.tsx",
+          "target": "src/ui/scroll-area.tsx"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "ui:component",
+      "title": "Collapsible",
+      "description": "Accessible single disclosure section with preview slot and Lucide toggle control.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/collapsible.tsx",
+          "target": "src/ui/collapsible.tsx"
+        }
+      ]
+    },
+    {
+      "name": "resizable",
+      "type": "ui:component",
+      "title": "ResizableSplit",
+      "description": "Pointer- and keyboard-accessible split-pane layout (horizontal/vertical) with drag handle.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/resizable.tsx",
+          "target": "src/ui/resizable.tsx"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "ui:component",
+      "title": "Label & Field",
+      "description": "Accessible form Label (with required marker) and Field wrapper for composing custom inputs.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/label.tsx",
+          "target": "src/ui/label.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "ui:component",
+      "title": "Toggle & ToggleGroup",
+      "description": "Toolbar pressed-state Toggle button and single/multiple selection ToggleGroup.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/toggle.tsx",
+          "target": "src/ui/toggle.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input-otp",
+      "type": "ui:component",
+      "title": "InputOTP",
+      "description": "Verification code input with auto-advance, Backspace rewind, paste support, and one-time-code autocomplete.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/input-otp.tsx",
+          "target": "src/ui/input-otp.tsx"
+        }
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "ui:component",
+      "title": "NumberInput",
+      "description": "Accessible stepper numeric input with +/- buttons, min/max/step clamping, unit adornment, and keyboard arrows.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/number-input.tsx",
+          "target": "src/ui/number-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tag-input",
+      "type": "ui:component",
+      "title": "TagInput",
+      "description": "Multi-chip tag entry field with Enter/comma creation, Backspace removal, and maxTags enforcement.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/tag-input.tsx",
+          "target": "src/ui/tag-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "multi-select",
+      "type": "ui:component",
+      "title": "MultiSelect",
+      "description": "Searchable multi-option combobox displaying removable chips and a viewport-clamped opaque Popover list.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/multi-select.tsx",
+          "target": "src/ui/multi-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "file-upload",
+      "type": "ui:component",
+      "title": "FileUpload",
+      "description": "Drag-and-drop & click file upload dropzone with max-size validation and removable file list.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/file-upload.tsx",
+          "target": "src/ui/file-upload.tsx"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "ui:component",
+      "title": "Combobox",
+      "description": "Autocomplete text input with filterable listbox, keyboard nav, and optional creatable values.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/combobox.tsx",
+          "target": "src/ui/combobox.tsx"
+        }
+      ]
+    },
+    {
+      "name": "rating",
+      "type": "ui:component",
+      "title": "Rating",
+      "description": "Interactive and readonly star rating control with hover preview and keyboard arrow support.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/rating.tsx",
+          "target": "src/ui/rating.tsx"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "ui:component",
+      "title": "ContextMenu",
+      "description": "Right-click viewport-clamped floating menu with shortcuts, separators, destructive items, and ctx.signal cleanup.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/context-menu.tsx",
+          "target": "src/ui/context-menu.tsx"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "ui:component",
+      "title": "HoverCard",
+      "description": "Rich hover/focus preview card with open/close delays, Escape dismiss, and try/finally timer cleanup.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/hover-card.tsx",
+          "target": "src/ui/hover-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "menubar",
+      "type": "ui:component",
+      "title": "Menubar",
+      "description": "Desktop-style horizontal application menu bar with hover-switching, shortcuts, and ctx.signal dismissal.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/menubar.tsx",
+          "target": "src/ui/menubar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stepper",
+      "type": "ui:component",
+      "title": "Stepper & yield* runWizard()",
+      "description": "Responsive multi-step progress indicator plus Aster-native yield* runWizard() generator flow.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "button"],
+      "files": [
+        {
+          "path": "src/ui/stepper.tsx",
+          "target": "src/ui/stepper.tsx"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "ui:component",
+      "title": "Drawer & yield* promptDrawer()",
+      "description": "Mobile-first bottom action drawer built on Sheet plus Aster-native yield* promptDrawer() flow.",
+      "dependencies": [],
+      "registryDependencies": ["theme", "sheet", "button"],
+      "files": [
+        {
+          "path": "src/ui/drawer.tsx",
+          "target": "src/ui/drawer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stat-card",
+      "type": "ui:component",
+      "title": "StatCard & StatGrid",
+      "description": "KPI metric card with tabular numerals, trend delta badge, optional inline SVG sparkline, and responsive StatGrid.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/stat-card.tsx",
+          "target": "src/ui/stat-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "description-list",
+      "type": "ui:component",
+      "title": "DescriptionList",
+      "description": "Structured semantic <dl> key-value detail list with responsive stacked mobile layout and optional striping.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/description-list.tsx",
+          "target": "src/ui/description-list.tsx"
+        }
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "ui:component",
+      "title": "EmptyState",
+      "description": "Dashed-border empty state placeholder with centered Lucide icon, copy, and call-to-action slot.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/empty-state.tsx",
+          "target": "src/ui/empty-state.tsx"
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "ui:component",
+      "title": "Timeline",
+      "description": "Chronological activity feed and audit trail with status markers, Lucide icons, and monospace timestamps.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/timeline.tsx",
+          "target": "src/ui/timeline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "ui:component",
+      "title": "Kbd & KbdGroup",
+      "description": "Monospace keyboard shortcut keycap primitive with crisp border bevel.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/kbd.tsx",
+          "target": "src/ui/kbd.tsx"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "ui:component",
+      "title": "CopyButton & CodeBlock",
+      "description": "Clipboard copy button with animated Check feedback and clean CodeBlock with filename header.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/copy-button.tsx",
+          "target": "src/ui/copy-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "ui:component",
+      "title": "Carousel",
+      "description": "Zero-dependency CSS Scroll-Snap carousel with touch swiping, dot indicators, and Prev/Next controls.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/carousel.tsx",
+          "target": "src/ui/carousel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "container",
+      "type": "ui:component",
+      "title": "Container, Stack & Cluster",
+      "description": "Responsive page Container (sm/md/lg/xl/full) plus vertical Stack and wrapping Cluster layout primitives.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/container.tsx",
+          "target": "src/ui/container.tsx"
+        }
+      ]
+    },
+    {
+      "name": "page-header",
+      "type": "ui:component",
+      "title": "PageHeader",
+      "description": "Classic Tailwind UI page title header with breadcrumb/eyebrow slot, description, metadata row, and actions.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/page-header.tsx",
+          "target": "src/ui/page-header.tsx"
+        }
+      ]
+    },
+    {
+      "name": "section-header",
+      "type": "ui:component",
+      "title": "SectionHeader",
+      "description": "Hairline-bordered section heading with title, description, and right-aligned action slot.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/section-header.tsx",
+          "target": "src/ui/section-header.tsx"
+        }
+      ]
+    },
+    {
+      "name": "prose",
+      "type": "ui:component",
+      "title": "Prose & Text",
+      "description": "Clean typographic rhythm for documentation, changelogs, and long-form content plus semantic Text helper.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/prose.tsx",
+          "target": "src/ui/prose.tsx"
+        }
+      ]
+    },
+    {
+      "name": "grid",
+      "type": "ui:component",
+      "title": "Grid, BentoGrid & BentoCard",
+      "description": "Responsive 1/2/3/4-column Grid and multi-span BentoGrid / BentoCard feature showcase layout.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/grid.tsx",
+          "target": "src/ui/grid.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sticky-bar",
+      "type": "ui:component",
+      "title": "StickyActionBar",
+      "description": "Bottom-pinned floating bar for unsaved-changes prompts or bulk-selection actions with safe-area padding.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/sticky-bar.tsx",
+          "target": "src/ui/sticky-bar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "footer",
+      "type": "ui:component",
+      "title": "Footer",
+      "description": "Multi-column SaaS and documentation footer with brand block, link columns, and legal bar.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/footer.tsx",
+          "target": "src/ui/footer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "navbar",
+      "type": "ui:component",
+      "title": "Navbar",
+      "description": "Responsive sticky top navigation bar with brand, links, action slot, and mobile Sheet drawer.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "sheet"],
+      "files": [
+        {
+          "path": "src/ui/navbar.tsx",
+          "target": "src/ui/navbar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-nav",
+      "type": "ui:component",
+      "title": "SidebarNav",
+      "description": "Collapsible grouped sidebar navigation sections with active indicators and badge slots.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/sidebar-nav.tsx",
+          "target": "src/ui/sidebar-nav.tsx"
+        }
+      ]
+    },
+    {
+      "name": "visually-hidden",
+      "type": "ui:component",
+      "title": "VisuallyHidden & SkipLink",
+      "description": "Accessible screen-reader-only text wrapper and keyboard SkipLink to main content.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/visually-hidden.tsx",
+          "target": "src/ui/visually-hidden.tsx"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "ui:component",
+      "title": "PasswordInput",
+      "description": "Password input with show/hide eye toggle and optional 4-segment strength meter.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/password-input.tsx",
+          "target": "src/ui/password-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "search-input",
+      "type": "ui:component",
+      "title": "SearchInput",
+      "description": "Search input with leading magnifier, animated loading spinner, clear button, and shortcut hint.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/search-input.tsx",
+          "target": "src/ui/search-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "color-picker",
+      "type": "ui:component",
+      "title": "ColorPicker",
+      "description": "Swatch palette + native color picker + hex text input inside a viewport-clamped Popover.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/color-picker.tsx",
+          "target": "src/ui/color-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-range-picker",
+      "type": "ui:component",
+      "title": "DateRangePicker",
+      "description": "Start/End date range selector with quick range presets (7/30/90 days) and automatic range normalization.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "calendar"],
+      "files": [
+        {
+          "path": "src/ui/date-range-picker.tsx",
+          "target": "src/ui/date-range-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "time-picker",
+      "type": "ui:component",
+      "title": "TimePicker",
+      "description": "Accessible 12h/24h time selector with configurable minute step intervals.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/time-picker.tsx",
+          "target": "src/ui/time-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "range-slider",
+      "type": "ui:component",
+      "title": "RangeSlider",
+      "description": "Dual-thumb min/max range slider with live range badge and filled track.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/range-slider.tsx",
+          "target": "src/ui/range-slider.tsx"
+        }
+      ]
+    },
+    {
+      "name": "segmented-control",
+      "type": "ui:component",
+      "title": "SegmentedControl",
+      "description": "Compact radio segmented switcher (e.g., Day/Week/Month) with optional full-width layout.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/segmented-control.tsx",
+          "target": "src/ui/segmented-control.tsx"
+        }
+      ]
+    },
+    {
+      "name": "phone-input",
+      "type": "ui:component",
+      "title": "PhoneInput",
+      "description": "International dial-code selector paired with a national telephone input.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/phone-input.tsx",
+          "target": "src/ui/phone-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "currency-input",
+      "type": "ui:component",
+      "title": "CurrencyInput",
+      "description": "Tabular-numeral monetary input with currency symbol, ISO badge, and blur precision formatting.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/currency-input.tsx",
+          "target": "src/ui/currency-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "mention-input",
+      "type": "ui:component",
+      "title": "MentionInput",
+      "description": "Textarea with live @mention trigger popover for tagging teammates or resources.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/mention-input.tsx",
+          "target": "src/ui/mention-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "type": "ui:component",
+      "title": "Form, FormSection & FormActions",
+      "description": "Structured two-column split or stacked Tailwind UI settings form layout.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/form.tsx",
+          "target": "src/ui/form.tsx"
+        }
+      ]
+    },
+    {
+      "name": "inline-edit",
+      "type": "ui:component",
+      "title": "InlineEdit",
+      "description": "Click-to-edit text control with Enter-to-save, Escape-to-cancel, and pencil affordance.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/inline-edit.tsx",
+          "target": "src/ui/inline-edit.tsx"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "ui:component",
+      "title": "AlertDialog & yield* confirmDestructive()",
+      "description": "High-friction destructive confirmation dialog with optional phrase-typing guard and yield* confirmDestructive().",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "dialog", "button", "input"],
+      "files": [
+        {
+          "path": "src/ui/alert-dialog.tsx",
+          "target": "src/ui/alert-dialog.tsx"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "ui:component",
+      "title": "Spinner & LoadingOverlay",
+      "description": "Accessible SVG Spinner (xs/sm/md/lg) and container-scoped LoadingOverlay scrim.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/spinner.tsx",
+          "target": "src/ui/spinner.tsx"
+        }
+      ]
+    },
+    {
+      "name": "meter",
+      "type": "ui:component",
+      "title": "Meter",
+      "description": "Semantic capacity and quota meter bar with automatic ok/warning/danger color thresholds.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/meter.tsx",
+          "target": "src/ui/meter.tsx"
+        }
+      ]
+    },
+    {
+      "name": "banner-cookie",
+      "type": "ui:component",
+      "title": "ConsentBanner",
+      "description": "Non-intrusive bottom privacy consent banner with Accept All and Essential Only actions.",
+      "dependencies": [],
+      "registryDependencies": ["theme", "button"],
+      "files": [
+        {
+          "path": "src/ui/banner-cookie.tsx",
+          "target": "src/ui/banner-cookie.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tour",
+      "type": "ui:component",
+      "title": "TourCard & yield* runTour()",
+      "description": "Multi-step product onboarding card plus Aster-native yield* runTour() generator flow.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "button"],
+      "files": [
+        {
+          "path": "src/ui/tour.tsx",
+          "target": "src/ui/tour.tsx"
+        }
+      ]
+    },
+    {
+      "name": "command-bar",
+      "type": "ui:component",
+      "title": "FilterBar",
+      "description": "Interactive dashboard and table filter toolbar with search, toggleable filter chips, and reset.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "search-input"],
+      "files": [
+        {
+          "path": "src/ui/command-bar.tsx",
+          "target": "src/ui/command-bar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "type": "ui:component",
+      "title": "NavigationMenu",
+      "description": "Top-level dropdown mega-menu with icon descriptions and keyboard Escape dismissal.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/navigation-menu.tsx",
+          "target": "src/ui/navigation-menu.tsx"
+        }
+      ]
+    },
+    {
+      "name": "back-to-top",
+      "type": "ui:component",
+      "title": "BackToTop",
+      "description": "Scroll-aware floating pill button that appears smoothly past a scroll threshold.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/back-to-top.tsx",
+          "target": "src/ui/back-to-top.tsx"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "ui:component",
+      "title": "Table",
+      "description": "Lightweight composable semantic Table primitives (TableHeader, TableBody, TableRow, TableHead, TableCell).",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/table.tsx",
+          "target": "src/ui/table.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tree-view",
+      "type": "ui:component",
+      "title": "TreeView",
+      "description": "Expandable hierarchical file/folder/org tree with Lucide folder and file indicators.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/tree-view.tsx",
+          "target": "src/ui/tree-view.tsx"
+        }
+      ]
+    },
+    {
+      "name": "kanban",
+      "type": "ui:component",
+      "title": "KanbanBoard",
+      "description": "Multi-column status board with card counters, status badges, and accessible move-column controls.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "badge"],
+      "files": [
+        {
+          "path": "src/ui/kanban.tsx",
+          "target": "src/ui/kanban.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bar-chart",
+      "type": "ui:component",
+      "title": "BarChart",
+      "description": "Zero-dependency responsive SVG bar chart with hover callouts and gridlines.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/bar-chart.tsx",
+          "target": "src/ui/bar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "line-chart",
+      "type": "ui:component",
+      "title": "LineChart & AreaChart",
+      "description": "Zero-dependency responsive SVG line and area charts with interactive data points.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/line-chart.tsx",
+          "target": "src/ui/line-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "donut-chart",
+      "type": "ui:component",
+      "title": "DonutChart",
+      "description": "Zero-dependency SVG donut chart with center KPI total and percentage legend.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/donut-chart.tsx",
+          "target": "src/ui/donut-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sparkline",
+      "type": "ui:component",
+      "title": "Sparkline",
+      "description": "Compact inline SVG trend sparkline for table cells and compact KPI badges.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/sparkline.tsx",
+          "target": "src/ui/sparkline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "calendar-heatmap",
+      "type": "ui:component",
+      "title": "CalendarHeatmap",
+      "description": "Activity and contribution density heatmap grid using OKLCH primary intensity stops.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/calendar-heatmap.tsx",
+          "target": "src/ui/calendar-heatmap.tsx"
+        }
+      ]
+    },
+    {
+      "name": "diff-viewer",
+      "type": "ui:component",
+      "title": "DiffViewer",
+      "description": "Unified code and SQL diff viewer with line numbers and semantic add/delete highlights.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/diff-viewer.tsx",
+          "target": "src/ui/diff-viewer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer",
+      "type": "ui:component",
+      "title": "JsonViewer",
+      "description": "Collapsible syntax-colored JSON tree inspector with configurable initial depth.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/json-viewer.tsx",
+          "target": "src/ui/json-viewer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "status-dot",
+      "type": "ui:component",
+      "title": "StatusDot & UptimeBar",
+      "description": "Pulsing live operational status dot and multi-day service uptime bar strip.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/status-dot.tsx",
+          "target": "src/ui/status-dot.tsx"
+        }
+      ]
+    },
+    {
+      "name": "metric-list",
+      "type": "ui:component",
+      "title": "MetricList",
+      "description": "Ranked horizontal progress bar list for top routes, sources, or error breakdowns.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/metric-list.tsx",
+          "target": "src/ui/metric-list.tsx"
+        }
+      ]
+    },
+    {
+      "name": "chat-message",
+      "type": "ui:component",
+      "title": "ChatMessage & ChatList",
+      "description": "Clean user, assistant, and system chat bubbles with avatar, timestamp, and action slots.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/chat-message.tsx",
+          "target": "src/ui/chat-message.tsx"
+        }
+      ]
+    },
+    {
+      "name": "prompt-input",
+      "type": "ui:component",
+      "title": "PromptInput",
+      "description": "Multi-line AI prompt composer with Enter-to-send, Shift+Enter newline, attachment slot, and stop button.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/prompt-input.tsx",
+          "target": "src/ui/prompt-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "streaming-text",
+      "type": "ui:component",
+      "title": "StreamingText",
+      "description": "Progressive live token stream renderer with blinking cursor caret.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/streaming-text.tsx",
+          "target": "src/ui/streaming-text.tsx"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-block",
+      "type": "ui:component",
+      "title": "ReasoningBlock",
+      "description": "Collapsible chain-of-thought disclosure block with duration label.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/reasoning-block.tsx",
+          "target": "src/ui/reasoning-block.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tool-call-card",
+      "type": "ui:component",
+      "title": "ToolCallCard",
+      "description": "Expandable AI agent tool-invocation card displaying status badge, latency, arguments, and output.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "badge"],
+      "files": [
+        {
+          "path": "src/ui/tool-call-card.tsx",
+          "target": "src/ui/tool-call-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "approval-card",
+      "type": "ui:component",
+      "title": "ApprovalCard & yield* requestApproval()",
+      "description": "@fierst/flow HITL approval card with assignee role, SHA-256 hash, code preview, and yield* requestApproval().",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "badge", "button"],
+      "files": [
+        {
+          "path": "src/ui/approval-card.tsx",
+          "target": "src/ui/approval-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "citation-badge",
+      "type": "ui:component",
+      "title": "CitationBadge & SourceList",
+      "description": "Inline superscript [1] citation chip and footer source link cards.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/citation-badge.tsx",
+          "target": "src/ui/citation-badge.tsx"
+        }
+      ]
+    },
+    {
+      "name": "suggestion-chips",
+      "type": "ui:component",
+      "title": "SuggestionChips",
+      "description": "Starter prompt and quick-reply pill chips for AI interfaces.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon"],
+      "files": [
+        {
+          "path": "src/ui/suggestion-chips.tsx",
+          "target": "src/ui/suggestion-chips.tsx"
+        }
+      ]
+    },
+    {
+      "name": "token-usage",
+      "type": "ui:component",
+      "title": "TokenUsageBar",
+      "description": "Context-window and input/cached/output token breakdown bar.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/token-usage.tsx",
+          "target": "src/ui/token-usage.tsx"
+        }
+      ]
+    },
+    {
+      "name": "workflow-graph",
+      "type": "ui:component",
+      "title": "WorkflowGraph",
+      "description": "Durable @fierst/flow execution step graph visualizing done, replayed, running, waiting, and failed nodes.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "badge"],
+      "files": [
+        {
+          "path": "src/ui/workflow-graph.tsx",
+          "target": "src/ui/workflow-graph.tsx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "hover-card",
+  "type": "ui:component",
+  "title": "HoverCard",
+  "description": "Rich hover/focus preview card with open/close delays, Escape dismiss, and try/finally timer cleanup.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/hover-card.tsx",
+      "target": "src/ui/hover-card.tsx",
+      "sha256": "4dab03df4aaa2ee6b814356040657d598840b39402081cec7c62cfd26d08bcef",
+      "content": "import { scope, type Ctx, type View } from '@fierst/aster';\n\nconst hcScope = scope`\n  :scope {\n    position: relative;\n    display: inline-flex;\n    align-items: center;\n  }\n  .hc-card {\n    position: absolute;\n    z-index: 50;\n    left: 0;\n    top: calc(100% + 8px);\n    width: min(300px, calc(100vw - 2rem));\n    padding: 0.9rem;\n    border-radius: var(--aster-radius-lg);\n    font-family: var(--aster-font-sans);\n    opacity: 0;\n    transform: translateY(-4px) scale(0.98);\n    pointer-events: none;\n    transition:\n      opacity var(--aster-dur-fast) var(--aster-ease-standard),\n      transform var(--aster-dur-fast) var(--aster-ease-motion);\n  }\n  .hc-card.side-top {\n    top: auto;\n    bottom: calc(100% + 8px);\n    transform: translateY(4px) scale(0.98);\n  }\n  .hc-card.align-end { left: auto; right: 0; }\n  .hc-card.is-open {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n    pointer-events: auto;\n  }\n`;\n\nexport function* HoverCard(\n  props: {\n    trigger: View;\n    side?: 'bottom' | 'top';\n    align?: 'start' | 'end';\n    openDelay?: number;\n    closeDelay?: number;\n    class?: string;\n    children?: View;\n  },\n  ctx: Ctx,\n) {\n  let open = false;\n  let openTimer: ReturnType<typeof setTimeout> | null = null;\n  let closeTimer: ReturnType<typeof setTimeout> | null = null;\n\n  const clearAll = () => {\n    if (openTimer) { clearTimeout(openTimer); openTimer = null; }\n    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }\n  };\n\n  const scheduleOpen = () => {\n    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }\n    if (open) return;\n    openTimer = setTimeout(() => {\n      open = true;\n      ctx.refresh();\n    }, props.openDelay ?? 180);\n  };\n\n  const scheduleClose = () => {\n    if (openTimer) { clearTimeout(openTimer); openTimer = null; }\n    closeTimer = setTimeout(() => {\n      open = false;\n      ctx.refresh();\n    }, props.closeDelay ?? 140);\n  };\n\n  try {\n    for (props of ctx) {\n      yield (\n        <span\n          class={[hcScope, props.class].filter(Boolean).join(' ')}\n          on:pointerenter={scheduleOpen}\n          on:pointerleave={scheduleClose}\n          onFocus={scheduleOpen}\n          onBlur={scheduleClose}\n          onKeyDown={(e: KeyboardEvent) => {\n            if (e.key === 'Escape') {\n              clearAll();\n              open = false;\n            }\n          }}\n        >\n          {props.trigger}\n          <div\n            role=\"dialog\"\n            class={[\n              'aster-surface-popover',\n              'hc-card',\n              props.side === 'top' ? 'side-top' : '',\n              props.align === 'end' ? 'align-end' : '',\n            ]\n              .filter(Boolean)\n              .join(' ')}\n            class:is-open={open}\n          >\n            {props.children}\n          </div>\n        </span>\n      );\n    }\n  } finally {\n    clearAll();\n  }\n}\n"
+    }
+  ]
+}

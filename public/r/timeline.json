@@ -1,0 +1,21 @@
+{
+  "name": "timeline",
+  "type": "ui:component",
+  "title": "Timeline",
+  "description": "Chronological activity feed and audit trail with status markers, Lucide icons, and monospace timestamps.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "src/ui/timeline.tsx",
+      "target": "src/ui/timeline.tsx",
+      "sha256": "6d3fed720c7b89005bad0e02e2cbaa83101c54ea1eafb5f010b44f1666f7b4a6",
+      "content": "import { scope, type View } from '@fierst/aster';\nimport { Icon, type LucideIconInput } from './icon.tsx';\n\nconst tlScope = scope`\n  :scope {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: grid;\n    font-family: var(--aster-font-sans);\n  }\n  .tl-item {\n    position: relative;\n    display: flex;\n    gap: 0.85rem;\n    padding-bottom: 1.15rem;\n  }\n  .tl-item:last-child { padding-bottom: 0; }\n  .tl-item:not(:last-child)::before {\n    content: '';\n    position: absolute;\n    left: 13px;\n    top: 28px;\n    bottom: 0;\n    width: 1px;\n    background: var(--aster-border);\n  }\n  .tl-marker {\n    width: 28px;\n    height: 28px;\n    border-radius: 9999px;\n    border: 1px solid var(--aster-border);\n    background: var(--aster-surface);\n    color: var(--aster-on-surface-muted);\n    display: inline-grid;\n    place-items: center;\n    flex-shrink: 0;\n    position: relative;\n    z-index: 1;\n  }\n  .tl-marker.t-primary { background: var(--aster-primary-subtle); border-color: var(--aster-primary-border); color: var(--aster-on-primary-subtle); }\n  .tl-marker.t-success { background: var(--aster-success-subtle); border-color: var(--aster-success-border); color: var(--aster-on-success-subtle); }\n  .tl-marker.t-warning { background: var(--aster-warning-subtle); border-color: var(--aster-warning-border); color: var(--aster-on-warning-subtle); }\n  .tl-marker.t-danger { background: var(--aster-danger-subtle); border-color: var(--aster-danger-border); color: var(--aster-on-danger-subtle); }\n  .tl-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }\n  .tl-body { flex: 1; min-width: 0; display: grid; gap: 0.18rem; padding-top: 0.15rem; }\n  .tl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }\n  .tl-title { font-size: 0.875rem; font-weight: 550; color: var(--aster-on-surface); }\n  .tl-time { font-size: 0.75rem; font-family: var(--aster-font-mono); color: var(--aster-on-surface-subtle); }\n  .tl-desc { font-size: 0.82rem; color: var(--aster-on-surface-muted); line-height: 1.45; }\n`;\n\nexport interface TimelineItem {\n  id: string;\n  title: string;\n  timestamp?: string;\n  description?: View;\n  icon?: LucideIconInput;\n  tone?: 'neutral' | 'primary' | 'success' | 'warning' | 'danger';\n}\n\nexport function Timeline({\n  items,\n  class: extraClass,\n}: {\n  items: readonly TimelineItem[];\n  class?: string;\n}) {\n  return (\n    <ol class={[tlScope, extraClass].filter(Boolean).join(' ')}>\n      {items.map((item) => (\n        <li key={item.id} class=\"tl-item\">\n          <span class={`tl-marker t-${item.tone ?? 'neutral'}`} aria-hidden=\"true\">\n            {item.icon ? <Icon icon={item.icon} size={14} /> : <span class=\"tl-dot\" />}\n          </span>\n          <div class=\"tl-body\">\n            <div class=\"tl-head\">\n              <span class=\"tl-title\">{item.title}</span>\n              {item.timestamp ? <time class=\"tl-time\">{item.timestamp}</time> : null}\n            </div>\n            {item.description ? <div class=\"tl-desc\">{item.description}</div> : null}\n          </div>\n        </li>\n      ))}\n    </ol>\n  );\n}\n"
+    }
+  ]
+}

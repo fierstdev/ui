@@ -1,0 +1,21 @@
+{
+  "name": "spinner",
+  "type": "ui:component",
+  "title": "Spinner & LoadingOverlay",
+  "description": "Accessible SVG Spinner (xs/sm/md/lg) and container-scoped LoadingOverlay scrim.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "src/ui/spinner.tsx",
+      "target": "src/ui/spinner.tsx",
+      "sha256": "a7e2b499570e56dec676db5547c3822aaa3761753fe1fd2f7128da73d6ee7068",
+      "content": "import { LoaderCircle } from '@lucide/icons';\nimport { scope, type View } from '@fierst/aster';\nimport { Icon } from './icon.tsx';\n\nconst spinScope = scope`\n  :scope {\n    display: inline-flex;\n    align-items: center;\n    gap: 0.45rem;\n    color: var(--aster-on-surface-muted);\n    font-family: var(--aster-font-sans);\n    font-size: 0.84rem;\n  }\n`;\n\nconst overlayScope = scope`\n  :scope { position: relative; min-width: 0; }\n  .lo-scrim {\n    position: absolute;\n    inset: 0;\n    z-index: 10;\n    display: grid;\n    place-items: center;\n    background: color-mix(in srgb, var(--aster-surface) 78%, transparent);\n    border-radius: inherit;\n  }\n`;\n\nconst SIZES = { xs: 13, sm: 16, md: 20, lg: 28 };\n\nexport function Spinner({\n  size = 'md',\n  label,\n  class: extraClass,\n}: {\n  size?: 'xs' | 'sm' | 'md' | 'lg';\n  label?: string;\n  class?: string;\n}) {\n  return (\n    <span role=\"status\" aria-live=\"polite\" class={[spinScope, extraClass].filter(Boolean).join(' ')}>\n      <Icon icon={LoaderCircle} size={SIZES[size]} spin />\n      {label ? <span>{label}</span> : null}\n    </span>\n  );\n}\n\nexport function LoadingOverlay({\n  loading,\n  label = 'Loading\u2026',\n  class: extraClass,\n  children,\n}: {\n  loading: boolean;\n  label?: string;\n  class?: string;\n  children?: View;\n}) {\n  return (\n    <div class={[overlayScope, extraClass].filter(Boolean).join(' ')} aria-busy={loading}>\n      {children}\n      {loading ? (\n        <div class=\"lo-scrim\">\n          <Spinner size=\"md\" label={label} />\n        </div>\n      ) : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

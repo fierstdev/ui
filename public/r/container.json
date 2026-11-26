@@ -1,0 +1,18 @@
+{
+  "name": "container",
+  "type": "ui:component",
+  "title": "Container, Stack & Cluster",
+  "description": "Responsive page Container (sm/md/lg/xl/full) plus vertical Stack and wrapping Cluster layout primitives.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/container.tsx",
+      "target": "src/ui/container.tsx",
+      "sha256": "07dfcc85544f0285ec14ac2f5abbe77a53014d371f46feb9bc53b8c65b599f52",
+      "content": "import { scope, type View } from '@fierst/aster';\n\nconst containerScope = scope`\n  :scope {\n    width: 100%;\n    margin-left: auto;\n    margin-right: auto;\n    padding-left: 1rem;\n    padding-right: 1rem;\n  }\n  @media (min-width: 640px) {\n    :scope { padding-left: 1.5rem; padding-right: 1.5rem; }\n  }\n  :scope.mw-sm { max-width: 640px; }\n  :scope.mw-md { max-width: 768px; }\n  :scope.mw-lg { max-width: 1024px; }\n  :scope.mw-xl { max-width: 1280px; }\n  :scope.mw-full { max-width: none; }\n`;\n\nconst stackScope = scope`\n  :scope { display: flex; flex-direction: column; min-width: 0; }\n`;\n\nconst clusterScope = scope`\n  :scope { display: flex; flex-wrap: wrap; align-items: center; min-width: 0; }\n`;\n\nexport function Container({\n  size = 'xl',\n  class: extraClass,\n  children,\n}: {\n  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';\n  class?: string;\n  children?: View;\n}) {\n  return <div class={[containerScope, `mw-${size}`, extraClass].filter(Boolean).join(' ')}>{children}</div>;\n}\n\nexport function Stack({\n  gap = '0.85rem',\n  align,\n  class: extraClass,\n  children,\n}: {\n  gap?: string;\n  align?: 'stretch' | 'flex-start' | 'center' | 'flex-end';\n  class?: string;\n  children?: View;\n}) {\n  return (\n    <div\n      class={[stackScope, extraClass].filter(Boolean).join(' ')}\n      style={{ gap, alignItems: align }}\n    >\n      {children}\n    </div>\n  );\n}\n\nexport function Cluster({\n  gap = '0.5rem',\n  justify,\n  align = 'center',\n  class: extraClass,\n  children,\n}: {\n  gap?: string;\n  justify?: 'flex-start' | 'center' | 'flex-end' | 'space-between';\n  align?: 'flex-start' | 'center' | 'flex-end' | 'baseline';\n  class?: string;\n  children?: View;\n}) {\n  return (\n    <div\n      class={[clusterScope, extraClass].filter(Boolean).join(' ')}\n      style={{ gap, justifyContent: justify, alignItems: align }}\n    >\n      {children}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

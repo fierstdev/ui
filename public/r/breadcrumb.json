@@ -1,0 +1,21 @@
+{
+  "name": "breadcrumb",
+  "type": "ui:component",
+  "title": "Breadcrumb",
+  "description": "Horizontally scrollable semantic breadcrumb trail with Lucide chevrons and plain <a href> links.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon"
+  ],
+  "files": [
+    {
+      "path": "src/ui/breadcrumb.tsx",
+      "target": "src/ui/breadcrumb.tsx",
+      "sha256": "5450a6d1f3c373712aa5097f4223ad6ea46f21f7acf7ff7785d1ebb753ae062f",
+      "content": "import { ChevronRight } from '@lucide/icons';\nimport { scope } from '@fierst/aster';\nimport { Icon } from './icon.tsx';\n\nconst bcScope = scope`\n  :scope {\n    font-family: var(--aster-font-sans);\n    font-size: 0.86rem;\n    max-width: 100%;\n    overflow-x: auto;\n    scrollbar-width: none;\n    -webkit-overflow-scrolling: touch;\n  }\n  :scope::-webkit-scrollbar { display: none; }\n  ol {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    display: inline-flex;\n    align-items: center;\n    gap: 0.25rem;\n    white-space: nowrap;\n  }\n  li {\n    display: inline-flex;\n    align-items: center;\n    gap: 0.25rem;\n  }\n  a {\n    color: var(--aster-on-surface-variant);\n    text-decoration: none;\n    padding: 0.22rem 0.45rem;\n    border-radius: var(--aster-radius-xs);\n    transition: background var(--aster-dur-fast) var(--aster-ease-standard), color var(--aster-dur-fast);\n  }\n  a:hover {\n    background: var(--aster-surface-low);\n    color: var(--aster-on-surface);\n  }\n  a:focus-visible { outline: none; box-shadow: var(--aster-focus-ring); }\n  .current {\n    color: var(--aster-on-surface);\n    font-weight: 600;\n    padding: 0.22rem 0.45rem;\n  }\n  .sep {\n    color: var(--aster-outline);\n    display: inline-flex;\n    align-items: center;\n  }\n`;\n\nexport interface BreadcrumbItem {\n  label: string;\n  href?: string;\n  onClick?: (e: MouseEvent) => void;\n}\n\nexport function Breadcrumb({\n  items,\n  label = 'Breadcrumb',\n  class: extraClass,\n}: {\n  items: readonly BreadcrumbItem[];\n  label?: string;\n  class?: string;\n}) {\n  return (\n    <nav aria-label={label} class={[bcScope, extraClass].filter(Boolean).join(' ')}>\n      <ol>\n        {items.map((item, idx) => {\n          const isLast = idx === items.length - 1;\n          return (\n            <li key={`${item.label}-${idx}`}>\n              {idx > 0 ? (\n                <span class=\"sep\" aria-hidden=\"true\">\n                  <Icon icon={ChevronRight} size={14} />\n                </span>\n              ) : null}\n              {isLast || !item.href ? (\n                <span class=\"current\" aria-current={isLast ? 'page' : undefined}>\n                  {item.label}\n                </span>\n              ) : (\n                <a href={item.href} onClick={item.onClick}>\n                  {item.label}\n                </a>\n              )}\n            </li>\n          );\n        })}\n      </ol>\n    </nav>\n  );\n}\n"
+    }
+  ]
+}

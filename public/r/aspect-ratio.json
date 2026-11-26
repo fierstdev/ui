@@ -1,0 +1,18 @@
+{
+  "name": "aspect-ratio",
+  "type": "ui:component",
+  "title": "AspectRatio",
+  "description": "Native CSS aspect-ratio media wrapper for images, videos, and embeds.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/aspect-ratio.tsx",
+      "target": "src/ui/aspect-ratio.tsx",
+      "sha256": "c6d6895920c8dc81b960a6c216c1e811348a4989cafdcac94a57893a04aafa96",
+      "content": "import { scope, type View } from '@fierst/aster';\n\nconst arScope = scope`\n  :scope {\n    position: relative;\n    width: 100%;\n    overflow: hidden;\n    border-radius: var(--aster-radius-md);\n    background: var(--aster-surface-muted);\n  }\n  :scope > img,\n  :scope > video,\n  :scope > iframe {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    display: block;\n    border: none;\n  }\n`;\n\nexport function AspectRatio({\n  ratio = 16 / 9,\n  class: extraClass,\n  children,\n}: {\n  ratio?: number | string;\n  class?: string;\n  children?: View;\n}) {\n  return (\n    <div\n      class={[arScope, extraClass].filter(Boolean).join(' ')}\n      style={{ aspectRatio: String(ratio) }}\n    >\n      {children}\n    </div>\n  );\n}\n"
+    }
+  ]
+}
