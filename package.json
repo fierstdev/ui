@@ -33,11 +33,12 @@
     "check": "vp check"
   },
   "dependencies": {
-    "@types/node": "^26.6.10"
   },
+  
   "devDependencies": {
     "@fierst/aster": "^1.0.0-alpha.2",
     "@lucide/icons": "^1.77.0",
+    "@types/node": "^26.6.10",
     "vite-plus": "^1.0.0"
   },
   "engines": {
