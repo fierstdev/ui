@@ -13,8 +13,7 @@
     "url": "https://github.com/fierstdev/ui.git"
   },
   "bin": {
-    "aster-ui": "./bin/aster-ui.mjs",
-    "asterui": "./bin/aster-ui.mjs"
+    "aster-ui": "./bin/aster-ui.mjs"
   },
   "files": [
     "bin",
