@@ -49,7 +49,7 @@ const srchScope = scope`
     border-radius: var(--aster-radius-xs);
     border: 1px solid var(--aster-border);
     background: var(--aster-surface-muted);
-    color: var(--aster-on-surface-subtle);
+    color: var(--aster-on-surface-muted);
   }
 `;
 

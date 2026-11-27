@@ -1,3 +1,4 @@
+import { navigateMenu } from './theme.ts';
 import { scope, type Ctx, type View } from '@fierst/aster';
 
 const cmScope = scope`
@@ -58,6 +59,7 @@ export function* ContextMenu(
   ctx: Ctx,
 ) {
   let open = false;
+  let root: HTMLElement | null = null;
   let x = 0;
   let y = 0;
 
@@ -72,7 +74,10 @@ export function* ContextMenu(
     window.addEventListener(
       'keydown',
       (e: KeyboardEvent) => {
-        if (e.key === 'Escape') dismiss();
+        if (open && e.key === 'Escape') {
+          dismiss();
+          root?.focus();
+        }
       },
       { signal: ctx.signal },
     );
@@ -91,14 +96,36 @@ export function* ContextMenu(
       x = Math.max(8, Math.min((e as MouseEvent).clientX, vw - 220));
       y = Math.max(8, Math.min((e as MouseEvent).clientY, vh - 240));
       open = true;
+      queueMicrotask(() =>
+        root?.querySelector<HTMLButtonElement>('[role="menuitem"]:enabled')?.focus(),
+      );
     };
 
     yield (
-      <div class={[cmScope, props.class].filter(Boolean).join(' ')} on:contextmenu={onContext}>
+      <div
+        class={[cmScope, props.class].filter(Boolean).join(' ')}
+        ref={(el: HTMLElement) => (root = el)}
+        tabIndex={0}
+        on:contextmenu={onContext}
+        onKeyDown={(e: KeyboardEvent) => {
+          if (e.key === 'ContextMenu' || (e.shiftKey && e.key === 'F10')) {
+            e.preventDefault();
+            const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+            x = Math.max(8, Math.min(rect.left, window.innerWidth - 220));
+            y = Math.max(8, Math.min(rect.bottom, window.innerHeight - 240));
+            open = true;
+            queueMicrotask(() =>
+              root?.querySelector<HTMLButtonElement>('[role="menuitem"]:enabled')?.focus(),
+            );
+          }
+        }}
+      >
         {props.children}
         {open ? (
           <div
             role="menu"
+            aria-label="Actions"
+            onKeyDown={navigateMenu}
             class="aster-surface-popover cm-panel"
             style={{ left: `${x}px`, top: `${y}px` }}
             on:pointerdown={(e: Event) => e.stopPropagation()}
@@ -114,6 +141,7 @@ export function* ContextMenu(
                   class:is-danger={Boolean(item.danger)}
                   onClick={() => {
                     open = false;
+                    root?.focus();
                     item.onSelect();
                   }}
                 >

@@ -108,7 +108,7 @@ export function* JsonViewer(
         return (
           <div key={path}>
             <div class="jv-row">
-              <button type="button" class="jv-tog" onClick={toggle}>
+              <button type="button" class="jv-tog" aria-expanded={isOpen} onClick={toggle}>
                 <span class="jv-chev" class:is-open={isOpen}>
                   <Icon icon={ChevronRight} size={12} />
                 </span>
@@ -121,7 +121,12 @@ export function* JsonViewer(
             {isOpen ? (
               <div class="jv-children">
                 {entries.map(([k, v]) =>
-                  renderVal(v, `${path}.${k}`, depth + 1, isArr ? undefined : k),
+                  renderVal(
+                    v,
+                    `${path}/${encodeURIComponent(k)}`,
+                    depth + 1,
+                    isArr ? undefined : k,
+                  ),
                 )}
               </div>
             ) : null}

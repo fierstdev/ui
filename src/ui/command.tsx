@@ -285,6 +285,9 @@ export function* CommandPalette(
           <input
             ref={(el: HTMLInputElement) => (inputEl = el)}
             type="text"
+            role="combobox"
+            aria-expanded={isOpen}
+            aria-autocomplete="list"
             class="cmd-input"
             bind:value={query}
             placeholder={props.placeholder ?? 'Type a command or search…'}
@@ -306,7 +309,7 @@ export function* CommandPalette(
           </button>
         </div>
 
-        <div id={`${uid}-list`} class="cmd-list" role="listbox">
+        <div id={`${uid}-list`} class="cmd-list" role="listbox" aria-label="Commands">
           {matches.length === 0 ? (
             <div class="cmd-empty">No commands matching "{query}".</div>
           ) : (

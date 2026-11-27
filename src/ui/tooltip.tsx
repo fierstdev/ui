@@ -97,8 +97,8 @@ export function* Tooltip(
           aria-describedby={open ? tipId : undefined}
           on:pointerenter={show}
           on:pointerleave={hide}
-          onFocus={show}
-          onBlur={hide}
+          on:focusin={show}
+          on:focusout={hide}
           onKeyDown={(e: KeyboardEvent) => {
             if (e.key === 'Escape') hide();
           }}

@@ -52,9 +52,9 @@ export function* Rating(
   let hovered = 0;
 
   for (props of ctx) {
-    const max = props.max ?? 5;
+    const max = Math.max(1, Math.trunc(props.max ?? 5));
     const isControlled = props.value !== undefined;
-    const current = isControlled ? props.value! : internal;
+    const current = Math.max(0, Math.min(max, Math.round(isControlled ? props.value! : internal)));
     const display = hovered || current;
 
     const select = (n: number) => {
@@ -65,12 +65,16 @@ export function* Rating(
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (props.readOnly) return;
+      const focusRating = (next: number) => {
+        select(next);
+        (e.currentTarget as HTMLElement).querySelectorAll('button')[next - 1]?.focus();
+      };
       if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
         e.preventDefault();
-        select(Math.min(max, current + 1));
+        focusRating(current >= max ? 1 : current + 1);
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
         e.preventDefault();
-        select(Math.max(1, current - 1));
+        focusRating(current <= 1 ? max : current - 1);
       }
     };
 
@@ -89,6 +93,7 @@ export function* Rating(
               key={n}
               type="button"
               role="radio"
+              tabIndex={n === (current || 1) ? 0 : -1}
               aria-checked={n === current}
               aria-label={`${n} of ${max} stars`}
               disabled={props.readOnly}

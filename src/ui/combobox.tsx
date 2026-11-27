@@ -79,12 +79,17 @@ export function* Combobox(
   const uid = `aster-cb-${++cbSeq}`;
   let internal = props.defaultValue ?? '';
   let query = props.value ?? props.defaultValue ?? '';
+  let lastValue = props.value;
   let open = false;
   let hiIdx = 0;
 
   for (props of ctx) {
     const isControlled = props.value !== undefined;
     const current = isControlled ? props.value! : internal;
+    if (props.value !== lastValue) {
+      query = current;
+      lastValue = props.value;
+    }
     const q = query.trim().toLowerCase();
     const matches = q
       ? props.options.filter((o) => o.toLowerCase().includes(q))
@@ -130,35 +135,38 @@ export function* Combobox(
           id={uid}
           type="text"
           role="combobox"
-          aria-expanded={open}
-          aria-controls={`${uid}-list`}
+          aria-expanded={open && total > 0}
+          aria-label={props.label ?? props.placeholder ?? 'Choose an option'}
+          aria-autocomplete="list"
+          aria-activedescendant={open && total > 0 ? `${uid}-option-${hiIdx}` : undefined}
+          aria-controls={open && total > 0 ? `${uid}-list` : undefined}
           autocomplete="off"
           class="cb-input"
           placeholder={props.placeholder ?? 'Search or type…'}
           bind:value={query}
           onFocus={() => (open = true)}
-          onBlur={() =>
-            setTimeout(() => {
-              open = false;
-              ctx.refresh();
-            }, 130)
-          }
+          onBlur={() => (open = false)}
           onKeyDown={onKeyDown}
         />
         {open && total > 0 ? (
-          <div id={`${uid}-list`} role="listbox" class="aster-surface-popover cb-menu">
+          <div
+            id={`${uid}-list`}
+            role="listbox"
+            aria-label={props.label ?? 'Options'}
+            class="aster-surface-popover cb-menu"
+          >
             {matches.map((opt, idx) => (
               <button
                 key={opt}
+                id={`${uid}-option-${idx}`}
+                tabIndex={-1}
                 type="button"
                 role="option"
                 aria-selected={opt === current}
                 class="cb-opt"
                 class:is-hi={idx === hiIdx}
-                on:mousedown={(e: Event) => {
-                  e.preventDefault();
-                  pick(opt);
-                }}
+                on:mousedown={(e: Event) => e.preventDefault()}
+                onClick={() => pick(opt)}
               >
                 <span>{opt}</span>
                 {opt === current ? (
@@ -171,11 +179,12 @@ export function* Combobox(
                 type="button"
                 role="option"
                 class="cb-opt cb-create"
+                id={`${uid}-option-${matches.length}`}
+                tabIndex={-1}
+                aria-selected={false}
                 class:is-hi={hiIdx === matches.length}
-                on:mousedown={(e: Event) => {
-                  e.preventDefault();
-                  pick(query.trim());
-                }}
+                on:mousedown={(e: Event) => e.preventDefault()}
+                onClick={() => pick(query.trim())}
               >
                 <span style="display:inline-flex; align-items:center; gap:0.35rem">
                   <Icon icon={Plus} size={14} />

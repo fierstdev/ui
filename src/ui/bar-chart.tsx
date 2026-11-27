@@ -39,7 +39,10 @@ export function* BarChart(
     const padB = 24;
     const padT = 12;
     const plotH = h - padB - padT;
-    const maxVal = Math.max(...props.data.map((d) => d.value), 1);
+    const maxVal = props.data.reduce((max, d) => Math.max(max, d.value), 0);
+    const minVal = props.data.reduce((min, d) => Math.min(min, d.value), 0);
+    const scale = plotH / (maxVal - minVal || 1);
+    const baseline = padT + maxVal * scale;
     const n = Math.max(1, props.data.length);
     const slotW = w / n;
     const barW = Math.min(38, slotW * 0.62);
@@ -61,21 +64,24 @@ export function* BarChart(
           aria-label={props.label ?? 'Bar chart'}
           on:pointerleave={() => (hoveredIdx = -1)}
         >
+          <desc>
+            {props.data.map((d) => d.label + ': ' + d.value + (props.unit ?? '')).join(', ')}
+          </desc>
           {[0.25, 0.5, 0.75, 1].map((t) => {
             const y = padT + plotH * (1 - t);
             return <line key={t} class="grid-line" x1="0" y1={y} x2={w} y2={y} />;
           })}
           {props.data.map((d, idx) => {
-            const bh = (d.value / maxVal) * plotH;
+            const bh = Math.abs(d.value) * scale;
             const x = idx * slotW + (slotW - barW) / 2;
-            const y = padT + plotH - bh;
+            const y = d.value > 0 ? baseline - bh : baseline;
             return (
               <g key={d.label} on:pointerenter={() => (hoveredIdx = idx)}>
                 <rect
                   x={x}
                   y={y}
                   width={barW}
-                  height={Math.max(2, bh)}
+                  height={bh}
                   rx="4"
                   class="bar-rect"
                   class:is-dim={hoveredIdx >= 0 && hoveredIdx !== idx}

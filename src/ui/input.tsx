@@ -94,7 +94,14 @@ export function Input({
       ) : null}
       <div class="control-wrap" class:is-invalid={Boolean(error)}>
         {leading ? <span class="adorn">{leading}</span> : null}
-        <input {...rest} id={inputId} aria-invalid={Boolean(error)} aria-describedby={descId} />
+        <input
+          {...rest}
+          id={inputId}
+          aria-invalid={error ? true : rest['aria-invalid']}
+          aria-describedby={
+            [rest['aria-describedby'], descId].filter(Boolean).join(' ') || undefined
+          }
+        />
         {trailing ? <span class="adorn">{trailing}</span> : null}
       </div>
       {error ? (
@@ -135,7 +142,14 @@ export function Textarea({
         </label>
       ) : null}
       <div class="control-wrap" class:is-invalid={Boolean(error)}>
-        <textarea {...rest} id={inputId} aria-invalid={Boolean(error)} aria-describedby={descId} />
+        <textarea
+          {...rest}
+          id={inputId}
+          aria-invalid={error ? true : rest['aria-invalid']}
+          aria-describedby={
+            [rest['aria-describedby'], descId].filter(Boolean).join(' ') || undefined
+          }
+        />
       </div>
       {error ? (
         <span id={descId} class="field-error" role="alert">

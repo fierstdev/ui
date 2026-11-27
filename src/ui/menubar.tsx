@@ -1,3 +1,4 @@
+import { navigateMenu } from './theme.ts';
 import { scope, type Ctx } from '@fierst/aster';
 
 const mbScope = scope`
@@ -102,7 +103,14 @@ export function* Menubar(
     window.addEventListener(
       'keydown',
       (e: KeyboardEvent) => {
-        if (e.key === 'Escape') close();
+        if (openId !== null && e.key === 'Escape') {
+          (
+            document.activeElement
+              ?.closest('.mb-group')
+              ?.querySelector('.mb-trigger') as HTMLElement | null
+          )?.focus();
+          close();
+        }
       },
       { signal: ctx.signal },
     );
@@ -128,6 +136,32 @@ export function* Menubar(
                 class="mb-trigger"
                 class:is-open={isOpen}
                 onClick={() => (openId = isOpen ? null : menu.id)}
+                onKeyDown={(e: KeyboardEvent) => {
+                  const trigger = e.currentTarget as HTMLButtonElement;
+                  if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    openId = menu.id;
+                    queueMicrotask(() =>
+                      trigger.parentElement
+                        ?.querySelector<HTMLButtonElement>('.mb-item:enabled')
+                        ?.focus(),
+                    );
+                  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    const triggers = Array.from(
+                      trigger
+                        .closest('[role="menubar"]')!
+                        .querySelectorAll<HTMLButtonElement>('.mb-trigger'),
+                    );
+                    const next =
+                      (triggers.indexOf(trigger) +
+                        (e.key === 'ArrowRight' ? 1 : -1) +
+                        triggers.length) %
+                      triggers.length;
+                    openId = null;
+                    triggers[next].focus();
+                  }
+                }}
                 onMouseEnter={() => {
                   if (openId !== null && openId !== menu.id) openId = menu.id;
                 }}
@@ -135,7 +169,12 @@ export function* Menubar(
                 {menu.label}
               </button>
               {isOpen ? (
-                <div role="menu" class="aster-surface-popover mb-menu">
+                <div
+                  role="menu"
+                  aria-label={menu.label}
+                  onKeyDown={navigateMenu}
+                  class="aster-surface-popover mb-menu"
+                >
                   {menu.items.map((item) => (
                     <div key={item.id}>
                       {item.separatorBefore ? <div class="mb-sep" role="separator" /> : null}

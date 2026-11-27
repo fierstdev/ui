@@ -104,7 +104,7 @@ export function* PromptInput(
           value={current}
           onInput={(e: Event) => setVal((e.target as HTMLTextAreaElement).value)}
           onKeyDown={(e: KeyboardEvent) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
+            if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
               e.preventDefault();
               submit();
             }

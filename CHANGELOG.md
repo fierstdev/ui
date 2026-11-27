@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0] - 2026-11-27
+
+- Tested the 104-item registry against Aster 1.0. Each item has an isolated installer check, with server-render coverage for all 103 component modules and initialization coverage for the shared theme.
+- Improved desktop and mobile contrast, keyboard navigation, dialog naming, confirmation reset, file selection, and screen-reader state for form controls.
+- Corrected chart totals and range indicators at their boundaries, clipboard failure handling, and registry dependency resolution.
+- Added Chromium accessibility and interaction checks to CI and the release workflow.
+
 ## [1.0.0-alpha.1] - 2026-11-25
 
 Initial **104-component** release of **AsterUI** (`@fierst/ui`) — code-owned, consensus-driven UI components for Aster powered by crisp opaque surfaces, single-seed OKLCH theming (`zinc`, `blue`, `emerald`, `violet`, `rose`, `amber`), sensible micro-animations, and `@lucide/icons`.

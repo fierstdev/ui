@@ -11,6 +11,8 @@ Built around crisp opaque surfaces, `1px` hairline borders, single-seed OKLCH th
 
 ## Quick Start
 
+Use an Aster 1.0 project with Node.js 20.19 or later. Existing installations own their component files. To adopt the 1.0 changes, compare the new registry sources with your local customizations before using `--force`.
+
 ```bash
 vp dlx @fierst/ui init
 vp add @lucide/icons

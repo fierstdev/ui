@@ -174,7 +174,7 @@
     color-scheme: dark;
     --aster-primary: #3b82f6;
     --aster-primary-hover: #60a5fa;
-    --aster-on-primary: #ffffff;
+    --aster-on-primary: #09090b;
     --aster-primary-subtle: #172554;
     --aster-on-primary-subtle: #bfdbfe;
     --aster-primary-border: #1e3a8a;
@@ -185,7 +185,7 @@
     --aster-surface-accent: #27272a;
     --aster-on-surface: #fafafa;
     --aster-on-surface-muted: #a1a1aa;
-    --aster-on-surface-subtle: #71717a;
+    --aster-on-surface-subtle: #9999a3;
 
     --aster-border: #27272a;
     --aster-border-strong: #3f3f46;
@@ -206,7 +206,7 @@
 
     --aster-danger: #ef4444;
     --aster-danger-hover: #f87171;
-    --aster-on-danger: #ffffff;
+    --aster-on-danger: #09090b;
     --aster-danger-subtle: #2f0d0d;
     --aster-on-danger-subtle: #fecaca;
     --aster-danger-border: #7f1d1d;
@@ -224,7 +224,7 @@
       --aster-primary-hover: oklch(
         0.71 calc(var(--aster-seed-chroma) * 0.92) var(--aster-seed-hue)
       );
-      --aster-on-primary: oklch(0.99 0.002 var(--aster-seed-hue));
+      --aster-on-primary: oklch(0.12 0.002 var(--aster-seed-hue));
       --aster-primary-subtle: oklch(
         0.24 calc(var(--aster-seed-chroma) * 0.38) var(--aster-seed-hue)
       );
@@ -241,7 +241,7 @@
       --aster-surface-accent: oklch(0.255 var(--aster-neutral-tint) var(--aster-seed-hue));
       --aster-on-surface: oklch(0.975 0.003 var(--aster-seed-hue));
       --aster-on-surface-muted: oklch(0.7 0.008 var(--aster-seed-hue));
-      --aster-on-surface-subtle: oklch(0.55 0.008 var(--aster-seed-hue));
+      --aster-on-surface-subtle: oklch(0.66 0.008 var(--aster-seed-hue));
       --aster-border: oklch(0.265 0.006 var(--aster-seed-hue));
       --aster-border-strong: oklch(0.36 0.008 var(--aster-seed-hue));
       --aster-input-border: oklch(0.3 0.008 var(--aster-seed-hue));
@@ -264,7 +264,7 @@
       color-scheme: dark;
       --aster-primary: #3b82f6;
       --aster-primary-hover: #60a5fa;
-      --aster-on-primary: #ffffff;
+      --aster-on-primary: #09090b;
       --aster-primary-subtle: #172554;
       --aster-on-primary-subtle: #bfdbfe;
       --aster-primary-border: #1e3a8a;
@@ -274,7 +274,7 @@
       --aster-surface-accent: #27272a;
       --aster-on-surface: #fafafa;
       --aster-on-surface-muted: #a1a1aa;
-      --aster-on-surface-subtle: #71717a;
+      --aster-on-surface-subtle: #9999a3;
       --aster-border: #27272a;
       --aster-border-strong: #3f3f46;
       --aster-input-border: #303036;
@@ -290,7 +290,7 @@
       --aster-warning-border: #78350f;
       --aster-danger: #ef4444;
       --aster-danger-hover: #f87171;
-      --aster-on-danger: #ffffff;
+      --aster-on-danger: #09090b;
       --aster-danger-subtle: #2f0d0d;
       --aster-on-danger-subtle: #fecaca;
       --aster-danger-border: #7f1d1d;
@@ -305,7 +305,7 @@
         --aster-primary-hover: oklch(
           0.71 calc(var(--aster-seed-chroma) * 0.92) var(--aster-seed-hue)
         );
-        --aster-on-primary: oklch(0.99 0.002 var(--aster-seed-hue));
+        --aster-on-primary: oklch(0.12 0.002 var(--aster-seed-hue));
         --aster-primary-subtle: oklch(
           0.24 calc(var(--aster-seed-chroma) * 0.38) var(--aster-seed-hue)
         );
@@ -321,7 +321,7 @@
         --aster-surface-accent: oklch(0.255 var(--aster-neutral-tint) var(--aster-seed-hue));
         --aster-on-surface: oklch(0.975 0.003 var(--aster-seed-hue));
         --aster-on-surface-muted: oklch(0.7 0.008 var(--aster-seed-hue));
-        --aster-on-surface-subtle: oklch(0.55 0.008 var(--aster-seed-hue));
+        --aster-on-surface-subtle: oklch(0.66 0.008 var(--aster-seed-hue));
         --aster-border: oklch(0.265 0.006 var(--aster-seed-hue));
         --aster-border-strong: oklch(0.36 0.008 var(--aster-seed-hue));
         --aster-input-border: oklch(0.3 0.008 var(--aster-seed-hue));

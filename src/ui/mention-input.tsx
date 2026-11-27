@@ -107,16 +107,16 @@ export function* MentionInput(
           onInput={(e: Event) => setVal((e.target as HTMLTextAreaElement).value)}
         />
         {hits.length > 0 ? (
-          <div role="listbox" class="aster-surface-popover m-menu">
+          <div role="group" aria-label="Mention suggestions" class="aster-surface-popover m-menu">
             {hits.map((c) => (
               <button
                 key={c.handle}
                 type="button"
-                role="option"
                 class="m-opt"
-                on:mousedown={(e: Event) => {
-                  e.preventDefault();
+                on:mousedown={(e: Event) => e.preventDefault()}
+                onClick={() => {
                   insertMention(c.handle);
+                  document.getElementById(uid)?.focus();
                 }}
               >
                 <span>{c.name}</span>

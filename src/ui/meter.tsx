@@ -39,7 +39,9 @@ export function Meter({
   valueLabel?: string;
   class?: string;
 }) {
-  const pct = Math.max(0, Math.min(100, (value / Math.max(1, max)) * 100));
+  max = Number.isFinite(max) && max > 0 ? max : 100;
+  value = Number.isFinite(value) ? Math.max(0, Math.min(max, value)) : 0;
+  const pct = (value / max) * 100;
   const lvl = pct >= dangerAt ? 'lvl-high' : pct >= warnAt ? 'lvl-warn' : 'lvl-ok';
   return (
     <div class={[meterScope, extraClass].filter(Boolean).join(' ')}>
@@ -54,6 +56,7 @@ export function Meter({
         aria-valuemin={0}
         aria-valuemax={max}
         aria-valuenow={value}
+        aria-valuetext={valueLabel}
       >
         <div class={`mt-fill ${lvl}`} style={{ width: `${pct}%` }} />
       </div>

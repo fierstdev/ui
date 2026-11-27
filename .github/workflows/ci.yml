@@ -28,22 +28,7 @@ jobs:
       - name: Rebuild & Verify Static Registry Manifests
         run: |
           npm run build:registry
-          test -f public/r/index.json
-          test -f public/r/icon.json
-          test -f public/r/button.json
-          test -f public/r/dialog.json
-          test -f public/r/command.json
-          test -f public/r/sheet.json
-          test -f public/r/select.json
-          test -f public/r/calendar.json
-          test -f public/r/app-shell.json
-          test -f public/r/checkbox.json
-          test -f public/r/stepper.json
-          test -f public/r/stat-card.json
-          test -f public/r/input-otp.json
-          test -f public/r/approval-card.json
-          test -f public/r/bar-chart.json
-          test -f public/r/workflow-graph.json
+          git diff --exit-code -- public/r
 
       - name: Format, Lint & Type Check
         run: vp check
@@ -53,3 +38,8 @@ jobs:
 
       - name: Build Showcase
         run: vp build
+
+      - name: Browser accessibility and keyboard checks
+        run: |
+          npm exec --offline -- playwright install --with-deps chromium
+          npm run test:browser

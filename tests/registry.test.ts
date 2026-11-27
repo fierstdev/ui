@@ -169,3 +169,24 @@ describe('AsterUI Code-Owned Registry & CLI (104 Items)', () => {
     }
   });
 });
+describe('standalone registry installs', () => {
+  it.each(EXPECTED_ITEMS)('installs %s with its source and all local imports', async (name) => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aster-ui-item-'));
+    try {
+      const result = await addComponents([name], tmp);
+      for (const target of result.copied) {
+        const file = path.join(tmp, target);
+        const source = fs.readFileSync(file, 'utf8');
+        expect(source).toBe(fs.readFileSync(target, 'utf8').replaceAll('\r\n', '\n'));
+        for (const match of source.matchAll(/from ['"](\.\/[^'"]+)['"]/g)) {
+          expect(fs.existsSync(path.resolve(path.dirname(file), match[1]))).toBe(true);
+        }
+        if (source.includes("from '@lucide/icons'"))
+          expect(result.dependencies).toContain('@lucide/icons');
+      }
+      expect(result.resolved).toContain(name);
+    } finally {
+      fs.rmSync(tmp, { recursive: true, force: true });
+    }
+  });
+});

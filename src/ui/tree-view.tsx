@@ -41,6 +41,7 @@ export interface TreeNode {
 export function* TreeView(
   props: {
     nodes: readonly TreeNode[];
+    label?: string;
     defaultExpanded?: readonly string[];
     selectedId?: string;
     onSelect?: (node: TreeNode) => void;
@@ -49,13 +50,28 @@ export function* TreeView(
   ctx: Ctx,
 ) {
   const expanded = new Set<string>(props.defaultExpanded ?? []);
+  let focused = props.nodes[0]?.id;
   let internalSel = props.selectedId ?? '';
 
   for (props of ctx) {
     const selected = props.selectedId !== undefined ? props.selectedId : internalSel;
 
+    const visible: string[] = [];
+    const visit = (nodes: readonly TreeNode[]) => {
+      for (const node of nodes) {
+        visible.push(node.id);
+        if (expanded.has(node.id) && node.children) visit(node.children);
+      }
+    };
+    visit(props.nodes);
+    if (!focused || !visible.includes(focused)) focused = visible[0];
+
     const renderList = (items: readonly TreeNode[], nested = false): any => (
-      <ul role={nested ? 'group' : 'tree'} class={nested ? 'branch' : undefined}>
+      <ul
+        role={nested ? 'group' : 'tree'}
+        aria-label={nested ? undefined : (props.label ?? 'Tree')}
+        class={nested ? 'branch' : undefined}
+      >
         {items.map((node) => {
           const hasKids = Boolean(node.children && node.children.length > 0);
           const isOpen = expanded.has(node.id);
@@ -63,11 +79,52 @@ export function* TreeView(
             <li
               key={node.id}
               role="treeitem"
+              aria-label={node.label}
               aria-expanded={hasKids ? isOpen : undefined}
               aria-selected={selected === node.id}
             >
               <button
                 type="button"
+                tabIndex={focused === node.id ? 0 : -1}
+                onFocus={() => (focused = node.id)}
+                onKeyDown={(event: KeyboardEvent) => {
+                  const button = event.currentTarget as HTMLButtonElement;
+                  const buttons = Array.from(
+                    button
+                      .closest('[role="tree"]')!
+                      .querySelectorAll<HTMLButtonElement>('.node-btn'),
+                  );
+                  const index = buttons.indexOf(button);
+                  switch (event.key) {
+                    case 'Home':
+                      buttons[0]?.focus();
+                      break;
+                    case 'End':
+                      buttons.at(-1)?.focus();
+                      break;
+                    case 'ArrowDown':
+                      buttons[index + 1]?.focus();
+                      break;
+                    case 'ArrowUp':
+                      buttons[index - 1]?.focus();
+                      break;
+                    case 'ArrowRight':
+                      if (hasKids && !isOpen) expanded.add(node.id);
+                      else if (hasKids) buttons[index + 1]?.focus();
+                      break;
+                    case 'ArrowLeft':
+                      if (isOpen) expanded.delete(node.id);
+                      else
+                        button.parentElement?.parentElement
+                          ?.closest('li')
+                          ?.querySelector('button')
+                          ?.focus();
+                      break;
+                    default:
+                      return;
+                  }
+                  event.preventDefault();
+                }}
                 class="node-btn"
                 class:is-selected={selected === node.id}
                 onClick={() => {

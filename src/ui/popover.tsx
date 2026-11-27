@@ -2,7 +2,7 @@ import { ChevronDown } from '@lucide/icons';
 import { scope, type View } from '@fierst/aster';
 import { Button, type ButtonVariant } from './button.tsx';
 import { Icon } from './icon.tsx';
-import { positionPopover } from './theme.ts';
+import { navigateMenu, positionPopover } from './theme.ts';
 
 const popScope = scope`
   :scope {
@@ -54,7 +54,7 @@ const popScope = scope`
   }
   .menu-item:hover { background: var(--aster-surface-muted); color: var(--aster-on-surface); }
   .menu-item.is-danger { color: var(--aster-danger); }
-  .menu-item.is-danger:hover { background: var(--aster-danger-container); color: var(--aster-on-danger-container); }
+  .menu-item.is-danger:hover { background: var(--aster-danger-subtle); color: var(--aster-on-danger-subtle); }
   .shortcut { font-family: var(--aster-font-mono); font-size: 0.74rem; opacity: 0.65; }
   .sep { height: 1px; background: var(--aster-outline-variant); margin: 0.35rem 0.4rem; }
 `;
@@ -130,6 +130,7 @@ export function DropdownMenu({
       const trig = document.getElementById(trigId);
       const pop = document.getElementById(popId);
       positionPopover(trig, pop, { align });
+      pop?.querySelector<HTMLButtonElement>('[role="menuitem"]:enabled')?.focus();
     }
   };
 
@@ -146,7 +147,7 @@ export function DropdownMenu({
         <Icon icon={ChevronDown} size={15} />
       </Button>
       <Popover id={popId} align={align} onToggle={onToggle}>
-        <div role="menu">
+        <div role="menu" aria-label={label} onKeyDown={navigateMenu}>
           {items.map((item) => (
             <div key={item.id}>
               {item.separatorBefore ? <div class="sep" role="separator" /> : null}

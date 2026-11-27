@@ -104,6 +104,7 @@ export function* ResizableSplit(
     const dir = props.direction ?? 'horizontal';
     const min = props.min ?? 20;
     const max = props.max ?? 80;
+    split = Math.max(min, Math.min(max, split));
     const stackOnMobile = props.stackOnMobile ?? true;
 
     const updateSplit = (next: number) => {
@@ -124,6 +125,7 @@ export function* ResizableSplit(
       const onMove = (ev: Event) => {
         if (!rootEl) return;
         const rect = rootEl.getBoundingClientRect();
+        if (!(dir === 'horizontal' ? rect.width : rect.height)) return;
         const ratio =
           dir === 'horizontal'
             ? (((ev as MouseEvent).clientX - rect.left) / rect.width) * 100

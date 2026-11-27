@@ -59,7 +59,14 @@ export function* BackToTop(
         type="button"
         class={[bttScope, props.class].filter(Boolean).join(' ')}
         aria-label={props.label ?? 'Back to top'}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+              ? 'instant'
+              : 'smooth',
+          })
+        }
       >
         <Icon icon={ArrowUp} size={14} />
         <span>{props.label ?? 'Top'}</span>

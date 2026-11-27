@@ -37,6 +37,7 @@ const hcScope = scope`
 
 export function* HoverCard(
   props: {
+    label?: string;
     trigger: View;
     side?: 'bottom' | 'top';
     align?: 'start' | 'end';
@@ -67,8 +68,9 @@ export function* HoverCard(
       clearTimeout(closeTimer);
       closeTimer = null;
     }
-    if (open) return;
+    if (open || openTimer) return;
     openTimer = setTimeout(() => {
+      openTimer = null;
       open = true;
       ctx.refresh();
     }, props.openDelay ?? 180);
@@ -79,6 +81,7 @@ export function* HoverCard(
       clearTimeout(openTimer);
       openTimer = null;
     }
+    if (closeTimer) clearTimeout(closeTimer);
     closeTimer = setTimeout(() => {
       open = false;
       ctx.refresh();
@@ -92,8 +95,8 @@ export function* HoverCard(
           class={[hcScope, props.class].filter(Boolean).join(' ')}
           on:pointerenter={scheduleOpen}
           on:pointerleave={scheduleClose}
-          onFocus={scheduleOpen}
-          onBlur={scheduleClose}
+          on:focusin={scheduleOpen}
+          on:focusout={scheduleClose}
           onKeyDown={(e: KeyboardEvent) => {
             if (e.key === 'Escape') {
               clearAll();
@@ -104,6 +107,7 @@ export function* HoverCard(
           {props.trigger}
           <div
             role="dialog"
+            aria-label={props.label ?? 'Details'}
             class={[
               'aster-surface-popover',
               'hc-card',

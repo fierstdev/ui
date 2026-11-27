@@ -21,7 +21,7 @@ const diffScope = scope`
   }
   .df-stats { display: inline-flex; gap: 0.5rem; font-weight: 600; }
   .df-add { color: var(--aster-success); }
-  .df-del { color: var(--aster-danger); }
+  .df-del { color: var(--aster-on-danger-subtle); }
   .df-body { overflow-x: auto; }
   .df-line {
     display: grid;
@@ -63,7 +63,7 @@ export function DiffViewer({
           <span class="df-del">-{dels}</span>
         </span>
       </div>
-      <div class="df-body">
+      <div class="df-body" tabIndex={0}>
         {lines.map((line, idx) => (
           <div key={idx} class={`df-line k-${line.kind}`}>
             <span class="df-ln">{line.lineNo ?? idx + 1}</span>

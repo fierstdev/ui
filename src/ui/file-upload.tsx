@@ -44,7 +44,8 @@ const fuScope = scope`
   }
   .dz-title { font-size: 0.875rem; font-weight: 500; color: var(--aster-on-surface); }
   .dz-sub { font-size: 0.78rem; color: var(--aster-on-surface-muted); }
-  .native-file { display: none; }
+  .native-file { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; }
+  .dropzone:focus-within { outline: 2px solid var(--aster-primary); outline-offset: 2px; }
   .fu-error { font-size: 0.78rem; color: var(--aster-danger); font-weight: 500; }
   .file-list { display: grid; gap: 0.4rem; }
   .file-row {
@@ -104,13 +105,32 @@ export function* FileUpload(
       if (!incoming) return;
       errorMsg = '';
       const accepted: File[] = [];
+      const types = props.accept
+        ?.toLowerCase()
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean);
       for (const f of Array.from(incoming)) {
-        if (props.maxSizeBytes && f.size > props.maxSizeBytes) {
+        if (
+          types?.length &&
+          !types.some((type) =>
+            type.startsWith('.')
+              ? f.name.toLowerCase().endsWith(type)
+              : type.endsWith('/*')
+                ? f.type.toLowerCase().startsWith(type.slice(0, -1))
+                : f.type.toLowerCase() === type,
+          )
+        ) {
+          errorMsg = f.name + ' is not an accepted file type.';
+          continue;
+        }
+        if (props.maxSizeBytes !== undefined && f.size > props.maxSizeBytes) {
           errorMsg = `"${f.name}" exceeds max size of ${formatBytes(props.maxSizeBytes)}.`;
           continue;
         }
         accepted.push(f);
       }
+      if (!accepted.length) return;
       files = props.multiple ? [...files, ...accepted] : accepted.slice(0, 1);
       props.onChange?.(files);
     };
@@ -156,7 +176,11 @@ export function* FileUpload(
             class="native-file"
             accept={props.accept}
             multiple={props.multiple}
-            onChange={(e: Event) => ingest((e.target as HTMLInputElement).files)}
+            onChange={(e: Event) => {
+              const input = e.currentTarget as HTMLInputElement;
+              ingest(input.files);
+              input.value = '';
+            }}
           />
         </label>
 

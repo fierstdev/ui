@@ -48,7 +48,7 @@ export function Separator({
     return (
       <div
         role={decorative ? 'none' : 'separator'}
-        aria-orientation="horizontal"
+        aria-orientation={decorative ? undefined : 'horizontal'}
         class={[sepScope, 'dir-horizontal', 'has-label', extraClass].filter(Boolean).join(' ')}
       >
         <span>{label}</span>
@@ -58,7 +58,7 @@ export function Separator({
   return (
     <div
       role={decorative ? 'none' : 'separator'}
-      aria-orientation={orientation}
+      aria-orientation={decorative ? undefined : orientation}
       class={[sepScope, `dir-${orientation}`, extraClass].filter(Boolean).join(' ')}
     />
   );

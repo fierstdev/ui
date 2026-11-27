@@ -116,7 +116,7 @@ const calScope = scope`
   }
   .day:hover:not(:disabled) { background: var(--aster-surface-muted); }
   .day:focus-visible { outline: none; box-shadow: var(--aster-focus-ring); }
-  .day.is-outside { color: var(--aster-on-surface-subtle); opacity: 0.45; }
+  .day.is-outside { color: var(--aster-on-surface-muted); }
   .day.is-today { background: var(--aster-surface-muted); font-weight: 600; }
   .day.is-selected {
     background: var(--aster-primary);
@@ -459,9 +459,9 @@ export function* Calendar(
           </button>
         </div>
 
-        <div class="cal-grid" role="grid" aria-label={gridLabel}>
+        <div class="cal-grid" role="group" aria-label={gridLabel}>
           {WEEKDAYS.map((w) => (
-            <span key={w} class="dow" role="columnheader">
+            <span key={w} class="dow" aria-hidden="true">
               {w}
             </span>
           ))}
@@ -469,9 +469,9 @@ export function* Calendar(
             <button
               key={cell.iso}
               type="button"
-              role="gridcell"
+
               disabled={cell.disabled}
-              aria-selected={cell.iso === selectedIso}
+              aria-pressed={cell.iso === selectedIso}
               aria-label={cell.iso}
               class="day"
               class:is-outside={cell.outside}
@@ -488,6 +488,7 @@ export function* Calendar(
           <input
             type="text"
             class="cal-jump-input"
+            aria-invalid={draftInvalid}
             class:is-err={draftInvalid}
             placeholder="YYYY-MM-DD"
             aria-label="Enter date (YYYY-MM-DD or MM/DD/YYYY)"

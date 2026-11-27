@@ -91,7 +91,7 @@ export function ApprovalCard({
       </header>
       <div class="ap-body">
         {codePreview ? (
-          <pre class="ap-code">
+          <pre class="ap-code" tabIndex={0}>
             <code>{codePreview}</code>
           </pre>
         ) : null}

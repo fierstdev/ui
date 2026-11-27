@@ -7,6 +7,7 @@ const msScope = scope`
   :scope { display: grid; gap: 0.375rem; font-family: var(--aster-font-sans); }
   .ms-label { font-size: 0.84rem; font-weight: 500; color: var(--aster-on-surface); }
   .ms-trigger {
+    position: relative;
     width: 100%;
     min-height: var(--aster-control-md);
     padding: 0.3rem 0.65rem;
@@ -24,8 +25,10 @@ const msScope = scope`
     touch-action: manipulation;
     transition: border-color var(--aster-dur-fast), box-shadow var(--aster-dur-fast);
   }
+  .ms-open { position: absolute; inset: 0; width: 100%; border: 0; background: transparent; cursor: pointer; }
+  .ms-chip-rm { position: relative; z-index: 1; }
   .ms-trigger:hover { border-color: var(--aster-border-strong); }
-  .ms-trigger:focus-visible { outline: none; border-color: var(--aster-primary); box-shadow: var(--aster-focus-ring); }
+  .ms-trigger:focus-within { outline: none; border-color: var(--aster-primary); box-shadow: var(--aster-focus-ring); }
   .ms-chips {
     display: flex;
     align-items: center;
@@ -159,6 +162,7 @@ export function* MultiSelect(
         positionPopover(document.getElementById(uid), document.getElementById(popId), {
           matchWidth: true,
         });
+        document.getElementById(popId)?.querySelector('input')?.focus();
       } else {
         query = '';
       }
@@ -172,15 +176,17 @@ export function* MultiSelect(
             {props.label}
           </label>
         ) : null}
-        <button
-          id={uid}
-          type="button"
-          class="ms-trigger"
-          role="combobox"
-          aria-expanded={isOpen}
-          aria-controls={popId}
-          popovertarget={popId}
-        >
+        <div class="ms-trigger">
+          <button
+            id={uid}
+            type="button"
+            class="ms-open"
+            aria-label={props.label ?? props.placeholder ?? 'Select options'}
+            role="combobox"
+            aria-expanded={isOpen}
+            aria-controls={`${uid}-list`}
+            popovertarget={popId}
+          />
           <span class="ms-chips">
             {selected.length === 0 ? (
               <span class="ms-placeholder">{props.placeholder ?? 'Select options…'}</span>
@@ -190,9 +196,8 @@ export function* MultiSelect(
                 return (
                   <span key={val} class="ms-chip">
                     <span>{opt?.label ?? val}</span>
-                    <span
-                      role="button"
-                      tabIndex={0}
+                    <button
+                      type="button"
                       class="ms-chip-rm"
                       aria-label={`Remove ${opt?.label ?? val}`}
                       onClick={(e: MouseEvent) => {
@@ -201,14 +206,14 @@ export function* MultiSelect(
                       }}
                     >
                       <Icon icon={X} size={11} />
-                    </span>
+                    </button>
                   </span>
                 );
               })
             )}
           </span>
           <Icon icon={ChevronDown} size={15} />
-        </button>
+        </div>
 
         <div id={popId} popover="auto" class="aster-surface-popover ms-pop" on:toggle={onTogglePop}>
           <input
@@ -218,7 +223,13 @@ export function* MultiSelect(
             placeholder="Filter…"
             aria-label="Filter options"
           />
-          <div class="ms-list" role="listbox" aria-multiselectable="true">
+          <div
+            id={`${uid}-list`}
+            class="ms-list"
+            role="listbox"
+            aria-label={props.label ?? 'Options'}
+            aria-multiselectable="true"
+          >
             {visible.map((opt) => {
               const active = selected.includes(opt.value);
               return (

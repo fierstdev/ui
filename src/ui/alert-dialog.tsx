@@ -48,6 +48,10 @@ export function* AlertDialog(
     yield (
       <Dialog
         open={props.open}
+        onClose={() => {
+          typed = '';
+          ctx.refresh();
+        }}
         title={props.title}
         showClose={false}
         footer={

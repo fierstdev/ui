@@ -58,7 +58,8 @@ function renderIconNodes(nodes: readonly LucideIconNode[]): string {
     if (!ALLOWED_SVG_TAGS.has(tag)) continue;
     let attrStr = '';
     for (const [k, v] of Object.entries(attrs)) {
-      if (v === undefined || k === 'key') continue;
+      if (v === undefined || k === 'key' || !/^[a-zA-Z][\w.-]*$/.test(k) || /^on/i.test(k))
+        continue;
       attrStr += ` ${k}="${escapeAttr(v)}"`;
     }
     const inner = children && children.length > 0 ? renderIconNodes(children) : '';
@@ -82,19 +83,10 @@ function getIconTemplate(input: LucideIconInput): CompiledTemplate {
     ? ((input as LucideIconData).height ?? (input as LucideIconData).size ?? 24)
     : 24;
 
-  let inner = renderIconNodes(nodes);
-  for (const [tag, attrs] of nodes) {
-    if (!ALLOWED_SVG_TAGS.has(tag)) continue;
-    let attrStr = '';
-    for (const [k, v] of Object.entries(attrs)) {
-      if (v === undefined || k === 'key') continue;
-      attrStr += ` ${k}="${escapeAttr(v)}"`;
-    }
-    inner += `<${tag}${attrStr}></${tag}>`;
-  }
+  const inner = renderIconNodes(nodes);
 
   const html =
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vbW} ${vbH}" ` +
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${escapeAttr(vbW)} ${escapeAttr(vbH)}" ` +
     `fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" ` +
     `data-aster-a0="">${inner}</svg>`;
 

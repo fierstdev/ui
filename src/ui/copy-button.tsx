@@ -67,6 +67,7 @@ export function* CopyButton(
     copiedLabel?: string;
     resetMs?: number;
     onCopy?: () => void;
+    onError?: (error: unknown) => void;
     class?: string;
   },
   ctx: Ctx,
@@ -85,8 +86,12 @@ export function* CopyButton(
     for (props of ctx) {
       const doCopy = async () => {
         try {
-          await navigator.clipboard?.writeText(props.text);
-        } catch {}
+          await navigator.clipboard.writeText(props.text);
+        } catch (error) {
+          if (!ctx.signal.aborted) props.onError?.(error);
+          return;
+        }
+        if (ctx.signal.aborted) return;
         copied = true;
         props.onCopy?.();
         clearTimer();
@@ -131,7 +136,7 @@ export function CodeBlock({
         <span>{filename ?? 'terminal'}</span>
         <CopyButton text={code} label="Copy" />
       </div>
-      <pre>
+      <pre tabIndex={0}>
         <code>{code}</code>
       </pre>
     </div>

@@ -59,18 +59,18 @@ export function setTheme(patch: Partial<ThemeConfig>, persist = true): void {
   const next: ThemeConfig = { ...themeState.peek(), ...patch };
   themeState.set(next);
   applyToRoot(next);
-  if (persist && typeof localStorage !== 'undefined') {
+  if (persist && typeof window !== 'undefined') {
     try {
-      localStorage.setItem('aster-ui-theme', JSON.stringify(next));
+      window.localStorage.setItem('aster-ui-theme', JSON.stringify(next));
     } catch {}
   }
 }
 
 export function initTheme(defaults: Partial<ThemeConfig> = {}): ThemeConfig {
   let saved: Partial<ThemeConfig> = {};
-  if (typeof localStorage !== 'undefined') {
+  if (typeof window !== 'undefined') {
     try {
-      const raw = localStorage.getItem('aster-ui-theme');
+      const raw = window.localStorage.getItem('aster-ui-theme');
       if (raw) saved = JSON.parse(raw);
     } catch {}
   }
@@ -129,4 +129,34 @@ export function positionPopover(
   pop.style.left = `${Math.round(left)}px`;
   pop.style.top = `${Math.round(top)}px`;
   pop.style.maxHeight = `${Math.round(maxH)}px`;
+}
+
+/** Move focus among enabled menu items, including wrapping at either end. */
+export function navigateMenu(event: KeyboardEvent): void {
+  const items = Array.from(
+    (event.currentTarget as HTMLElement).querySelectorAll<HTMLButtonElement>(
+      '[role="menuitem"]:enabled',
+    ),
+  );
+  if (!items.length) return;
+  const index = items.indexOf(event.target as HTMLButtonElement);
+  let next: number;
+  switch (event.key) {
+    case 'Home':
+      next = 0;
+      break;
+    case 'End':
+      next = items.length - 1;
+      break;
+    case 'ArrowDown':
+      next = (index + 1) % items.length;
+      break;
+    case 'ArrowUp':
+      next = index <= 0 ? items.length - 1 : index - 1;
+      break;
+    default:
+      return;
+  }
+  event.preventDefault();
+  items[next].focus();
 }

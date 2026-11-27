@@ -195,6 +195,7 @@ export function Sheet({
 
   return (
     <dialog
+      aria-label={title ?? 'Panel'}
       id={id}
       ref={(el: Element) => {
         dialogEl = el as HTMLDialogElement;

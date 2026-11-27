@@ -100,7 +100,12 @@ export function* Carousel(
         aria-label={props.label ?? 'Carousel'}
         class={[carScope, props.class].filter(Boolean).join(' ')}
       >
-        <div ref={(el: HTMLDivElement) => (trackEl = el)} class="car-track" on:scroll={onScroll}>
+        <div
+          ref={(el: HTMLDivElement) => (trackEl = el)}
+          class="car-track"
+          tabIndex={0}
+          on:scroll={onScroll}
+        >
           {props.slides.map((s, idx) => (
             <div
               key={s.id}
@@ -115,13 +120,13 @@ export function* Carousel(
         </div>
 
         <div class="car-controls">
-          <div class="car-dots" role="tablist" aria-label="Slide navigation">
+          <div class="car-dots" role="group" aria-label="Slide navigation">
             {props.slides.map((s, idx) => (
               <button
                 key={s.id}
                 type="button"
-                role="tab"
-                aria-selected={idx === active}
+
+                aria-pressed={idx === active}
                 aria-label={`Go to slide ${idx + 1}`}
                 class="car-dot"
                 class:is-active={idx === active}

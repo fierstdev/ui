@@ -49,8 +49,10 @@ export function Progress({
   showValue?: boolean;
   class?: string;
 }) {
-  const indeterminate = value === undefined;
-  const pct = indeterminate ? 0 : Math.max(0, Math.min(100, (value / max) * 100));
+  max = Number.isFinite(max) && max > 0 ? max : 100;
+  const indeterminate = value === undefined || !Number.isFinite(value);
+  const current = indeterminate ? undefined : Math.max(0, Math.min(max, value));
+  const pct = ((current ?? 0) / max) * 100;
 
   return (
     <div class={[progScope, extraClass].filter(Boolean).join(' ')}>
@@ -66,7 +68,7 @@ export function Progress({
         aria-label={label ?? 'Progress'}
         aria-valuemin={0}
         aria-valuemax={max}
-        aria-valuenow={indeterminate ? undefined : value}
+        aria-valuenow={current}
       >
         <div
           class="fill"
@@ -106,21 +108,24 @@ export function ProgressRing({
   size = 52,
   strokeWidth = 5,
   showLabel = true,
+  label = 'Progress',
   class: extraClass,
 }: {
   value: number;
   size?: number;
   strokeWidth?: number;
   showLabel?: boolean;
+  label?: string;
   class?: string;
 }) {
-  const clamped = Math.max(0, Math.min(100, value));
+  const clamped = Math.max(0, Math.min(100, Number.isFinite(value) ? value : 0));
   const r = (size - strokeWidth) / 2;
   const c = 2 * Math.PI * r;
   const offset = c * (1 - clamped / 100);
 
   return (
     <div
+      aria-label={label}
       class={[ringScope, extraClass].filter(Boolean).join(' ')}
       role="progressbar"
       aria-valuemin={0}

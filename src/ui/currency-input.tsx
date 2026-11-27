@@ -16,11 +16,11 @@ const curScope = scope`
     transition: border-color var(--aster-dur-fast), box-shadow var(--aster-dur-fast);
   }
   .cur-wrap:focus-within { border-color: var(--aster-primary); box-shadow: var(--aster-focus-ring); }
-  .cur-sym { color: var(--aster-on-surface-subtle); font-weight: 500; }
+  .cur-sym { color: var(--aster-on-surface-muted); font-weight: 500; }
   .cur-code {
     font-family: var(--aster-font-mono);
     font-size: 0.72rem;
-    color: var(--aster-on-surface-subtle);
+    color: var(--aster-on-surface-muted);
     padding: 0.1rem 0.35rem;
     border-radius: var(--aster-radius-xs);
     background: var(--aster-surface-muted);
@@ -55,14 +55,18 @@ export function* CurrencyInput(
   ctx: Ctx,
 ) {
   const uid = `aster-cur-${++curSeq}`;
-  let draft =
-    props.value !== undefined
-      ? props.value.toFixed(2)
-      : props.defaultValue !== undefined
-        ? props.defaultValue.toFixed(2)
-        : '';
+  let lastValue = props.value;
+  let lastCode = props.currency;
+  const initial = props.value ?? props.defaultValue;
+  let draft = initial?.toFixed(props.currency === 'JPY' ? 0 : 2) ?? '';
 
   for (props of ctx) {
+    if (props.value !== lastValue || props.currency !== lastCode) {
+      const amount = props.value ?? Number.parseFloat(draft);
+      draft = Number.isFinite(amount) ? amount.toFixed(props.currency === 'JPY' ? 0 : 2) : '';
+      lastValue = props.value;
+      lastCode = props.currency;
+    }
     const code = props.currency ?? 'USD';
     const sym = SYMBOLS[code] ?? '$';
 
@@ -87,7 +91,10 @@ export function* CurrencyInput(
               const raw = (e.target as HTMLInputElement).value.replace(/[^0-9.]/g, '');
               draft = raw;
               const num = Number.parseFloat(raw);
-              if (!Number.isNaN(num)) props.onChange?.(num);
+              if (Number.isFinite(num)) {
+                if (props.value !== undefined) lastValue = num;
+                props.onChange?.(num);
+              }
             }}
             onBlur={() => {
               const num = Number.parseFloat(draft);

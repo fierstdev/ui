@@ -17,7 +17,7 @@ export function buildRegistry(rootDir = ROOT) {
   for (const item of reg.items) {
     const files = item.files.map((f) => {
       const abs = path.join(rootDir, f.path);
-      const content = fs.readFileSync(abs, 'utf-8');
+      const content = fs.readFileSync(abs, 'utf-8').replace(/\r\n/g, '\n');
       const sha256 = crypto.createHash('sha256').update(content).digest('hex');
       return {
         path: f.path,

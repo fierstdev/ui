@@ -58,6 +58,7 @@ export function* InlineEdit(
 ) {
   let internal = props.defaultValue ?? '';
   let editing = false;
+  let root: HTMLElement | null = null;
   let draft = '';
 
   for (props of ctx) {
@@ -67,6 +68,7 @@ export function* InlineEdit(
     const start = () => {
       draft = current;
       editing = true;
+      queueMicrotask(() => root?.querySelector('input')?.focus());
     };
     const commit = () => {
       const next = draft.trim();
@@ -75,21 +77,27 @@ export function* InlineEdit(
         props.onSave?.(next);
       }
       editing = false;
+      queueMicrotask(() => root?.querySelector<HTMLButtonElement>('.ie-view')?.focus());
     };
     const cancel = () => {
       editing = false;
+      queueMicrotask(() => root?.querySelector<HTMLButtonElement>('.ie-view')?.focus());
     };
 
     yield (
-      <span class={[ieScope, props.class].filter(Boolean).join(' ')}>
+      <span
+        ref={(el: HTMLElement) => (root = el)}
+        class={[ieScope, props.class].filter(Boolean).join(' ')}
+      >
         {editing ? (
           <>
             <input
               type="text"
               class="ie-input"
+              aria-label={props.placeholder ?? 'Edit value'}
               bind:value={draft}
               onKeyDown={(e: KeyboardEvent) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && !e.isComposing) {
                   e.preventDefault();
                   commit();
                 } else if (e.key === 'Escape') cancel();

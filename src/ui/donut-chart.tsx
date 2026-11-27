@@ -47,7 +47,9 @@ export function DonutChart({
   centerLabel?: string;
   class?: string;
 }) {
-  const total = data.reduce((s, d) => s + Math.max(0, d.value), 0) || 1;
+  const amount = (value: number) => (Number.isFinite(value) ? Math.max(0, value) : 0);
+  const total = data.reduce((sum, slice) => sum + amount(slice.value), 0);
+  const fraction = (value: number) => (total ? amount(value) / total : 0);
   const r = (size - strokeWidth) / 2;
   const circ = 2 * Math.PI * r;
   let offset = 0;
@@ -71,7 +73,7 @@ export function DonutChart({
             stroke-width={strokeWidth}
           />
           {data.map((slice, idx) => {
-            const frac = Math.max(0, slice.value) / total;
+            const frac = fraction(slice.value);
             const seg = frac * circ;
             const dashOffset = -offset;
             offset += seg;
@@ -107,7 +109,7 @@ export function DonutChart({
               />
               <span>{slice.label}</span>
             </span>
-            <span class="dc-num">{Math.round((slice.value / total) * 100)}%</span>
+            <span class="dc-num">{Math.round(fraction(slice.value) * 100)}%</span>
           </div>
         ))}
       </div>

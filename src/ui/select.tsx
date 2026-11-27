@@ -203,7 +203,16 @@ export function* Select(
         positionPopover(document.getElementById(uid), document.getElementById(popId), {
           matchWidth: true,
         });
-        if (props.searchable) queueMicrotask(() => searchInput?.focus());
+        queueMicrotask(() => {
+          if (props.searchable) searchInput?.focus();
+          else
+            document
+              .getElementById(popId)
+              ?.querySelector<HTMLButtonElement>(
+                'button[aria-selected="true"]:enabled, button:enabled',
+              )
+              ?.focus();
+        });
       } else {
         query = '';
       }
@@ -211,13 +220,21 @@ export function* Select(
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowDown') {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         e.preventDefault();
-        if (visible.length > 0) highlightIdx = (highlightIdx + 1) % visible.length;
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (visible.length > 0) highlightIdx = (highlightIdx - 1 + visible.length) % visible.length;
-      } else if (e.key === 'Enter' && visible[highlightIdx]) {
+        const buttons = Array.from(
+          (e.currentTarget as HTMLElement).querySelectorAll<HTMLButtonElement>('button:enabled'),
+        );
+        if (!buttons.length) return;
+        const index = buttons.indexOf(e.target as HTMLButtonElement);
+        const next =
+          e.key === 'ArrowDown'
+            ? (index + 1) % buttons.length
+            : index <= 0
+              ? buttons.length - 1
+              : index - 1;
+        buttons[next].focus();
+      } else if (e.key === 'Enter' && e.target === searchInput && visible[highlightIdx]) {
         e.preventDefault();
         choose(visible[highlightIdx]);
       }
@@ -236,7 +253,7 @@ export function* Select(
           type="button"
           role="combobox"
           aria-expanded={isOpen}
-          aria-controls={popId}
+          aria-controls={`${uid}-list`}
           aria-haspopup="listbox"
           aria-invalid={Boolean(props.error)}
           disabled={props.disabled}
@@ -270,7 +287,12 @@ export function* Select(
             />
           ) : null}
 
-          <div role="listbox" class="sel-list">
+          <div
+            role="listbox"
+            id={`${uid}-list`}
+            aria-label={props.label ?? 'Options'}
+            class="sel-list"
+          >
             {visible.length === 0 ? (
               <div class="sel-empty">No options found.</div>
             ) : (

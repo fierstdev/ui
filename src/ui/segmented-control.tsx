@@ -54,11 +54,14 @@ export function* SegmentedControl(
   },
   ctx: Ctx,
 ) {
-  let internal = props.defaultValue ?? props.options[0]?.value ?? '';
+  let internal = props.defaultValue ?? props.options.find((opt) => !opt.disabled)?.value ?? '';
 
   for (props of ctx) {
     const isControlled = props.value !== undefined;
     const current = isControlled ? props.value! : internal;
+
+    const enabled = props.options.filter((opt) => !opt.disabled);
+    const tabStop = enabled.find((opt) => opt.value === current) ?? enabled[0];
 
     const choose = (val: string) => {
       if (!isControlled) internal = val;
@@ -79,6 +82,20 @@ export function* SegmentedControl(
               type="button"
               role="radio"
               aria-checked={active}
+              tabIndex={tabStop === opt ? 0 : -1}
+              onKeyDown={(e: KeyboardEvent) => {
+                const direction = ['ArrowLeft', 'ArrowUp'].includes(e.key)
+                  ? -1
+                  : ['ArrowRight', 'ArrowDown'].includes(e.key)
+                    ? 1
+                    : 0;
+                if (!direction || !enabled.length) return;
+                e.preventDefault();
+                const next = (enabled.indexOf(opt) + direction + enabled.length) % enabled.length;
+                const group = (e.currentTarget as HTMLElement).parentElement;
+                group?.querySelectorAll<HTMLButtonElement>('button:enabled')[next]?.focus();
+                choose(enabled[next].value);
+              }}
               disabled={opt.disabled}
               class="seg-btn"
               class:is-active={active}

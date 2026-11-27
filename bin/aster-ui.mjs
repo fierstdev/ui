@@ -13,6 +13,7 @@ const BIN_DIR = path.dirname(fileURLToPath(import.meta.url));
 const LOCAL_REGISTRY_DIR = path.resolve(BIN_DIR, '../public/r');
 
 async function loadManifest(name, registrySource) {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name)) throw new Error('Invalid registry item name');
   if (registrySource && /^https?:\/\//.test(registrySource)) {
     const base = registrySource.replace(/\/+$/, '');
     const res = await fetch(`${base}/${name}.json`);
@@ -46,17 +47,31 @@ export async function addComponents(names, projectRoot = process.cwd(), options 
   const registrySource = options.registry;
 
   const resolved = new Map();
+  const visiting = new Set();
   const npmDeps = new Set();
 
   const visit = async (name) => {
     if (resolved.has(name)) return;
+    if (visiting.has(name)) throw new Error('Cyclic registry dependency: ' + name);
+    visiting.add(name);
     const item = await loadManifest(name, registrySource);
+    if (item.name !== name || !Array.isArray(item.files))
+      throw new Error('Invalid manifest: ' + name);
+    for (const file of item.files) {
+      if (
+        !/^src\/ui\/[a-z0-9][a-z0-9.-]*\.(?:tsx?|css)$/.test(file.target) ||
+        typeof file.content !== 'string'
+      ) {
+        throw new Error('Invalid registry file in ' + name);
+      }
+    }
     for (const dep of item.registryDependencies ?? []) {
       await visit(dep);
     }
     for (const pkg of item.dependencies ?? []) {
       npmDeps.add(pkg);
     }
+    visiting.delete(name);
     resolved.set(name, item);
   };
 
@@ -76,7 +91,15 @@ export async function addComponents(names, projectRoot = process.cwd(), options 
         skipped.push(relTarget);
         continue;
       }
-      fs.writeFileSync(absDest, f.content, 'utf-8');
+      if (fs.lstatSync(absDest, { throwIfNoEntry: false })?.isSymbolicLink())
+        throw new Error('Refusing to replace a symbolic link: ' + relTarget);
+      try {
+        fs.writeFileSync(absDest, f.content, { encoding: 'utf-8', flag: force ? 'w' : 'wx' });
+      } catch (error) {
+        if (force || error.code !== 'EEXIST') throw error;
+        skipped.push(relTarget);
+        continue;
+      }
       copied.push(relTarget);
     }
   }

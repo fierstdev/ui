@@ -68,6 +68,11 @@ export function* PhoneInput(
   let localNum = '';
 
   for (props of ctx) {
+    if (props.value !== undefined) {
+      const country = DIAL_CODES.find((c) => props.value!.startsWith(c.code));
+      if (country) dial = country.code;
+      localNum = country ? props.value.slice(dial.length) : props.value;
+    }
     const emit = () => {
       const digits = localNum.replace(/[^\d]/g, '');
       props.onChange?.(digits ? `${dial}${digits}` : '');

@@ -115,23 +115,16 @@ export function* Avatar(
     yield (
       <span
         class={[avatarScope, `sz-${sz}`, props.class].filter(Boolean).join(' ')}
-        role={showImg ? undefined : 'img'}
-        aria-label={props.alt ?? props.name}
+        role="img"
+        aria-label={[props.alt ?? props.name, props.status].filter(Boolean).join(', ')}
         title={props.name}
       >
         {showImg ? (
-          <img
-            src={props.src}
-            alt={props.alt ?? props.name}
-            loading="lazy"
-            on:error={() => (imgFailed = true)}
-          />
+          <img src={props.src} alt="" loading="lazy" on:error={() => (imgFailed = true)} />
         ) : (
           <span>{getInitials(props.name)}</span>
         )}
-        {props.status ? (
-          <span class={`status st-${props.status}`} aria-label={`Status: ${props.status}`} />
-        ) : null}
+        {props.status ? <span class={`status st-${props.status}`} aria-hidden="true" /> : null}
       </span>
     );
   }

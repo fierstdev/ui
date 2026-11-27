@@ -150,6 +150,7 @@ export function Dialog({
 
   return (
     <dialog
+      aria-label={title ?? 'Dialog'}
       id={id}
       bind:open={[getOpen, setOpen]}
       closedby="any"

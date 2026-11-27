@@ -88,11 +88,13 @@ export function* RangeSlider(
 
   for (props of ctx) {
     const min = props.min ?? 0;
-    const max = props.max ?? 100;
+    const max = Math.max(min, props.max ?? 100);
     const step = props.step ?? 1;
     const isControlled = props.value !== undefined;
-    const [lo, hi] = isControlled ? props.value! : internal;
-    const span = Math.max(1, max - min);
+    const [a, b] = isControlled ? props.value! : internal;
+    const lo = Math.max(min, Math.min(max, a, b));
+    const hi = Math.min(max, Math.max(min, a, b));
+    const span = max - min || 1;
     const leftPct = ((lo - min) / span) * 100;
     const rightPct = ((hi - min) / span) * 100;
 
@@ -125,7 +127,9 @@ export function* RangeSlider(
             max={max}
             step={step}
             value={lo}
-            onInput={(e: Event) => commit(Number((e.target as HTMLInputElement).value), hi)}
+            onInput={(e: Event) =>
+              commit(Math.min(hi, Number((e.target as HTMLInputElement).value)), hi)
+            }
           />
           <input
             type="range"
@@ -134,7 +138,9 @@ export function* RangeSlider(
             max={max}
             step={step}
             value={hi}
-            onInput={(e: Event) => commit(lo, Number((e.target as HTMLInputElement).value))}
+            onInput={(e: Event) =>
+              commit(lo, Math.max(lo, Number((e.target as HTMLInputElement).value)))
+            }
           />
         </div>
       </div>

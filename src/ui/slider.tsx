@@ -113,7 +113,7 @@ export function* Slider(
     const max = props.max ?? 100;
     const step = props.step ?? 1;
     const isControlled = props.value !== undefined;
-    const current = isControlled ? props.value! : internal;
+    const current = Math.max(min, Math.min(max, isControlled ? props.value! : internal));
     const pct = max > min ? ((current - min) / (max - min)) * 100 : 0;
 
     const onInput = (e: Event) => {
@@ -140,6 +140,7 @@ export function* Slider(
           <input
             id={uid}
             type="range"
+            aria-label={props.label ? undefined : 'Value'}
             min={min}
             max={max}
             step={step}

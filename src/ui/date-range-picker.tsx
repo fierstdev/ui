@@ -81,7 +81,7 @@ export function* DateRangePicker(
   const uid = `aster-dr-${++drSeq}`;
   const popId = `${uid}-pop`;
   const today = new Date();
-  const weekAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+  const weekAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6);
   let internal: DateRange = props.defaultValue ?? {
     start: toIsoDate(weekAgo),
     end: toIsoDate(today),
@@ -102,7 +102,7 @@ export function* DateRangePicker(
 
     const applyDays = (days: number) => {
       const end = new Date();
-      const start = new Date(end.getFullYear(), end.getMonth(), end.getDate() - days);
+      const start = new Date(end.getFullYear(), end.getMonth(), end.getDate() - days + 1);
       commit({ start: toIsoDate(start), end: toIsoDate(end) });
     };
 

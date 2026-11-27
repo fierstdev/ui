@@ -46,6 +46,7 @@ export function ScrollArea({
       class={[scrollScope, dirCls, bordered ? 'is-bordered' : '', extraClass]
         .filter(Boolean)
         .join(' ')}
+      tabIndex={0}
       style={{ maxHeight }}
     >
       {children}

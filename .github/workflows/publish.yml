@@ -46,6 +46,10 @@ jobs:
           npm run build:registry
           vp check
           vp test
+          git diff --exit-code -- public/r
+          vp build
+          npm exec --offline -- playwright install --with-deps chromium
+          npm run test:browser
           npm pack --dry-run
 
   publish:
@@ -72,7 +76,7 @@ jobs:
         id: dist_tag
         run: |
           PKG_VER="$(node -p "require('./package.json').version")"
-          if echo "$PKG_VER" | grep -qE '-'; then
+          if echo "$PKG_VER" | grep -q -- '-'; then
             echo "tag=next" >> "$GITHUB_OUTPUT"
           else
             echo "tag=latest" >> "$GITHUB_OUTPUT"

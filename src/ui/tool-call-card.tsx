@@ -57,6 +57,18 @@ const STATUS_TONE: Record<string, BadgeTone> = {
   replayed: 'neutral',
 };
 
+function formatPayload(value: unknown): string {
+  if (typeof value === 'string') return value;
+  try {
+    return (
+      JSON.stringify(value, (_key, item) => (typeof item === 'bigint' ? String(item) : item), 2) ??
+      String(value)
+    );
+  } catch {
+    return '[Unserializable value]';
+  }
+}
+
 export function ToolCallCard({
   toolName,
   status = 'success',
@@ -99,13 +111,13 @@ export function ToolCallCard({
         {args !== undefined ? (
           <div>
             <span class="tc-sec-lbl">Arguments</span>
-            <pre>{typeof args === 'string' ? args : JSON.stringify(args, null, 2)}</pre>
+            <pre tabIndex={0}>{formatPayload(args)}</pre>
           </div>
         ) : null}
         {result !== undefined ? (
           <div>
             <span class="tc-sec-lbl">Output</span>
-            <pre>{typeof result === 'string' ? result : JSON.stringify(result, null, 2)}</pre>
+            <pre tabIndex={0}>{formatPayload(result)}</pre>
           </div>
         ) : null}
       </div>
