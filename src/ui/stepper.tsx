@@ -1,7 +1,8 @@
+import './theme.css';
 import { Check } from '@lucide/icons';
 import { scope, signal, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
-import { Button } from './button.tsx';
+import { Icon } from './icon';
+import { Button } from './button';
 
 const stepScope = scope`
   :scope {

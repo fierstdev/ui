@@ -1,3 +1,4 @@
+import './theme.css';
 import { _tpl, _slot, scope, type CompiledTemplate, type SlotView } from '@fierst/aster';
 
 /** Standard Lucide child element tuple (`['path', { d: '...' }]`). */

@@ -1,8 +1,9 @@
+import './theme.css';
 import { ShieldCheck } from '@lucide/icons';
 import { scope, signal, type View } from '@fierst/aster';
-import { Badge } from './badge.tsx';
-import { Button } from './button.tsx';
-import { Icon } from './icon.tsx';
+import { Badge } from './badge';
+import { Button } from './button';
+import { Icon } from './icon';
 
 const apScope = scope`
   :scope {

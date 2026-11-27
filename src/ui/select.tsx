@@ -1,7 +1,8 @@
+import './theme.css';
 import { Check, ChevronDown } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon } from './icon.tsx';
-import { positionPopover } from './theme.ts';
+import { Icon } from './icon';
+import { positionPopover } from './theme';
 
 const selectScope = scope`
   :scope {

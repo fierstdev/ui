@@ -1,6 +1,7 @@
+import './theme.css';
 import { ChevronDown } from '@lucide/icons';
 import { scope, type Ctx, type View } from '@fierst/aster';
-import { Icon, type LucideIconInput } from './icon.tsx';
+import { Icon, type LucideIconInput } from './icon';
 
 const snavScope = scope`
   :scope { display: grid; gap: 0.75rem; font-family: var(--aster-font-sans); }

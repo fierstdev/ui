@@ -1,6 +1,7 @@
+import './theme.css';
 import { X } from '@lucide/icons';
 import { signal, scope } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 export type ToastTone = 'neutral' | 'success' | 'warning' | 'danger';
 

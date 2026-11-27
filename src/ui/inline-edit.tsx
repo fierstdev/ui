@@ -1,6 +1,7 @@
+import './theme.css';
 import { Check, Pencil, X } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const ieScope = scope`
   :scope { display: inline-flex; align-items: center; gap: 0.35rem; font-family: var(--aster-font-sans); max-width: 100%; }

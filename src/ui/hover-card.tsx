@@ -1,3 +1,4 @@
+import './theme.css';
 import { scope, type Ctx, type View } from '@fierst/aster';
 
 const hcScope = scope`

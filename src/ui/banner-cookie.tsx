@@ -1,5 +1,6 @@
+import './theme.css';
 import { scope, type Ctx } from '@fierst/aster';
-import { Button } from './button.tsx';
+import { Button } from './button';
 
 const cbScope = scope`
   :scope {

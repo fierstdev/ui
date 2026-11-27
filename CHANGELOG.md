@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.1] - 2026-11-27
+
+- Updated the registry for Aster 1.2.0. Slider and RangeSlider now pass their numeric bounds and step as strings to native range inputs.
+- The installer verifies each file's SHA-256 checksum when its manifest supplies one, before copying any requested component.
+- Components load their shared theme stylesheet automatically and use local imports compatible with the Aster 1.2.0 starter's TypeScript configuration.
+
 ## [1.0.0] - 2026-11-27
 
 - Tested the 104-item registry against Aster 1.0. Each item has an isolated installer check, with server-render coverage for all 103 component modules and initialization coverage for the shared theme.

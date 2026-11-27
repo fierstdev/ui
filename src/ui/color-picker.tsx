@@ -1,5 +1,6 @@
+import './theme.css';
 import { scope, type Ctx } from '@fierst/aster';
-import { positionPopover } from './theme.ts';
+import { positionPopover } from './theme';
 
 const cpScope = scope`
   :scope { display: grid; gap: 0.375rem; font-family: var(--aster-font-sans); }

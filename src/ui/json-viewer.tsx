@@ -1,6 +1,7 @@
+import './theme.css';
 import { ChevronRight } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const jvScope = scope`
   :scope {

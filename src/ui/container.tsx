@@ -1,3 +1,4 @@
+import './theme.css';
 import { scope, type View } from '@fierst/aster';
 
 const containerScope = scope`

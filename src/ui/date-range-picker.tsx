@@ -1,8 +1,9 @@
+import './theme.css';
 import { Calendar as CalendarIcon } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon } from './icon.tsx';
-import { toIsoDate } from './calendar.tsx';
-import { positionPopover } from './theme.ts';
+import { Icon } from './icon';
+import { toIsoDate } from './calendar';
+import { positionPopover } from './theme';
 
 const drScope = scope`
   :scope { display: grid; gap: 0.375rem; font-family: var(--aster-font-sans); }

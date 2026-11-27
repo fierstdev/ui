@@ -1,7 +1,8 @@
+import './theme.css';
 import { Menu } from '@lucide/icons';
 import { scope, type Ctx, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
-import { Sheet } from './sheet.tsx';
+import { Icon } from './icon';
+import { Sheet } from './sheet';
 
 const navScope = scope`
   :scope {

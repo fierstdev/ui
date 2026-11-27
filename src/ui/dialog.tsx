@@ -1,7 +1,8 @@
+import './theme.css';
 import { X } from '@lucide/icons';
 import { scope, signal, type View } from '@fierst/aster';
-import { Button } from './button.tsx';
-import { Icon } from './icon.tsx';
+import { Button } from './button';
+import { Icon } from './icon';
 
 const dialogScope = scope`
   :scope {

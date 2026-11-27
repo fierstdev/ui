@@ -11,8 +11,8 @@
     {
       "path": "src/ui/streaming-text.tsx",
       "target": "src/ui/streaming-text.tsx",
-      "sha256": "7238dbbbb2b811a54e3aed5a82c679fc451436d0d83193e4eb434ab81bb97ac9",
-      "content": "import { scope } from '@fierst/aster';\n\nconst stScope = scope`\n  :scope {\n    font-family: var(--aster-font-sans);\n    white-space: pre-wrap;\n    word-break: break-word;\n  }\n  .caret {\n    display: inline-block;\n    width: 2px;\n    height: 1em;\n    margin-left: 2px;\n    vertical-align: -0.15em;\n    background: var(--aster-primary);\n    animation: aster-blink 0.9s steps(2, start) infinite;\n  }\n  @keyframes aster-blink {\n    to { opacity: 0; }\n  }\n`;\n\nexport function StreamingText({\n  text,\n  streaming = false,\n  class: extraClass,\n}: {\n  text: string;\n  streaming?: boolean;\n  class?: string;\n}) {\n  return (\n    <span class={[stScope, extraClass].filter(Boolean).join(' ')} aria-busy={streaming}>\n      {text}\n      {streaming ? <span class=\"caret\" aria-hidden=\"true\" /> : null}\n    </span>\n  );\n}\n"
+      "sha256": "43442c61060fdc8824ca2554ad3b1c8818155e720999c16c13e20e03d5aef9b9",
+      "content": "import './theme.css';\nimport { scope } from '@fierst/aster';\n\nconst stScope = scope`\n  :scope {\n    font-family: var(--aster-font-sans);\n    white-space: pre-wrap;\n    word-break: break-word;\n  }\n  .caret {\n    display: inline-block;\n    width: 2px;\n    height: 1em;\n    margin-left: 2px;\n    vertical-align: -0.15em;\n    background: var(--aster-primary);\n    animation: aster-blink 0.9s steps(2, start) infinite;\n  }\n  @keyframes aster-blink {\n    to { opacity: 0; }\n  }\n`;\n\nexport function StreamingText({\n  text,\n  streaming = false,\n  class: extraClass,\n}: {\n  text: string;\n  streaming?: boolean;\n  class?: string;\n}) {\n  return (\n    <span class={[stScope, extraClass].filter(Boolean).join(' ')} aria-busy={streaming}>\n      {text}\n      {streaming ? <span class=\"caret\" aria-hidden=\"true\" /> : null}\n    </span>\n  );\n}\n"
     }
   ]
 }

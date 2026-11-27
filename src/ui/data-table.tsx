@@ -1,7 +1,8 @@
+import './theme.css';
 import { ArrowDown, ArrowUp, ArrowUpDown, Search } from '@lucide/icons';
 import { scope, type Ctx, type View } from '@fierst/aster';
-import { Input } from './input.tsx';
-import { Icon } from './icon.tsx';
+import { Input } from './input';
+import { Icon } from './icon';
 
 const tableScope = scope`
   :scope { display: grid; gap: 0.85rem; min-width: 0; }

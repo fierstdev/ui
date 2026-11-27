@@ -1,3 +1,4 @@
+import './theme.css';
 import { scope, type Ctx } from '@fierst/aster';
 
 const rsScope = scope`
@@ -123,9 +124,9 @@ export function* RangeSlider(
           <input
             type="range"
             aria-label={`${props.label ?? 'Range'} minimum`}
-            min={min}
-            max={max}
-            step={step}
+            min={String(min)}
+            max={String(max)}
+            step={String(step)}
             value={lo}
             onInput={(e: Event) =>
               commit(Math.min(hi, Number((e.target as HTMLInputElement).value)), hi)
@@ -134,9 +135,9 @@ export function* RangeSlider(
           <input
             type="range"
             aria-label={`${props.label ?? 'Range'} maximum`}
-            min={min}
-            max={max}
-            step={step}
+            min={String(min)}
+            max={String(max)}
+            step={String(step)}
             value={hi}
             onInput={(e: Event) =>
               commit(lo, Math.max(lo, Number((e.target as HTMLInputElement).value)))

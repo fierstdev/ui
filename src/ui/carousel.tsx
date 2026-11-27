@@ -1,6 +1,7 @@
+import './theme.css';
 import { ChevronLeft, ChevronRight } from '@lucide/icons';
 import { scope, type Ctx, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const carScope = scope`
   :scope {

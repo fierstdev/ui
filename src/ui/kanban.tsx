@@ -1,7 +1,8 @@
+import './theme.css';
 import { ArrowLeft, ArrowRight } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Badge, type BadgeTone } from './badge.tsx';
-import { Icon } from './icon.tsx';
+import { Badge, type BadgeTone } from './badge';
+import { Icon } from './icon';
 
 const kbScope = scope`
   :scope {

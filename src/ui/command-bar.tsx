@@ -1,7 +1,8 @@
+import './theme.css';
 import { X } from '@lucide/icons';
 import { scope, type View } from '@fierst/aster';
-import { SearchInput } from './search-input.tsx';
-import { Icon } from './icon.tsx';
+import { SearchInput } from './search-input';
+import { Icon } from './icon';
 
 const fbScope = scope`
   :scope {

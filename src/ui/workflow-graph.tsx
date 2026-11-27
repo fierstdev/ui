@@ -1,7 +1,8 @@
+import './theme.css';
 import { Check, Clock, Pause, Play, X } from '@lucide/icons';
 import { scope } from '@fierst/aster';
-import { Badge, type BadgeTone } from './badge.tsx';
-import { Icon } from './icon.tsx';
+import { Badge, type BadgeTone } from './badge';
+import { Icon } from './icon';
 
 const wgScope = scope`
   :scope {

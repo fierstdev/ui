@@ -1,6 +1,7 @@
+import './theme.css';
 import { Brain, ChevronDown } from '@lucide/icons';
 import { scope, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const rbScope = scope`
   :scope {

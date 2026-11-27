@@ -1,7 +1,8 @@
+import './theme.css';
 import { Check, ChevronDown, X } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon } from './icon.tsx';
-import { positionPopover } from './theme.ts';
+import { Icon } from './icon';
+import { positionPopover } from './theme';
 
 const msScope = scope`
   :scope { display: grid; gap: 0.375rem; font-family: var(--aster-font-sans); }

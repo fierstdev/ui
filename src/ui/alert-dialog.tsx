@@ -1,9 +1,10 @@
+import './theme.css';
 import { AlertTriangle } from '@lucide/icons';
 import { scope, signal, type Ctx, type View } from '@fierst/aster';
-import { Dialog } from './dialog.tsx';
-import { Button } from './button.tsx';
-import { Input } from './input.tsx';
-import { Icon } from './icon.tsx';
+import { Dialog } from './dialog';
+import { Button } from './button';
+import { Input } from './input';
+import { Icon } from './icon';
 
 const adScope = scope`
   :scope { display: flex; align-items: flex-start; gap: 0.85rem; }

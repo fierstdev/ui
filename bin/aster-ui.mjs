@@ -6,6 +6,7 @@
 //   vp dlx @fierst/ui add button dialog toast [--dir src/ui] [--force] [--registry https://ui.fierst.dev/r]
 
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -63,6 +64,12 @@ export async function addComponents(names, projectRoot = process.cwd(), options 
         typeof file.content !== 'string'
       ) {
         throw new Error('Invalid registry file in ' + name);
+      }
+      if (
+        file.sha256 !== undefined &&
+        createHash('sha256').update(file.content).digest('hex') !== file.sha256
+      ) {
+        throw new Error('Registry checksum mismatch: ' + file.target);
       }
     }
     for (const dep of item.registryDependencies ?? []) {
@@ -169,7 +176,7 @@ if (isMain) {
         console.log(`\nInstall required icon package:\n  vp add ${res.dependencies.join(' ')}`);
       }
       console.log(
-        `\nInitialized AsterUI theme tokens & Lucide Icon helper in ${uiDir}/. Import './ui/theme.css' in your entry file.\n`,
+        `\nInitialized AsterUI theme tokens & Lucide Icon helper in ${uiDir}/. UI components load theme.css automatically.\n`,
       );
     } else if (cmd === 'add') {
       if (positional.length === 0) {

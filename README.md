@@ -11,7 +11,7 @@ Built around crisp opaque surfaces, `1px` hairline borders, single-seed OKLCH th
 
 ## Quick Start
 
-Use an Aster 1.0 project with Node.js 20.19 or later. Existing installations own their component files. To adopt the 1.0 changes, compare the new registry sources with your local customizations before using `--force`.
+Use an Aster project with `@fierst/aster@^1.2.0` and Node.js 20.19 or later. If you already own copies of `slider.tsx` or `range-slider.tsx`, merge the updated input attributes into your files or review your local changes before reinstalling with `--force`.
 
 ```bash
 vp dlx @fierst/ui init
@@ -19,3 +19,5 @@ vp add @lucide/icons
 vp dlx @fierst/ui list
 vp dlx @fierst/ui add app-shell button card dialog approval-card workflow-graph bar-chart diff-viewer data-table
 ```
+
+Import a copied component into your Aster app, for example `import { Button } from './ui/button'` in `src/main.tsx`. Every component imports the shared theme stylesheet, including when installed under a custom `--dir`. Vite includes it in the component's CSS bundle. For theme tokens on a page that uses no components, import `./ui/theme.css` in the app entry. Calling `initTheme()` is optional and restores saved theme preferences.

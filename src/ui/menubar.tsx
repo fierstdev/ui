@@ -1,4 +1,5 @@
-import { navigateMenu } from './theme.ts';
+import './theme.css';
+import { navigateMenu } from './theme';
 import { scope, type Ctx } from '@fierst/aster';
 
 const mbScope = scope`

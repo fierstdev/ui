@@ -1,6 +1,7 @@
+import './theme.css';
 import { ChevronsUpDown } from '@lucide/icons';
 import { scope, type Ctx, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const colScope = scope`
   :scope {

@@ -1,3 +1,4 @@
+import './theme.css';
 import { scope, type Ctx } from '@fierst/aster';
 
 const sliderScope = scope`
@@ -141,9 +142,9 @@ export function* Slider(
             id={uid}
             type="range"
             aria-label={props.label ? undefined : 'Value'}
-            min={min}
-            max={max}
-            step={step}
+            min={String(min)}
+            max={String(max)}
+            step={String(step)}
             value={current}
             disabled={props.disabled}
             var:fill-pct={`${Math.max(0, Math.min(100, pct))}%`}

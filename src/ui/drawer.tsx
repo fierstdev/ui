@@ -1,6 +1,7 @@
+import './theme.css';
 import { signal, type View } from '@fierst/aster';
-import { Sheet } from './sheet.tsx';
-import { Button } from './button.tsx';
+import { Sheet } from './sheet';
+import { Button } from './button';
 
 export function Drawer({
   id,

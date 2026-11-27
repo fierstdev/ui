@@ -1,6 +1,7 @@
+import './theme.css';
 import { Bot, User } from '@lucide/icons';
 import { scope, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const msgScope = scope`
   :scope {

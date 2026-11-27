@@ -1,3 +1,4 @@
+import './theme.css';
 import { scope, type Ctx } from '@fierst/aster';
 
 const bcScope = scope`

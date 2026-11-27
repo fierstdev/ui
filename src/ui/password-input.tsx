@@ -1,6 +1,7 @@
+import './theme.css';
 import { Eye, EyeOff } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const pwScope = scope`
   :scope { display: grid; gap: 0.375rem; font-family: var(--aster-font-sans); }

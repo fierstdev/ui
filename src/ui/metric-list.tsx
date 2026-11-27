@@ -1,3 +1,4 @@
+import './theme.css';
 import { scope } from '@fierst/aster';
 
 const mlScope = scope`

@@ -1,6 +1,7 @@
+import './theme.css';
 import { AlertCircle, AlertTriangle, CheckCircle2, Info, X } from '@lucide/icons';
 import { scope, type Ctx, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const alertScope = scope`
   :scope {

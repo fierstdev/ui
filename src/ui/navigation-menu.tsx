@@ -1,6 +1,7 @@
+import './theme.css';
 import { ChevronDown } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon, type LucideIconInput } from './icon.tsx';
+import { Icon, type LucideIconInput } from './icon';
 
 const nmScope = scope`
   :scope { display: inline-flex; align-items: center; gap: 0.25rem; font-family: var(--aster-font-sans); }

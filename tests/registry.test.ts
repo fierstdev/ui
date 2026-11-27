@@ -170,6 +170,22 @@ describe('AsterUI Code-Owned Registry & CLI (104 Items)', () => {
   });
 });
 describe('standalone registry installs', () => {
+  it('rejects a damaged manifest before copying any component', async () => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aster-ui-checksum-'));
+    try {
+      const project = path.join(tmp, 'project');
+      const theme = JSON.parse(fs.readFileSync('public/r/theme.json', 'utf8'));
+      theme.files[1].content += '\n';
+      fs.writeFileSync(path.join(tmp, 'theme.json'), JSON.stringify(theme));
+      await expect(addComponents(['theme'], project, { registry: tmp })).rejects.toThrow(
+        'Registry checksum mismatch: src/ui/theme.ts',
+      );
+      expect(fs.existsSync(project)).toBe(false);
+    } finally {
+      fs.rmSync(tmp, { recursive: true, force: true });
+    }
+  });
+
   it.each(EXPECTED_ITEMS)('installs %s with its source and all local imports', async (name) => {
     const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'aster-ui-item-'));
     try {
@@ -178,8 +194,10 @@ describe('standalone registry installs', () => {
         const file = path.join(tmp, target);
         const source = fs.readFileSync(file, 'utf8');
         expect(source).toBe(fs.readFileSync(target, 'utf8').replaceAll('\r\n', '\n'));
-        for (const match of source.matchAll(/from ['"](\.\/[^'"]+)['"]/g)) {
-          expect(fs.existsSync(path.resolve(path.dirname(file), match[1]))).toBe(true);
+        if (target.endsWith('.tsx')) expect(source).toContain("import './theme.css';");
+        for (const match of source.matchAll(/(?:from|import) ['"](\.\/[^'"]+)['"]/g)) {
+          const imported = path.resolve(path.dirname(file), match[1]);
+          expect(['', '.ts', '.tsx'].some((ext) => fs.existsSync(imported + ext))).toBe(true);
         }
         if (source.includes("from '@lucide/icons'"))
           expect(result.dependencies).toContain('@lucide/icons');

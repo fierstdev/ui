@@ -1,6 +1,7 @@
+import './theme.css';
 import { TrendingDown, TrendingUp } from '@lucide/icons';
 import { scope, type View } from '@fierst/aster';
-import { Icon, type LucideIconInput } from './icon.tsx';
+import { Icon, type LucideIconInput } from './icon';
 
 const statScope = scope`
   :scope {

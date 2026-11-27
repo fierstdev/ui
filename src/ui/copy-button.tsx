@@ -1,6 +1,7 @@
+import './theme.css';
 import { Check, Copy } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const copyScope = scope`
   :scope {

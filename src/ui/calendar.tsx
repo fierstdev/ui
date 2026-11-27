@@ -1,9 +1,10 @@
+import './theme.css';
 import { Calendar as CalendarIcon, ChevronDown, ChevronLeft, ChevronRight } from '@lucide/icons';
 import { scope, signal, type Ctx, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
-import { Dialog } from './dialog.tsx';
-import { Button } from './button.tsx';
-import { positionPopover } from './theme.ts';
+import { Icon } from './icon';
+import { Dialog } from './dialog';
+import { Button } from './button';
+import { positionPopover } from './theme';
 
 const calScope = scope`
   :scope {

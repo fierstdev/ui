@@ -1,7 +1,8 @@
+import './theme.css';
 import { Menu, PanelLeftClose, PanelLeftOpen } from '@lucide/icons';
 import { scope, type Ctx, type View } from '@fierst/aster';
-import { Icon, type LucideIconInput } from './icon.tsx';
-import { Sheet } from './sheet.tsx';
+import { Icon, type LucideIconInput } from './icon';
+import { Sheet } from './sheet';
 
 const shellScope = scope`
   :scope {

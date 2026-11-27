@@ -1,6 +1,7 @@
+import './theme.css';
 import { Minus, Plus } from '@lucide/icons';
 import { scope, type Ctx } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const numScope = scope`
   :scope {

@@ -1,6 +1,7 @@
+import './theme.css';
 import { Search, X } from '@lucide/icons';
 import { scope, signal, type Ctx, type View } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const cmdScope = scope`
   :scope {

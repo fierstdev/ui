@@ -1,8 +1,9 @@
+import './theme.css';
 import { ChevronDown } from '@lucide/icons';
 import { scope, type View } from '@fierst/aster';
-import { Button, type ButtonVariant } from './button.tsx';
-import { Icon } from './icon.tsx';
-import { navigateMenu, positionPopover } from './theme.ts';
+import { Button, type ButtonVariant } from './button';
+import { Icon } from './icon';
+import { navigateMenu, positionPopover } from './theme';
 
 const popScope = scope`
   :scope {

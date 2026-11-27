@@ -1,6 +1,7 @@
+import './theme.css';
 import { Sparkles } from '@lucide/icons';
 import { scope } from '@fierst/aster';
-import { Icon } from './icon.tsx';
+import { Icon } from './icon';
 
 const sugScope = scope`
   :scope {
