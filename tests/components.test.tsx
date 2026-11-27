@@ -108,7 +108,9 @@ import { VisuallyHidden } from '../src/ui/visually-hidden.tsx';
 import { WorkflowGraph } from '../src/ui/workflow-graph.tsx';
 
 const fixtures = {
-  accordion: () => <Accordion items={[]} />,
+  accordion: () => (
+    <Accordion items={[{ id: 'hours', title: 'Hours', content: 'Weekdays, 9–5' }]} />
+  ),
   'alert-dialog': () => <AlertDialog title="Delete?" description="Confirm" onConfirm={() => {}} />,
   alert: () => <Alert />,
   'app-shell': () => <AppShell sidebar="Navigation" />,
@@ -118,31 +120,69 @@ const fixtures = {
   'back-to-top': () => <BackToTop />,
   badge: () => <Badge />,
   'banner-cookie': () => <ConsentBanner />,
-  'bar-chart': () => <BarChart data={[]} />,
-  breadcrumb: () => <Breadcrumb items={[]} />,
-  button: () => <Button />,
-  'calendar-heatmap': () => <CalendarHeatmap values={[]} />,
+  'bar-chart': () => (
+    <BarChart
+      data={[
+        { label: 'May', value: 24 },
+        { label: 'June', value: 31 },
+      ]}
+    />
+  ),
+  breadcrumb: () => <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Settings' }]} />,
+  button: () => <Button variant="primary">Continue</Button>,
+  'calendar-heatmap': () => <CalendarHeatmap values={[{ date: '2026-11-01', count: 4 }]} />,
   calendar: () => <Calendar />,
   card: () => <Card />,
-  carousel: () => <Carousel slides={[]} />,
+  carousel: () => (
+    <Carousel
+      slides={[
+        { id: 'intro', content: 'Welcome' },
+        { id: 'next', content: 'Get started' },
+      ]}
+    />
+  ),
   'chat-message': () => <ChatMessage />,
   checkbox: () => <Checkbox />,
   'citation-badge': () => <CitationBadge index={1} />,
   collapsible: () => <Collapsible />,
   'color-picker': () => <ColorPicker />,
-  combobox: () => <Combobox options={[]} />,
+  combobox: () => <Combobox options={['Oslo', 'Lima']} />,
   'command-bar': () => <FilterBar />,
-  command: () => <CommandPalette items={[]} />,
+  command: () => (
+    <CommandPalette items={[{ id: 'home', label: 'Home', onSelect: () => location.assign('/') }]} />
+  ),
   container: () => <Container />,
-  'context-menu': () => <ContextMenu items={[]} />,
+  'context-menu': () => (
+    <ContextMenu items={[{ id: 'print', label: 'Print', onSelect: () => window.print() }]} />
+  ),
   'copy-button': () => <CopyButton text="Copy" />,
   'currency-input': () => <CurrencyInput />,
-  'data-table': () => <DataTable columns={[]} rows={[]} rowKey={() => 'id'} />,
+  'data-table': () => (
+    <DataTable
+      columns={[{ key: 'name', header: 'Name' }]}
+      rows={[{ id: 1, name: 'Ada' }]}
+      rowKey={(row) => row.id}
+    />
+  ),
   'date-range-picker': () => <DateRangePicker />,
-  'description-list': () => <DescriptionList items={[]} />,
+  'description-list': () => <DescriptionList items={[{ term: 'Owner', detail: 'Ada' }]} />,
   dialog: () => <Dialog />,
-  'diff-viewer': () => <DiffViewer lines={[]} />,
-  'donut-chart': () => <DonutChart data={[]} />,
+  'diff-viewer': () => (
+    <DiffViewer
+      lines={[
+        { kind: 'del', text: 'draft' },
+        { kind: 'add', text: 'ready' },
+      ]}
+    />
+  ),
+  'donut-chart': () => (
+    <DonutChart
+      data={[
+        { label: 'May', value: 24 },
+        { label: 'June', value: 31 },
+      ]}
+    />
+  ),
   drawer: () => <Drawer />,
   'empty-state': () => <EmptyState title="Empty" />,
   'file-upload': () => <FileUpload />,
@@ -153,26 +193,65 @@ const fixtures = {
   icon: () => <Icon icon={Check} />,
   'inline-edit': () => <InlineEdit />,
   'input-otp': () => <InputOTP />,
-  input: () => <Input />,
+  input: () => <Input label="Email address" type="email" />,
   'json-viewer': () => <JsonViewer data={null} />,
-  kanban: () => <KanbanBoard columns={[]} cards={[]} />,
+  kanban: () => (
+    <KanbanBoard
+      columns={[{ id: 'todo', title: 'To do' }]}
+      cards={[{ id: 'a', columnId: 'todo', title: 'Review' }]}
+    />
+  ),
   kbd: () => <Kbd />,
   label: () => <Label />,
-  'line-chart': () => <LineChart data={[]} />,
-  'mention-input': () => <MentionInput candidates={[]} />,
-  menubar: () => <Menubar menus={[]} />,
+  'line-chart': () => (
+    <LineChart
+      data={[
+        { label: 'May', value: 24 },
+        { label: 'June', value: 31 },
+      ]}
+    />
+  ),
+  'mention-input': () => <MentionInput candidates={[{ handle: 'ada', name: 'Ada' }]} />,
+  menubar: () => (
+    <Menubar
+      menus={[
+        {
+          id: 'file',
+          label: 'File',
+          items: [{ id: 'print', label: 'Print', onSelect: () => window.print() }],
+        },
+      ]}
+    />
+  ),
   meter: () => <Meter label="Quota" value={1} />,
-  'metric-list': () => <MetricList items={[]} />,
-  'multi-select': () => <MultiSelect options={[]} />,
+  'metric-list': () => <MetricList items={[{ label: 'Completed', value: 8 }]} />,
+  'multi-select': () => (
+    <MultiSelect
+      options={[
+        { value: 'en', label: 'English' },
+        { value: 'es', label: 'Spanish' },
+      ]}
+    />
+  ),
   navbar: () => <Navbar brand="Brand" links={[]} />,
-  'navigation-menu': () => <NavigationMenu sections={[]} />,
+  'navigation-menu': () => (
+    <NavigationMenu
+      sections={[
+        {
+          id: 'help',
+          label: 'Help',
+          links: [{ title: 'Guide', description: 'Getting started', href: '/guide' }],
+        },
+      ]}
+    />
+  ),
   'number-input': () => <NumberInput />,
   'page-header': () => <PageHeader title="Title" />,
-  pagination: () => <Pagination totalPages={0} />,
+  pagination: () => <Pagination totalPages={5} />,
   'password-input': () => <PasswordInput />,
   'phone-input': () => <PhoneInput />,
   popover: () => <Popover id="test-popover" />,
-  progress: () => <Progress />,
+  progress: () => <Progress value={64} />,
   'prompt-input': () => <PromptInput />,
   prose: () => <Prose />,
   'range-slider': () => <RangeSlider />,
@@ -182,26 +261,46 @@ const fixtures = {
   'scroll-area': () => <ScrollArea />,
   'search-input': () => <SearchInput />,
   'section-header': () => <SectionHeader title="Title" />,
-  'segmented-control': () => <SegmentedControl options={[]} />,
-  select: () => <Select options={[]} />,
+  'segmented-control': () => (
+    <SegmentedControl
+      options={[
+        { value: 'en', label: 'English' },
+        { value: 'es', label: 'Spanish' },
+      ]}
+    />
+  ),
+  select: () => (
+    <Select
+      options={[
+        { value: 'en', label: 'English' },
+        { value: 'es', label: 'Spanish' },
+      ]}
+    />
+  ),
   separator: () => <Separator />,
   sheet: () => <Sheet />,
-  'sidebar-nav': () => <SidebarNav groups={[]} />,
+  'sidebar-nav': () => (
+    <SidebarNav
+      groups={[{ id: 'docs', label: 'Docs', items: [{ label: 'Guide', href: '/guide' }] }]}
+    />
+  ),
   slider: () => <Slider />,
-  sparkline: () => <Sparkline values={[]} />,
+  sparkline: () => <Sparkline values={[3, 5, 4, 8]} />,
   spinner: () => <Spinner />,
   'stat-card': () => <StatCard label="Count" value={0} />,
   'status-dot': () => <StatusDot />,
-  stepper: () => <Stepper steps={[]} currentStep={0} />,
+  stepper: () => <Stepper steps={[{ id: 'review', title: 'Review' }]} currentStep={0} />,
   'sticky-bar': () => <StickyActionBar message="Saved" />,
   'streaming-text': () => <StreamingText text="Text" />,
-  'suggestion-chips': () => <SuggestionChips prompts={[]} onSelect={() => {}} />,
-  switch: () => <Switch />,
+  'suggestion-chips': () => (
+    <SuggestionChips prompts={['Summarize this']} onSelect={(prompt) => console.log(prompt)} />
+  ),
+  switch: () => <Switch label="Email updates" />,
   table: () => <Table />,
-  tabs: () => <Tabs items={[]} />,
+  tabs: () => <Tabs items={[{ id: 'summary', label: 'Summary', content: 'Monthly totals' }]} />,
   'tag-input': () => <TagInput />,
   'time-picker': () => <TimePicker />,
-  timeline: () => <Timeline items={[]} />,
+  timeline: () => <Timeline items={[{ id: 'done', title: 'Published', tone: 'success' }]} />,
   toast: () => <Toaster />,
   toggle: () => <Toggle />,
   'token-usage': () => <TokenUsageBar inputTokens={0} outputTokens={0} />,
@@ -210,9 +309,15 @@ const fixtures = {
   tour: () => (
     <TourCard step={{ id: 'intro', title: 'Welcome', description: 'Start' }} index={0} total={1} />
   ),
-  'tree-view': () => <TreeView nodes={[]} />,
+  'tree-view': () => (
+    <TreeView
+      nodes={[{ id: 'docs', label: 'Docs', children: [{ id: 'guide', label: 'Guide' }] }]}
+    />
+  ),
   'visually-hidden': () => <VisuallyHidden />,
-  'workflow-graph': () => <WorkflowGraph nodes={[]} />,
+  'workflow-graph': () => (
+    <WorkflowGraph nodes={[{ id: 'review', label: 'Human review', status: 'waiting' }]} />
+  ),
 };
 
 describe('registry components on the server', () => {

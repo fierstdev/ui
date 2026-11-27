@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.2] - 2026-11-27
+
+- Added a complete registry API reference, installation and integration examples, theme cookbook and single-file LLM guide to the package.
+
 ## [1.0.1] - 2026-11-27
 
 - Updated the registry for Aster 1.2.0. Slider and RangeSlider now pass their numeric bounds and step as strings to native range inputs.

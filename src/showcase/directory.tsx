@@ -192,7 +192,13 @@ export function* DirectoryWorkspace(_props: Record<string, any>, ctx: Ctx) {
             <Card key={item.slug} variant="default">
               <div style="display:grid; gap:0.65rem">
                 <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem">
-                  <code style="font-weight:600; font-size:0.86rem">{item.slug}</code>
+                  <a
+                    href={
+                      'https://github.com/fierstdev/ui/blob/main/docs/components.md#' + item.slug
+                    }
+                  >
+                    <code>{item.slug}</code>
+                  </a>
                   <Badge tone="neutral">{item.category}</Badge>
                 </div>
                 <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem">

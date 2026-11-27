@@ -12,7 +12,7 @@
 
 ## 2. Single-Seed OKLCH Color Engine
 
-- Override `--aster-seed-hue` and `--aster-seed-chroma`—or choose from 6 curated presets (`zinc` monochrome, `blue`, `emerald`, `violet`, `rose`, `amber`)—and OKLCH computes primary fills, hover states, subtle containers, chart series, borders, and focus rings across Light and Dark modes with sRGB fallbacks across Chrome, Safari, Firefox, and Edge.
+- Override `--aster-seed-hue` and `--aster-seed-chroma`—or choose from 6 curated presets (`zinc` monochrome, `blue`, `emerald`, `violet`, `rose`, `amber`)—and OKLCH computes primary fills, hover states, subtle containers, seed-based chart accents, borders, and focus rings across Light and Dark modes with sRGB fallbacks across Chrome, Safari, Firefox, and Edge.
 
 ## 3. Familiar Radius Scale (`none` / `sm` / `md` / `lg`) & Sensible Micro-Animations
 
@@ -21,3 +21,5 @@
 ## 4. Built for Both Everyday Apps & Durable AI Workflows (`@fierst/flow`)
 
 - Beyond complete SaaS layout, form, overlay, and chart coverage, AsterUI ships 10 dedicated AI & Human-in-the-Loop primitives (`ChatMessage`, `PromptInput`, `StreamingText`, `ReasoningBlock`, `ToolCallCard`, `ApprovalCard`, `CitationBadge`, `SuggestionChips`, `TokenUsageBar`, `WorkflowGraph`) plus `DiffViewer` and `Timeline`—making `@fierst/flow` apps feel native out of the box.
+
+See [the theme cookbook](docs/themes.md) for working examples and [the API reference](docs/components.md#theme) for the exact tokens and controller contracts.

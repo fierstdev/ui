@@ -1,23 +1,44 @@
-# AsterUI (`@fierst/ui`)
+# AsterUI
 
-**104 proven, code-owned UI components engineered for Aster — by Fierst LLC.**
+AsterUI (`@fierst/ui`) is a source registry for Aster applications. Installing a registry item copies TypeScript, TSX and CSS into your project. Import the named exports from those local files. You can edit, test and version them with the rest of your application.
 
-Built around crisp opaque surfaces, `1px` hairline borders, single-seed OKLCH theming (`zinc` monochrome + 5 chromatic presets), sensible `130–200ms` micro-animations, mobile-first ergonomics, zero-dependency SVG charts, and a dedicated **AI, Agentic & `@fierst/flow` HITL** component suite.
+## Install and render your first component
 
-- **104 Code-Owned Registry Items:** Copy only the exact components you need into `src/ui/` via `vp dlx @fierst/ui add`—zero opaque runtime packages.
-- **8 Aster-Native `yield*` Interactive Flows:** `confirmDialog()`, `confirmDestructive()`, `pickCommand()`, `pickDate()`, `runWizard()`, `promptDrawer()`, `runTour()`, and `requestApproval()`.
-- **Zero-Dependency Charts & Developer Tools:** `BarChart`, `LineChart`, `AreaChart`, `DonutChart`, `Sparkline`, `CalendarHeatmap`, `DiffViewer`, `JsonViewer`, `KanbanBoard`, `TreeView`, `StatusDot`, `UptimeBar`, and `MetricList`.
-- **First-Class AI & `@fierst/flow` HITL Suite:** `ChatMessage`, `PromptInput`, `StreamingText`, `ReasoningBlock`, `ToolCallCard`, `ApprovalCard`, `CitationBadge`, `SuggestionChips`, `TokenUsageBar`, and `WorkflowGraph`.
+Start in the root of an Aster project using Node.js 20.19 or later, `@fierst/aster@^1.2.0`, and the Aster Vite plugin. With Vite+ installed, run the following commands. You can also use `npx @fierst/ui` in place of `vp dlx @fierst/ui`.
 
-## Quick Start
-
-Use an Aster project with `@fierst/aster@^1.2.0` and Node.js 20.19 or later. If you already own copies of `slider.tsx` or `range-slider.tsx`, merge the updated input attributes into your files or review your local changes before reinstalling with `--force`.
-
-```bash
+```sh
 vp dlx @fierst/ui init
 vp add @lucide/icons
-vp dlx @fierst/ui list
-vp dlx @fierst/ui add app-shell button card dialog approval-card workflow-graph bar-chart diff-viewer data-table
+vp dlx @fierst/ui add button
 ```
 
-Import a copied component into your Aster app, for example `import { Button } from './ui/button'` in `src/main.tsx`. Every component imports the shared theme stylesheet, including when installed under a custom `--dir`. Vite includes it in the component's CSS bundle. For theme tokens on a page that uses no components, import `./ui/theme.css` in the app entry. Calling `initTheme()` is optional and restores saved theme preferences.
+In `src/main.tsx`, mount a button into the starter page's `#app` element.
+
+```tsx
+import { render } from '@fierst/aster';
+import { Button } from './ui/button';
+import { initTheme, setTheme } from './ui/theme';
+
+initTheme();
+render(
+  <Button variant="primary" onClick={() => setTheme({ mode: 'dark' })}>
+    Use dark mode
+  </Button>,
+  document.getElementById('app')!,
+);
+```
+
+Run your project's development server (`vp dev` in the starter). Components import the shared stylesheet automatically. Import `./ui/theme.css` yourself on pages that use only the tokens or controller.
+
+## Documentation
+
+- [Component and API reference](docs/components.md) lists every registry item, companion export, prop type, callback, dependency and source file.
+- [Theme cookbook](docs/themes.md) covers presets, light/dark/system switching, saved preferences, custom palettes and accessible styling.
+- [Integration guide](docs/integration.md) covers CLI flags, code-owned updates, programmatic installation, state, forms, overlays, charts, AI workflows and all eight generator flows.
+- [Design guide](DESIGN.md) describes the visual system.
+- [Single-file reference for language models](llms.txt) combines the guides and API contracts in one text file. The showcase build serves it at `/llms.txt`.
+- [Release history](CHANGELOG.md) records changes to installed components. [Explore the showcase](https://ui.fierst.dev).
+
+## Working on the registry
+
+Install dependencies with `pnpm install --frozen-lockfile`. Edit component source under `src/ui` and item metadata in `registry.json`. Run `npm run build:registry` to refresh the static manifests and `npm run build:docs` to refresh the API reference and single-file guide. Run `npm run check`, `npm test`, `npm run build` and `npm run test:browser` before release. The browser suite uses Playwright Chromium.

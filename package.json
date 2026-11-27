@@ -1,6 +1,6 @@
 {
   "name": "@fierst/ui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "AsterUI — Proven, code-owned, mobile-first UI component registry for Aster by Fierst LLC with single-seed OKLCH theming and @lucide/icons.",
   "homepage": "https://ui.fierst.dev",
   "bugs": {
@@ -19,12 +19,16 @@
     "bin",
     "public/r",
     "registry.json",
+    "docs",
+    "llms.txt",
+    "CHANGELOG.md",
     "DESIGN.md",
     "README.md",
     "LICENSE"
   ],
   "type": "module",
   "scripts": {
+    "build:docs": "node scripts/build-docs.mjs",
     "dev": "vp dev",
     "build": "vp build",
     "build:registry": "node ./scripts/build-registry.mjs",
@@ -39,6 +43,7 @@
     "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.10",
     "axe-core": "^4.14.1",
+    "oxc-parser": "0.159.0",
     "vite-plus": "^1.0.0"
   },
   "engines": {

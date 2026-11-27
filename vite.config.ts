@@ -1,8 +1,21 @@
 import { defineConfig } from 'vite-plus';
+import { readFileSync } from 'node:fs';
 import aster from '@fierst/aster/vite';
 
 export default defineConfig({
-  plugins: [aster()],
+  plugins: [
+    aster(),
+    {
+      name: 'aster-ui-documentation',
+      generateBundle() {
+        this.emitFile({
+          type: 'asset',
+          fileName: 'llms.txt',
+          source: readFileSync(new URL('./llms.txt', import.meta.url)),
+        });
+      },
+    },
+  ],
   test: {
     include: ['tests/**/*.test.{ts,tsx}'],
   },
@@ -11,7 +24,7 @@ export default defineConfig({
     options: { typeAware: true, typeCheck: true },
   },
   fmt: {
-    ignorePatterns: ['dist/**', 'public/r/**'],
+    ignorePatterns: ['dist/**', 'public/r/**', 'docs/components.md'],
     singleQuote: true,
     semi: true,
   },

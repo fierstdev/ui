@@ -28,6 +28,7 @@ jobs:
       - name: Rebuild & Verify Static Registry Manifests
         run: |
           npm run build:registry
+          npm run build:docs -- --check
           git diff --exit-code -- public/r
 
       - name: Format, Lint & Type Check
