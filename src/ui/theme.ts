@@ -106,9 +106,10 @@ export function positionPopover(
     pop.style.minWidth = `${Math.round(Math.min(tr.width, vw - pad * 2))}px`;
   }
 
-  const pr = pop.getBoundingClientRect();
-  const pw = pr.width || 280;
-  const ph = pr.height || 220;
+  // Layout dimensions stay stable during the opening scale transition.
+  pop.style.maxHeight = "";
+  const pw = pop.offsetWidth || 280;
+  const ph = pop.offsetHeight || 220;
 
   let left = opts.align === 'end' ? tr.right - pw : tr.left;
   left = Math.max(pad, Math.min(left, vw - pw - pad));
@@ -120,9 +121,9 @@ export function positionPopover(
 
   if (spaceBelow >= ph || spaceBelow >= spaceAbove) {
     top = tr.bottom + gap;
-    maxH = Math.max(140, spaceBelow);
+    maxH = Math.max(0, spaceBelow);
   } else {
-    maxH = Math.max(140, spaceAbove);
+    maxH = Math.max(0, spaceAbove);
     top = Math.max(pad, tr.top - gap - Math.min(ph, maxH));
   }
 

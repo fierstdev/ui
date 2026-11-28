@@ -2,7 +2,7 @@ import './theme.css';
 import { scope, type Ctx } from '@fierst/aster';
 
 const curScope = scope`
-  :scope { display: grid; gap: 0.375rem; font-family: var(--aster-font-sans); }
+  :scope { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: 0.375rem; font-family: var(--aster-font-sans); }
   .cur-label { font-size: 0.84rem; font-weight: 500; color: var(--aster-on-surface); }
   .cur-wrap {
     display: flex;
