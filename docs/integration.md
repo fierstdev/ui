@@ -12,7 +12,7 @@
 | `--registry https://ui.fierst.dev/r` | Read manifests from an HTTP(S) base URL.                                                                                 |
 | `--force`                            | Replace existing target files, including resolved dependencies. Without this flag existing files are skipped.            |
 
-Run the npm dependency command printed by the installer. Registry dependencies are other source items, while package dependencies such as `@lucide/icons` belong in the consuming project. Use a versioned invocation such as `npx @fierst/ui@1.0.2 add dialog` for reproducible installs from the bundled registry. To update edited components, install the new version into a separate directory, compare the files and merge the changes you want. Include theme and icon dependencies in that comparison.
+Run the npm dependency command printed by the installer. Registry dependencies are other source items, while package dependencies such as `@lucide/icons` belong in the consuming project. Use a versioned invocation such as `npx @fierst/ui@1.1.0 add dialog` for reproducible installs from the bundled registry. To update edited components, install the new version into a separate directory, compare the files and merge the changes you want. Include theme and icon dependencies in that comparison.
 
 The Node API is available after installing `@fierst/ui` as a development dependency. Both functions return promises.
 

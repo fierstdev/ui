@@ -128,7 +128,7 @@ import { Accordion } from './ui/accordion';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/accordion.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L214)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/accordion.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L214)
 
 API contracts
 
@@ -170,7 +170,7 @@ import { Alert } from './ui/alert';
 <Alert />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/alert.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L121)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/alert.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L121)
 
 API contracts
 
@@ -220,7 +220,7 @@ import { AlertDialog } from './ui/alert-dialog';
 <AlertDialog title="Delete?" description="Confirm" onConfirm={() => {}} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/alert-dialog.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L354)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/alert-dialog.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L354)
 
 API contracts
 
@@ -263,7 +263,7 @@ import { AppShell } from './ui/app-shell';
 <AppShell sidebar="Navigation" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/app-shell.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L529)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/app-shell.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L529)
 
 API contracts
 
@@ -331,7 +331,7 @@ import { ApprovalCard } from './ui/approval-card';
 <ApprovalCard title="Approve?" onApprove={() => {}} onReject={() => {}} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/approval-card.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L159)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/approval-card.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L159)
 
 API contracts
 
@@ -376,7 +376,7 @@ export function* requestApproval(opts: {
 
 Linked editorial card with featured styling, a semantic publication date, byline, summary, and reading time.
 
-Available in the source checkout. From your app, run `node /path/to/ui/bin/aster-ui.mjs add article-preview`. Direct registry dependencies: theme. Direct npm dependencies: none.
+Install with `vp dlx @fierst/ui add article-preview`. Direct registry dependencies: theme. Direct npm dependencies: none.
 
 Exports from `./ui/article-preview`: `ArticlePreview`.
 
@@ -390,7 +390,7 @@ import { ArticlePreview } from './ui/article-preview';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/main/src/ui/article-preview.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/main/src/showcase/overview.tsx#L419)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/article-preview.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L419)
 
 API contracts
 
@@ -424,7 +424,7 @@ import { AspectRatio } from './ui/aspect-ratio';
 <AspectRatio />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/aspect-ratio.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L291)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/aspect-ratio.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L291)
 
 API contracts
 
@@ -456,7 +456,7 @@ import { Avatar } from './ui/avatar';
 <Avatar name="Ada" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/avatar.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L543) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L219)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/avatar.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L543) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L219)
 
 API contracts
 
@@ -506,7 +506,7 @@ import { BackToTop } from './ui/back-to-top';
 <BackToTop />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/back-to-top.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L445)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/back-to-top.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L445)
 
 API contracts
 
@@ -537,7 +537,7 @@ import { Badge } from './ui/badge';
 <Badge />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/badge.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L534) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L175) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L205) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L95) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L103)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/badge.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L534) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L175) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L205) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L95) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L103)
 
 API contracts
 
@@ -575,7 +575,7 @@ import { ConsentBanner } from './ui/banner-cookie';
 <ConsentBanner />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/banner-cookie.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L373)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/banner-cookie.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L373)
 
 API contracts
 
@@ -615,7 +615,7 @@ import { BarChart } from './ui/bar-chart';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/bar-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L186)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/bar-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L186)
 
 API contracts
 
@@ -653,7 +653,7 @@ import { Breadcrumb } from './ui/breadcrumb';
 <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Settings' }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/breadcrumb.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L92)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/breadcrumb.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L92)
 
 API contracts
 
@@ -691,7 +691,7 @@ import { Button } from './ui/button';
 <Button variant="primary">Continue</Button>
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/button.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L216) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L60) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L209) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L77) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L140) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L55) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L109)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/button.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L216) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L60) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L209) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L77) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L140) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L55) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L109)
 
 API contracts
 
@@ -741,7 +741,7 @@ import { Calendar } from './ui/calendar';
 <Calendar />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/calendar.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L278)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/calendar.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L278)
 
 API contracts
 
@@ -812,7 +812,7 @@ import { CalendarHeatmap } from './ui/calendar-heatmap';
 <CalendarHeatmap values={[{ date: '2026-11-01', count: 4 }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/calendar-heatmap.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L293)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/calendar-heatmap.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L293)
 
 API contracts
 
@@ -845,7 +845,7 @@ import { Card } from './ui/card';
 <Card />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/card.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L67) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L195) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L85) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L212) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L50) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L164)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/card.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L67) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L195) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L85) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L212) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L50) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L164)
 
 API contracts
 
@@ -896,7 +896,7 @@ import { Carousel } from './ui/carousel';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/carousel.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L314)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/carousel.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L314)
 
 API contracts
 
@@ -927,7 +927,7 @@ import { ChatMessage } from './ui/chat-message';
 <ChatMessage />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/chat-message.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L88)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/chat-message.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L88)
 
 API contracts
 
@@ -967,7 +967,7 @@ import { Checkbox } from './ui/checkbox';
 <Checkbox />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/checkbox.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L174)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/checkbox.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L174)
 
 API contracts
 
@@ -1042,7 +1042,7 @@ import { CitationBadge } from './ui/citation-badge';
 <CitationBadge index={1} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/citation-badge.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L98)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/citation-badge.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L98)
 
 API contracts
 
@@ -1082,7 +1082,7 @@ import { Collapsible } from './ui/collapsible';
 <Collapsible />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/collapsible.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L186)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/collapsible.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L186)
 
 API contracts
 
@@ -1117,7 +1117,7 @@ import { ColorPicker } from './ui/color-picker';
 <ColorPicker />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/color-picker.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L293)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/color-picker.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L293)
 
 API contracts
 
@@ -1151,7 +1151,7 @@ import { Combobox } from './ui/combobox';
 <Combobox options={['Oslo', 'Lima']} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/combobox.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L139)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/combobox.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L139)
 
 API contracts
 
@@ -1189,7 +1189,7 @@ import { CommandPalette } from './ui/command';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/command.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L633)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/command.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L633)
 
 API contracts
 
@@ -1239,7 +1239,7 @@ import { FilterBar } from './ui/command-bar';
 <FilterBar />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/command-bar.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L168)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/command-bar.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L168)
 
 API contracts
 
@@ -1283,7 +1283,7 @@ import { Container } from './ui/container';
 <Container />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/container.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L42)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/container.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L42)
 
 API contracts
 
@@ -1343,7 +1343,7 @@ import { ContextMenu } from './ui/context-menu';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/context-menu.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L362)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/context-menu.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L362)
 
 API contracts
 
@@ -1384,7 +1384,7 @@ import { CopyButton } from './ui/copy-button';
 <CopyButton text="Copy" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/copy-button.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L208) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L398)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/copy-button.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L208) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L398)
 
 API contracts
 
@@ -1429,7 +1429,7 @@ import { CurrencyInput } from './ui/currency-input';
 <CurrencyInput />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/currency-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L338)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/currency-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L338)
 
 API contracts
 
@@ -1470,7 +1470,7 @@ import { DataTable } from './ui/data-table';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/data-table.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L266)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/data-table.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L266)
 
 API contracts
 
@@ -1512,7 +1512,7 @@ import { DateRangePicker } from './ui/date-range-picker';
 <DateRangePicker />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/date-range-picker.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L283)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/date-range-picker.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L283)
 
 API contracts
 
@@ -1550,7 +1550,7 @@ import { DescriptionList } from './ui/description-list';
 <DescriptionList items={[{ term: 'Owner', detail: 'Ada' }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/description-list.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L403)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/description-list.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L403)
 
 API contracts
 
@@ -1588,7 +1588,7 @@ import { Dialog } from './ui/dialog';
 <Dialog />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/dialog.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L327)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/dialog.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L327)
 
 API contracts
 
@@ -1649,7 +1649,7 @@ import { DiffViewer } from './ui/diff-viewer';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/diff-viewer.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L185)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/diff-viewer.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L185)
 
 API contracts
 
@@ -1694,7 +1694,7 @@ import { DonutChart } from './ui/donut-chart';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/donut-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L199)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/donut-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L199)
 
 API contracts
 
@@ -1736,7 +1736,7 @@ import { Drawer } from './ui/drawer';
 <Drawer />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/drawer.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L474)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/drawer.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L474)
 
 API contracts
 
@@ -1791,7 +1791,7 @@ import { EmptyState } from './ui/empty-state';
 <EmptyState title="Empty" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/empty-state.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L245)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/empty-state.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L245)
 
 API contracts
 
@@ -1815,7 +1815,7 @@ export function EmptyState({
 
 Switch between a mounted live example and copyable source files without losing the example’s state.
 
-Available in the source checkout. From your app, run `node /path/to/ui/bin/aster-ui.mjs add example-viewer`. Direct registry dependencies: theme, segmented-control, copy-button. Direct npm dependencies: none.
+Install with `vp dlx @fierst/ui add example-viewer`. Direct registry dependencies: theme, segmented-control, copy-button. Direct npm dependencies: none.
 
 Exports from `./ui/example-viewer`: `ExampleViewer`.
 
@@ -1834,7 +1834,7 @@ import { ExampleViewer } from './ui/example-viewer';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/main/src/ui/example-viewer.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/main/src/showcase/overview.tsx#L430)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/example-viewer.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L430)
 
 API contracts
 
@@ -1865,7 +1865,7 @@ import { FileUpload } from './ui/file-upload';
 <FileUpload />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/file-upload.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L402)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/file-upload.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L402)
 
 API contracts
 
@@ -1900,7 +1900,7 @@ import { Footer } from './ui/footer';
 <Footer brand="Example" columns={[]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/footer.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L380)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/footer.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L380)
 
 API contracts
 
@@ -1943,7 +1943,7 @@ import { Form } from './ui/form';
 <Form />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/form.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L100)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/form.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L100)
 
 API contracts
 
@@ -1991,7 +1991,7 @@ import { Grid } from './ui/grid';
 <Grid />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/grid.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L82) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L193) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L131) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L163)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/grid.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L82) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L193) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L131) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L163)
 
 API contracts
 
@@ -2043,7 +2043,7 @@ import { HoverCard } from './ui/hover-card';
 <HoverCard trigger="Details" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/hover-card.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L216)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/hover-card.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L216)
 
 API contracts
 
@@ -2080,7 +2080,7 @@ import { Icon } from './ui/icon';
 <Icon icon={Check} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/icon.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L217) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L61) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L211) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L78) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L147) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L56) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L110)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/icon.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L217) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L61) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L211) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L78) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L147) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L56) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L110)
 
 API contracts
 
@@ -2155,7 +2155,7 @@ import { InlineEdit } from './ui/inline-edit';
 <InlineEdit />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/inline-edit.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L116)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/inline-edit.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L116)
 
 API contracts
 
@@ -2188,7 +2188,7 @@ import { Input } from './ui/input';
 <Input label="Email address" type="email" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/input.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L367) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L122)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/input.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L367) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L122)
 
 API contracts
 
@@ -2246,7 +2246,7 @@ import { InputOTP } from './ui/input-otp';
 <InputOTP />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/input-otp.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L391)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/input-otp.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L391)
 
 API contracts
 
@@ -2284,7 +2284,7 @@ import { JsonViewer } from './ui/json-viewer';
 <JsonViewer data={null} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/json-viewer.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L187)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/json-viewer.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L187)
 
 API contracts
 
@@ -2320,7 +2320,7 @@ import { KanbanBoard } from './ui/kanban';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/kanban.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L315)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/kanban.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L315)
 
 API contracts
 
@@ -2361,7 +2361,7 @@ import { Kbd } from './ui/kbd';
 <Kbd />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/kbd.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L394)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/kbd.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L394)
 
 API contracts
 
@@ -2387,7 +2387,7 @@ import { Label } from './ui/label';
 <Label />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/label.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L112)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/label.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L112)
 
 API contracts
 
@@ -2446,7 +2446,7 @@ import { LineChart } from './ui/line-chart';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/line-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L168)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/line-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L168)
 
 API contracts
 
@@ -2488,7 +2488,7 @@ import { MentionInput } from './ui/mention-input';
 <MentionInput candidates={[{ handle: 'ada', name: 'Ada' }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/mention-input.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L201)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/mention-input.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L201)
 
 API contracts
 
@@ -2538,7 +2538,7 @@ import { Menubar } from './ui/menubar';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/menubar.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L193)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/menubar.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L193)
 
 API contracts
 
@@ -2582,7 +2582,7 @@ import { Meter } from './ui/meter';
 <Meter label="Quota" value={1} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/meter.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L243)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/meter.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L243)
 
 API contracts
 
@@ -2622,7 +2622,7 @@ import { MetricList } from './ui/metric-list';
 <MetricList items={[{ label: 'Completed', value: 8 }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/metric-list.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L215)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/metric-list.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L215)
 
 API contracts
 
@@ -2661,7 +2661,7 @@ import { MultiSelect } from './ui/multi-select';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/multi-select.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L153)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/multi-select.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L153)
 
 API contracts
 
@@ -2701,7 +2701,7 @@ import { Navbar } from './ui/navbar';
 <Navbar brand="Brand" links={[]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/navbar.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L173)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/navbar.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L173)
 
 API contracts
 
@@ -2749,7 +2749,7 @@ import { NavigationMenu } from './ui/navigation-menu';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/navigation-menu.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L228)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/navigation-menu.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L228)
 
 API contracts
 
@@ -2785,7 +2785,7 @@ import { NumberInput } from './ui/number-input';
 <NumberInput />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/number-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L330)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/number-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L330)
 
 API contracts
 
@@ -2825,7 +2825,7 @@ import { PageHeader } from './ui/page-header';
 <PageHeader title="Title" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/page-header.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L55) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L158) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L59) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L134) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L44) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L87)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/page-header.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L55) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L158) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L59) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L134) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L44) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L87)
 
 API contracts
 
@@ -2865,7 +2865,7 @@ import { Pagination } from './ui/pagination';
 <Pagination totalPages={5} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/pagination.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L267)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/pagination.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L267)
 
 API contracts
 
@@ -2899,7 +2899,7 @@ import { PasswordInput } from './ui/password-input';
 <PasswordInput />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/password-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L377)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/password-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L377)
 
 API contracts
 
@@ -2936,7 +2936,7 @@ import { PhoneInput } from './ui/phone-input';
 <PhoneInput />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/phone-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L386)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/phone-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L386)
 
 API contracts
 
@@ -2970,7 +2970,7 @@ import { Popover } from './ui/popover';
 <Popover id="test-popover" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/popover.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L117)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/popover.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L117)
 
 API contracts
 
@@ -3029,7 +3029,7 @@ import { Progress } from './ui/progress';
 <Progress value={64} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/progress.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L48)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/progress.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L48)
 
 API contracts
 
@@ -3093,7 +3093,7 @@ import { PromptInput } from './ui/prompt-input';
 <PromptInput />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/prompt-input.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L142)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/prompt-input.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L142)
 
 API contracts
 
@@ -3131,7 +3131,7 @@ import { Prose } from './ui/prose';
 <Prose />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/prose.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L94)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/prose.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L94)
 
 API contracts
 
@@ -3169,7 +3169,7 @@ import { RangeSlider } from './ui/range-slider';
 <RangeSlider />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/range-slider.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L319)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/range-slider.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L319)
 
 API contracts
 
@@ -3206,7 +3206,7 @@ import { Rating } from './ui/rating';
 <Rating />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/rating.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L422)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/rating.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L422)
 
 API contracts
 
@@ -3243,7 +3243,7 @@ import { ReasoningBlock } from './ui/reasoning-block';
 <ReasoningBlock />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/reasoning-block.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L111)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/reasoning-block.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L111)
 
 API contracts
 
@@ -3279,7 +3279,7 @@ import { ResizableSplit } from './ui/resizable';
 <ResizableSplit first="Left" second="Right" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/resizable.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L336)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/resizable.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L336)
 
 API contracts
 
@@ -3318,7 +3318,7 @@ import { ScrollArea } from './ui/scroll-area';
 <ScrollArea />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/scroll-area.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L436)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/scroll-area.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L436)
 
 API contracts
 
@@ -3354,7 +3354,7 @@ import { SearchInput } from './ui/search-input';
 <SearchInput />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/search-input.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L166) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L343)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/search-input.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L166) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L343)
 
 API contracts
 
@@ -3390,7 +3390,7 @@ import { SectionHeader } from './ui/section-header';
 <SectionHeader title="Title" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/section-header.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L287) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L410)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/section-header.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L287) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L410)
 
 API contracts
 
@@ -3431,7 +3431,7 @@ import { SegmentedControl } from './ui/segmented-control';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/segmented-control.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L175) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L65) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L197)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/segmented-control.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/directory.tsx#L175) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L65) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L197)
 
 API contracts
 
@@ -3473,7 +3473,7 @@ import { Select } from './ui/select';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/select.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L132)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/select.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L132)
 
 API contracts
 
@@ -3520,7 +3520,7 @@ import { Separator } from './ui/separator';
 <Separator />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/separator.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L252)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/separator.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L252)
 
 API contracts
 
@@ -3554,7 +3554,7 @@ import { Sheet } from './ui/sheet';
 <Sheet />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/sheet.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L442)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/sheet.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L442)
 
 API contracts
 
@@ -3604,7 +3604,7 @@ import { SidebarNav } from './ui/sidebar-nav';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/sidebar-nav.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L262)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/sidebar-nav.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L262)
 
 API contracts
 
@@ -3635,7 +3635,7 @@ export function* SidebarNav(
 
 Compact navigation popover with native links, optional icons, a current-page marker, and a reduced-motion-aware trigger.
 
-Available in the source checkout. From your app, run `node /path/to/ui/bin/aster-ui.mjs add site-menu`. Direct registry dependencies: theme, icon, popover. Direct npm dependencies: @lucide/icons.
+Install with `vp dlx @fierst/ui add site-menu`. Direct registry dependencies: theme, icon, popover. Direct npm dependencies: @lucide/icons.
 
 Exports from `./ui/site-menu`: `SiteMenu`.
 
@@ -3647,7 +3647,7 @@ import { SiteMenu } from './ui/site-menu';
 <SiteMenu id="site-links" links={[{ label: 'Notes', href: '/notes/' }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/main/src/ui/site-menu.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/main/src/showcase/overview.tsx#L411)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/site-menu.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L411)
 
 API contracts
 
@@ -3679,7 +3679,7 @@ import { Slider } from './ui/slider';
 <Slider />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/slider.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L310)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/slider.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L310)
 
 API contracts
 
@@ -3719,7 +3719,7 @@ import { Sparkline } from './ui/sparkline';
 <Sparkline values={[3, 5, 4, 8]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/sparkline.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L226)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/sparkline.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L226)
 
 API contracts
 
@@ -3755,7 +3755,7 @@ import { Spinner } from './ui/spinner';
 <Spinner />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/spinner.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L235)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/spinner.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L235)
 
 API contracts
 
@@ -3799,7 +3799,7 @@ import { StatCard } from './ui/stat-card';
 <StatCard label="Count" value={0} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/stat-card.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L128)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/stat-card.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L128)
 
 API contracts
 
@@ -3843,7 +3843,7 @@ import { StatusDot } from './ui/status-dot';
 <StatusDot />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/status-dot.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L69)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/status-dot.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overview.tsx#L69)
 
 API contracts
 
@@ -3889,7 +3889,7 @@ import { Stepper } from './ui/stepper';
 <Stepper steps={[{ id: 'review', title: 'Review' }]} currentStep={0} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/stepper.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L86)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/stepper.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L86)
 
 API contracts
 
@@ -3943,7 +3943,7 @@ import { StickyActionBar } from './ui/sticky-bar';
 <StickyActionBar message="Saved" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/sticky-bar.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L456)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/sticky-bar.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L456)
 
 API contracts
 
@@ -3977,7 +3977,7 @@ import { StreamingText } from './ui/streaming-text';
 <StreamingText text="Text" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/streaming-text.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L92)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/streaming-text.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L92)
 
 API contracts
 
@@ -4011,7 +4011,7 @@ import { SuggestionChips } from './ui/suggestion-chips';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/suggestion-chips.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L133)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/suggestion-chips.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L133)
 
 API contracts
 
@@ -4043,7 +4043,7 @@ import { Switch } from './ui/switch';
 <Switch label="Email updates" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/switch.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L222)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/switch.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L222)
 
 API contracts
 
@@ -4078,7 +4078,7 @@ import { Table } from './ui/table';
 <Table />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/table.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L278)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/table.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L278)
 
 API contracts
 
@@ -4114,7 +4114,7 @@ import { Tabs } from './ui/tabs';
 <Tabs items={[{ id: 'summary', label: 'Summary', content: 'Monthly totals' }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/tabs.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L254)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/tabs.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L254)
 
 API contracts
 
@@ -4155,7 +4155,7 @@ import { TagInput } from './ui/tag-input';
 <TagInput />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/tag-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L160)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/tag-input.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L160)
 
 API contracts
 
@@ -4184,7 +4184,7 @@ Install with `vp dlx @fierst/ui add theme`. Direct registry dependencies: none. 
 
 Exports from `./ui/theme`: `ThemeMode`, `ThemePreset`, `ThemeRadius`, `ThemeDensity`, `ThemeConfig`, `THEME_PRESETS`, `themeState`, `setTheme`, `initTheme`, `positionPopover`, `navigateMenu`.
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/theme.ts)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/theme.ts)
 
 API contracts
 
@@ -4313,7 +4313,7 @@ CSS tokens defined by the shared theme
 - `--aster-outline`
 - `--aster-outline-variant`
 
-[Token values by mode, preset and media query](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/theme.css)
+[Token values by mode, preset and media query](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/theme.css)
 
 ## time-picker
 
@@ -4331,7 +4331,7 @@ import { TimePicker } from './ui/time-picker';
 <TimePicker />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/time-picker.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L288)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/time-picker.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L288)
 
 API contracts
 
@@ -4367,7 +4367,7 @@ import { Timeline } from './ui/timeline';
 <Timeline items={[{ id: 'done', title: 'Published', tone: 'success' }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/timeline.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L437)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/timeline.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L437)
 
 API contracts
 
@@ -4406,7 +4406,7 @@ import { Toaster } from './ui/toast';
 <Toaster />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/toast.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L647)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/toast.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L647)
 
 API contracts
 
@@ -4456,7 +4456,7 @@ import { Toggle } from './ui/toggle';
 <Toggle />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/toggle.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L229)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/toggle.tsx) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/forms.tsx#L229)
 
 API contracts
 
@@ -4514,7 +4514,7 @@ import { TokenUsageBar } from './ui/token-usage';
 <TokenUsageBar inputTokens={0} outputTokens={0} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/token-usage.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L73)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/token-usage.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L73)
 
 API contracts
 
@@ -4550,7 +4550,7 @@ import { ToolCallCard } from './ui/tool-call-card';
 <ToolCallCard toolName="Search" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/tool-call-card.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L118)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/tool-call-card.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L118)
 
 API contracts
 
@@ -4590,7 +4590,7 @@ import { Tooltip } from './ui/tooltip';
 <Tooltip content="Details" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/tooltip.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L215) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L139)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/tooltip.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L215) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L139)
 
 API contracts
 
@@ -4626,7 +4626,7 @@ import { TourCard } from './ui/tour';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/tour.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L299)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/tour.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L299)
 
 API contracts
 
@@ -4678,7 +4678,7 @@ import { TreeView } from './ui/tree-view';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/tree-view.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L350)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/tree-view.tsx) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ops.tsx#L350)
 
 API contracts
 
@@ -4718,7 +4718,7 @@ import { VisuallyHidden } from './ui/visually-hidden';
 <VisuallyHidden />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/visually-hidden.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L528) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L295)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/visually-hidden.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase.tsx#L528) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/overlays.tsx#L295)
 
 API contracts
 
@@ -4752,7 +4752,7 @@ import { WorkflowGraph } from './ui/workflow-graph';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/workflow-graph.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L72)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.1.0/src/ui/workflow-graph.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.1.0/src/showcase/ai.tsx#L72)
 
 API contracts
 

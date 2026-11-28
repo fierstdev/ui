@@ -3,7 +3,6 @@ import { parseSync } from 'oxc-parser';
 
 const read = (path) => fs.readFileSync(path, 'utf8').replace(/\r\n/g, '\n').trimEnd();
 const registry = JSON.parse(read('registry.json'));
-const unreleased = new Set(['article-preview', 'example-viewer', 'site-menu']);
 const repo = 'https://github.com/fierstdev/ui/blob/v' + registry.version + '/';
 const items = registry.items.toSorted((a, b) => a.name.localeCompare(b.name, 'en'));
 
@@ -55,9 +54,7 @@ for (const item of items) {
   const block = [
     '## ' + slug,
     item.description,
-    (unreleased.has(slug)
-      ? 'Available in the source checkout. From your app, run `node /path/to/ui/bin/aster-ui.mjs add '
-      : 'Install with `vp dlx @fierst/ui add ') +
+    'Install with `vp dlx @fierst/ui add ' +
       slug +
       '`. ' +
       'Direct registry dependencies: ' +
@@ -84,16 +81,13 @@ for (const item of items) {
         '\n```',
     );
   }
-  const sourceRepo = unreleased.has(slug) ? 'https://github.com/fierstdev/ui/blob/main/' : repo;
-  const links = ['[Implementation](' + sourceRepo + file + ')'];
+  const links = ['[Implementation](' + repo + file + ')'];
   for (const { file: demo, lines } of showcase) {
     const use = lines.findIndex((line) =>
       names.some((name) => line.match(new RegExp('<' + name + '\\b'))),
     );
     if (use >= 0)
-      links.push(
-        '[' + demo.split('/').pop() + ' example](' + sourceRepo + demo + '#L' + (use + 1) + ')',
-      );
+      links.push('[' + demo.split('/').pop() + ' example](' + repo + demo + '#L' + (use + 1) + ')');
   }
   block.push(links.join(' · '), 'API contracts', '```ts\n' + contracts.join('\n\n') + '\n```');
   if (slug === 'theme') {

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## [1.1.0] - 2026-11-28
 
 - Added SiteMenu from the Fierst mobile navigation, ExampleViewer from the Aster and AsterUI documentation, and ArticlePreview from the Note publishing pilot. All three use the existing theme and ship as code-owned registry entries.
 
