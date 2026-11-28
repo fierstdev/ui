@@ -1,0 +1,20 @@
+{
+  "name": "example-viewer",
+  "type": "ui:component",
+  "title": "Example Viewer",
+  "description": "Switch between a mounted live example and copyable source files without losing the example’s state.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme",
+    "segmented-control",
+    "copy-button"
+  ],
+  "files": [
+    {
+      "path": "src/ui/example-viewer.tsx",
+      "target": "src/ui/example-viewer.tsx",
+      "sha256": "54478fe40fb74b799fc01a90aaaae7e9b16f94e7b9cee988dc8d44a106deff38",
+      "content": "import './theme.css';\nimport { scope, type Ctx, type View } from '@fierst/aster';\nimport { CodeBlock } from './copy-button';\nimport { SegmentedControl } from './segmented-control';\n\nconst viewerScope = scope`\n  :scope { min-width:0; border:1px solid var(--aster-border); border-radius:var(--aster-radius-lg); color:var(--aster-on-surface); background:var(--aster-surface); }\n  .toolbar { display:flex; align-items:center; justify-content:space-between; gap:.75rem; flex-wrap:wrap; padding:.75rem 1rem; border-bottom:1px solid var(--aster-border); }\n  .panel { min-width:0; padding:1rem; }\n  .panel > * + * { margin-top:.75rem; }\n`;\nconst modes = [\n  { value: 'example', label: 'Example' },\n  { value: 'source', label: 'Source' },\n];\n\nexport function* ExampleViewer(\n  props: {\n    title: string;\n    children: View;\n    files: readonly { filename: string; code: string }[];\n  },\n  ctx: Ctx,\n) {\n  let mode = 'example';\n  for (props of ctx) {\n    yield (\n      <section class={viewerScope} aria-label={props.title}>\n        <div class=\"toolbar\">\n          <strong>{props.title}</strong>\n          <SegmentedControl\n            label={props.title + ' view'}\n            options={modes}\n            value={mode}\n            onChange={(value) => {\n              mode = value;\n              ctx.refresh();\n            }}\n          />\n        </div>\n        <div class=\"panel\" hidden={mode !== 'example'}>\n          {props.children}\n        </div>\n        <div class=\"panel\" hidden={mode !== 'source'}>\n          {props.files.map((file) => (\n            <CodeBlock key={file.filename} filename={file.filename} code={file.code} />\n          ))}\n        </div>\n      </section>\n    );\n  }\n}\n"
+    }
+  ]
+}

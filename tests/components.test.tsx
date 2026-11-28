@@ -1,3 +1,6 @@
+import { SiteMenu } from '../src/ui/site-menu.tsx';
+import { ExampleViewer } from '../src/ui/example-viewer.tsx';
+import { ArticlePreview } from '../src/ui/article-preview.tsx';
 import { describe, expect, it } from 'vite-plus/test';
 import { renderToString } from '@fierst/aster/ssr';
 import { Check } from '@lucide/icons';
@@ -108,6 +111,18 @@ import { VisuallyHidden } from '../src/ui/visually-hidden.tsx';
 import { WorkflowGraph } from '../src/ui/workflow-graph.tsx';
 
 const fixtures = {
+  'article-preview': () => (
+    <ArticlePreview title="Publishing revisions" href="/notes/revisions/" author="Editorial team" />
+  ),
+  'example-viewer': () => (
+    <ExampleViewer
+      title="Draft title"
+      files={[{ filename: 'example.tsx', code: '<input aria-label="Draft title" />' }]}
+    >
+      <input aria-label="Draft title" />
+    </ExampleViewer>
+  ),
+  'site-menu': () => <SiteMenu id="site-links" links={[{ label: 'Notes', href: '/notes/' }]} />,
   accordion: () => (
     <Accordion items={[{ id: 'hours', title: 'Hours', content: 'Weekdays, 9–5' }]} />
   ),

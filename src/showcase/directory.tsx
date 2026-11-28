@@ -18,12 +18,15 @@ interface CatalogEntry {
 }
 
 const CATALOG: CatalogEntry[] = [
-  // Overview & Telemetry (20)
+  // Overview & Telemetry (23)
   ...[
     'theme',
     'icon',
     'page-header',
     'breadcrumb',
+    'article-preview',
+    'example-viewer',
+    'site-menu',
     'alert',
     'stat-card',
     'sparkline',
@@ -162,7 +165,7 @@ export function* DirectoryWorkspace(_props: Record<string, any>, ctx: Ctx) {
           <div style="flex:1; min-width:220px; max-width:360px">
             <SearchInput
               value={query}
-              placeholder="Filter 104 modules (e.g. kanban, otp, chart)…"
+              placeholder="Filter 107 modules (e.g. kanban, otp, chart)…"
               onChange={(v) => {
                 query = v;
                 ctx.refresh();

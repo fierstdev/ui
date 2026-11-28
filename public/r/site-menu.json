@@ -1,0 +1,22 @@
+{
+  "name": "site-menu",
+  "type": "ui:component",
+  "title": "Site Menu",
+  "description": "Compact navigation popover with native links, optional icons, a current-page marker, and a reduced-motion-aware trigger.",
+  "dependencies": [
+    "@lucide/icons"
+  ],
+  "registryDependencies": [
+    "theme",
+    "icon",
+    "popover"
+  ],
+  "files": [
+    {
+      "path": "src/ui/site-menu.tsx",
+      "target": "src/ui/site-menu.tsx",
+      "sha256": "d0f112b87598ff7f64a32f747719f78d7152558d222fef82413bb9be137be10d",
+      "content": "import './theme.css';\nimport { scope } from '@fierst/aster';\nimport { Menu, X } from '@lucide/icons';\nimport { Icon, type LucideIconInput } from './icon';\nimport { Popover } from './popover';\n\nconst menuScope = scope`\n  :scope { display: inline-flex; color: var(--aster-on-surface); }\n  .trigger { width: 44px; height: 44px; display: grid; place-items: center; color: inherit; background: var(--aster-surface); border: 1px solid var(--aster-border); border-radius: var(--aster-radius-control); cursor:pointer; }\n  .trigger > span { grid-area: 1/1; display:flex; }\n  .close { opacity:0; }\n  :scope:has(:popover-open) .open { opacity:0; }\n  :scope:has(:popover-open) .close { opacity:1; transform:rotate(180deg); }\n  @media(prefers-reduced-motion:no-preference){ .trigger > span { transition:opacity .14s, transform .18s ease-out; } }\n  nav { display:grid; }\n  a { display:flex; align-items:center; gap:.7rem; min-height:44px; padding:.35rem .7rem; color:inherit; text-decoration:none; border-radius:var(--aster-radius-sm); }\n  a:hover, a[aria-current] { background:var(--aster-surface-muted); }\n  a:focus-visible, button:focus-visible { outline:2px solid currentColor; outline-offset:-2px; }\n`;\n\nexport function SiteMenu({\n  id,\n  label = 'Site menu',\n  links,\n}: {\n  id: string;\n  label?: string;\n  links: readonly { href: string; label: string; icon?: LucideIconInput; current?: boolean }[];\n}) {\n  return (\n    <div class={menuScope}>\n      <button type=\"button\" class=\"trigger\" aria-label={label} popovertarget={id}>\n        <span class=\"open\" aria-hidden=\"true\">\n          <Icon icon={Menu} size={20} />\n        </span>\n        <span class=\"close\" aria-hidden=\"true\">\n          <Icon icon={X} size={20} />\n        </span>\n      </button>\n      <Popover id={id} align=\"end\">\n        <nav aria-label={label}>\n          {links.map((link) => (\n            <a\n              key={link.href}\n              href={link.href}\n              aria-current={link.current ? 'page' : undefined}\n              onClick={(event: MouseEvent) =>\n                (event.currentTarget as HTMLElement)\n                  .closest<HTMLElement>('[popover]')\n                  ?.hidePopover()\n              }\n            >\n              {link.icon && <Icon icon={link.icon} size={18} />}\n              <span>{link.label}</span>\n            </a>\n          ))}\n        </nav>\n      </Popover>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

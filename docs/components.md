@@ -1,12 +1,13 @@
 # Component and API reference
 
-The 104 registry items below are sorted by install slug. Each entry includes its local imports, direct dependencies and public declarations. In function signatures, the first parameter describes the props; Aster supplies the context parameter. Open the implementation for internal defaults or the linked showcase for an example with application state.
+The 107 registry items below are sorted by install slug. Each entry includes its local imports, direct dependencies and public declarations. In function signatures, the first parameter describes the props; Aster supplies the context parameter. Open the implementation for internal defaults or the linked showcase for an example with application state.
 
 - [accordion](#accordion) — Accordion
 - [alert](#alert) — Alert & Banner
 - [alert-dialog](#alert-dialog) — AlertDialog & yield* confirmDestructive()
 - [app-shell](#app-shell) — AppShell, Sidebar & NavItem
 - [approval-card](#approval-card) — ApprovalCard & yield* requestApproval()
+- [article-preview](#article-preview) — Article Preview
 - [aspect-ratio](#aspect-ratio) — AspectRatio
 - [avatar](#avatar) — Avatar & AvatarGroup
 - [back-to-top](#back-to-top) — BackToTop
@@ -39,6 +40,7 @@ The 104 registry items below are sorted by install slug. Each entry includes its
 - [donut-chart](#donut-chart) — DonutChart
 - [drawer](#drawer) — Drawer & yield* promptDrawer()
 - [empty-state](#empty-state) — EmptyState
+- [example-viewer](#example-viewer) — Example Viewer
 - [file-upload](#file-upload) — FileUpload
 - [footer](#footer) — Footer
 - [form](#form) — Form, FormSection & FormActions
@@ -81,6 +83,7 @@ The 104 registry items below are sorted by install slug. Each entry includes its
 - [separator](#separator) — Separator
 - [sheet](#sheet) — Sheet (Drawer)
 - [sidebar-nav](#sidebar-nav) — SidebarNav
+- [site-menu](#site-menu) — Site Menu
 - [slider](#slider) — Slider
 - [sparkline](#sparkline) — Sparkline
 - [spinner](#spinner) — Spinner & LoadingOverlay
@@ -167,7 +170,7 @@ import { Alert } from './ui/alert';
 <Alert />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/alert.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L117)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/alert.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L121)
 
 API contracts
 
@@ -369,6 +372,42 @@ export function* requestApproval(opts: {
 }): Generator<View, boolean, any>
 ```
 
+## article-preview
+
+Linked editorial card with featured styling, a semantic publication date, byline, summary, and reading time.
+
+Available in the source checkout. From your app, run `node /path/to/ui/bin/aster-ui.mjs add article-preview`. Direct registry dependencies: theme. Direct npm dependencies: none.
+
+Exports from `./ui/article-preview`: `ArticlePreview`.
+
+Minimal TSX usage
+
+```tsx
+import { ArticlePreview } from './ui/article-preview';
+
+(
+    <ArticlePreview title="Publishing revisions" href="/notes/revisions/" author="Editorial team" />
+  )
+```
+
+[Implementation](https://github.com/fierstdev/ui/blob/main/src/ui/article-preview.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/main/src/showcase/overview.tsx#L419)
+
+API contracts
+
+```ts
+export function ArticlePreview(props: {
+  title: string;
+  href: string;
+  summary?: string;
+  eyebrow?: string;
+  featured?: boolean;
+  headingLevel?: 2 | 3;
+  author?: string;
+  published?: { dateTime: string; label: string };
+  readingTime?: string;
+})
+```
+
 ## aspect-ratio
 
 Native CSS aspect-ratio media wrapper for images, videos, and embeds.
@@ -467,7 +506,7 @@ import { BackToTop } from './ui/back-to-top';
 <BackToTop />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/back-to-top.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L405)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/back-to-top.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L445)
 
 API contracts
 
@@ -498,7 +537,7 @@ import { Badge } from './ui/badge';
 <Badge />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/badge.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L534) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L175) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L202) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L95) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L99)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/badge.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L534) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L175) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L205) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L95) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L103)
 
 API contracts
 
@@ -536,7 +575,7 @@ import { ConsentBanner } from './ui/banner-cookie';
 <ConsentBanner />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/banner-cookie.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L369)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/banner-cookie.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L373)
 
 API contracts
 
@@ -576,7 +615,7 @@ import { BarChart } from './ui/bar-chart';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/bar-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L182)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/bar-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L186)
 
 API contracts
 
@@ -614,7 +653,7 @@ import { Breadcrumb } from './ui/breadcrumb';
 <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Settings' }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/breadcrumb.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L88)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/breadcrumb.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L92)
 
 API contracts
 
@@ -652,7 +691,7 @@ import { Button } from './ui/button';
 <Button variant="primary">Continue</Button>
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/button.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L216) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L60) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L206) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L77) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L140) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L55) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L105)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/button.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L216) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L60) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L209) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L77) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L140) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L55) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L109)
 
 API contracts
 
@@ -773,7 +812,7 @@ import { CalendarHeatmap } from './ui/calendar-heatmap';
 <CalendarHeatmap values={[{ date: '2026-11-01', count: 4 }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/calendar-heatmap.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L289)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/calendar-heatmap.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L293)
 
 API contracts
 
@@ -806,7 +845,7 @@ import { Card } from './ui/card';
 <Card />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/card.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L67) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L192) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L85) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L212) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L50) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L160)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/card.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L67) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L195) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L85) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L212) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L50) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L164)
 
 API contracts
 
@@ -857,7 +896,7 @@ import { Carousel } from './ui/carousel';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/carousel.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L310)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/carousel.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L314)
 
 API contracts
 
@@ -1345,7 +1384,7 @@ import { CopyButton } from './ui/copy-button';
 <CopyButton text="Copy" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/copy-button.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L205) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L398)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/copy-button.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L208) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L398)
 
 API contracts
 
@@ -1655,7 +1694,7 @@ import { DonutChart } from './ui/donut-chart';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/donut-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L195)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/donut-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L199)
 
 API contracts
 
@@ -1772,6 +1811,44 @@ export function EmptyState({
 })
 ```
 
+## example-viewer
+
+Switch between a mounted live example and copyable source files without losing the example’s state.
+
+Available in the source checkout. From your app, run `node /path/to/ui/bin/aster-ui.mjs add example-viewer`. Direct registry dependencies: theme, segmented-control, copy-button. Direct npm dependencies: none.
+
+Exports from `./ui/example-viewer`: `ExampleViewer`.
+
+Minimal TSX usage
+
+```tsx
+import { ExampleViewer } from './ui/example-viewer';
+
+(
+    <ExampleViewer
+      title="Draft title"
+      files={[{ filename: 'example.tsx', code: '<input aria-label="Draft title" />' }]}
+    >
+      <input aria-label="Draft title" />
+    </ExampleViewer>
+  )
+```
+
+[Implementation](https://github.com/fierstdev/ui/blob/main/src/ui/example-viewer.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/main/src/showcase/overview.tsx#L430)
+
+API contracts
+
+```ts
+export function* ExampleViewer(
+  props: {
+    title: string;
+    children: View;
+    files: readonly { filename: string; code: string }[];
+  },
+  ctx: Ctx,
+)
+```
+
 ## file-upload
 
 Drag-and-drop & click file upload dropzone with max-size validation and removable file list.
@@ -1823,7 +1900,7 @@ import { Footer } from './ui/footer';
 <Footer brand="Example" columns={[]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/footer.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L376)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/footer.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L380)
 
 API contracts
 
@@ -1914,7 +1991,7 @@ import { Grid } from './ui/grid';
 <Grid />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/grid.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L82) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L190) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L131) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L159)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/grid.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L82) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L193) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L131) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L163)
 
 API contracts
 
@@ -2003,7 +2080,7 @@ import { Icon } from './ui/icon';
 <Icon icon={Check} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/icon.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L217) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L61) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L208) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L78) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L147) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L56) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L106)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/icon.tsx) · [showcase.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase.tsx#L217) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L61) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L211) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L78) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L147) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L56) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L110)
 
 API contracts
 
@@ -2369,7 +2446,7 @@ import { LineChart } from './ui/line-chart';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/line-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L164)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/line-chart.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L168)
 
 API contracts
 
@@ -2505,7 +2582,7 @@ import { Meter } from './ui/meter';
 <Meter label="Quota" value={1} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/meter.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L239)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/meter.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L243)
 
 API contracts
 
@@ -2545,7 +2622,7 @@ import { MetricList } from './ui/metric-list';
 <MetricList items={[{ label: 'Completed', value: 8 }]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/metric-list.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L211)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/metric-list.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L215)
 
 API contracts
 
@@ -2748,7 +2825,7 @@ import { PageHeader } from './ui/page-header';
 <PageHeader title="Title" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/page-header.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L55) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L155) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L59) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L134) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L44) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L83)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/page-header.tsx) · [ai.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ai.tsx#L55) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L158) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L59) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L134) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L44) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L87)
 
 API contracts
 
@@ -2952,7 +3029,7 @@ import { Progress } from './ui/progress';
 <Progress value={64} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/progress.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L44)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/progress.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L48)
 
 API contracts
 
@@ -3277,7 +3354,7 @@ import { SearchInput } from './ui/search-input';
 <SearchInput />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/search-input.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L163) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L343)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/search-input.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L166) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L343)
 
 API contracts
 
@@ -3313,7 +3390,7 @@ import { SectionHeader } from './ui/section-header';
 <SectionHeader title="Title" />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/section-header.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L287)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/section-header.tsx) · [overlays.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overlays.tsx#L287) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L410)
 
 API contracts
 
@@ -3354,7 +3431,7 @@ import { SegmentedControl } from './ui/segmented-control';
   )
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/segmented-control.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L172) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L65) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L197)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/segmented-control.tsx) · [directory.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/directory.tsx#L175) · [forms.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/forms.tsx#L65) · [ops.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/ops.tsx#L197)
 
 API contracts
 
@@ -3554,6 +3631,38 @@ export function* SidebarNav(
 )
 ```
 
+## site-menu
+
+Compact navigation popover with native links, optional icons, a current-page marker, and a reduced-motion-aware trigger.
+
+Available in the source checkout. From your app, run `node /path/to/ui/bin/aster-ui.mjs add site-menu`. Direct registry dependencies: theme, icon, popover. Direct npm dependencies: @lucide/icons.
+
+Exports from `./ui/site-menu`: `SiteMenu`.
+
+Minimal TSX usage
+
+```tsx
+import { SiteMenu } from './ui/site-menu';
+
+<SiteMenu id="site-links" links={[{ label: 'Notes', href: '/notes/' }]} />
+```
+
+[Implementation](https://github.com/fierstdev/ui/blob/main/src/ui/site-menu.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/main/src/showcase/overview.tsx#L411)
+
+API contracts
+
+```ts
+export function SiteMenu({
+  id,
+  label = 'Site menu',
+  links,
+}: {
+  id: string;
+  label?: string;
+  links: readonly { href: string; label: string; icon?: LucideIconInput; current?: boolean }[];
+})
+```
+
 ## slider
 
 Accessible tactile range slider with dynamic filled track, live value badge, adaptive thumb geometry, and optional marks.
@@ -3610,7 +3719,7 @@ import { Sparkline } from './ui/sparkline';
 <Sparkline values={[3, 5, 4, 8]} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/sparkline.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L222)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/sparkline.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L226)
 
 API contracts
 
@@ -3646,7 +3755,7 @@ import { Spinner } from './ui/spinner';
 <Spinner />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/spinner.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L231)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/spinner.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L235)
 
 API contracts
 
@@ -3690,7 +3799,7 @@ import { StatCard } from './ui/stat-card';
 <StatCard label="Count" value={0} />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/stat-card.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L124)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/stat-card.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L128)
 
 API contracts
 
@@ -3734,7 +3843,7 @@ import { StatusDot } from './ui/status-dot';
 <StatusDot />
 ```
 
-[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/status-dot.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L65)
+[Implementation](https://github.com/fierstdev/ui/blob/v1.0.2/src/ui/status-dot.tsx) · [overview.tsx example](https://github.com/fierstdev/ui/blob/v1.0.2/src/showcase/overview.tsx#L69)
 
 API contracts
 

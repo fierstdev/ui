@@ -17,12 +17,17 @@ it('ships UI tokens in the initial CSS of a production Aster starter', async () 
   try {
     execFileSync(process.execPath, ['node_modules/@fierst/aster/bin/create.mjs', app]);
     expect(entryStyles()).not.toContain('--aster-radius-control:');
-    await addComponents(['button'], app, { uiDir: 'src/controls' });
+    await addComponents(['button', 'article-preview', 'example-viewer', 'site-menu'], app, {
+      uiDir: 'src/controls',
+    });
     fs.writeFileSync(
       path.join(app, 'src/main.tsx'),
       `import { render } from '@fierst/aster';
 import { Button } from './controls/button';
-render(<Button>Continue</Button>, document.getElementById('app')!);
+import { SiteMenu } from './controls/site-menu';
+import { ArticlePreview } from './controls/article-preview';
+import { ExampleViewer } from './controls/example-viewer';
+render(<main><SiteMenu id="nav" links={[]} /><ArticlePreview href="/post/" title="Post" /><ExampleViewer title="Button" files={[]}><Button>Continue</Button></ExampleViewer></main>, document.getElementById('app')!);
 `,
     );
     expect(entryStyles()).toContain('--aster-radius-control:');

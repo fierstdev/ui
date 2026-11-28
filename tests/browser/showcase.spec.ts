@@ -82,3 +82,30 @@ test('multi-select removes a chip independently and restores it through the list
   await page.keyboard.press('Escape');
   await expect(group.getByRole('button', { name: 'Remove ' + label, exact: true })).toBeVisible();
 });
+
+test('editorial and documentation components', async ({ page }) => {
+  await page.goto('/?section=overview');
+  await page.getByRole('button', { name: 'Essential Only' }).click();
+  const viewer = page.getByRole('region', { name: 'Manuscript title' });
+  const input = viewer.getByLabel('Working title');
+  await input.fill('Keep this draft');
+  await viewer.getByRole('radio', { name: 'Source' }).click();
+  await expect(input).toBeHidden();
+  await expect(viewer.locator('pre')).toContainText('Untitled draft');
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
+  await viewer.getByRole('button', { name: 'Copy' }).click();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('Untitled draft');
+  await viewer.getByRole('radio', { name: 'Source' }).press('ArrowLeft');
+  await expect(input).toHaveValue('Keep this draft');
+  const menu = page.getByRole('button', { name: 'Journal navigation' });
+  await menu.click();
+  const panel = page.getByRole('navigation', { name: 'Journal navigation' });
+  await expect(panel.getByRole('link', { name: 'Engineering notes' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(panel).toBeHidden();
+  await expect(menu).toBeFocused();
+  const article = page
+    .getByRole('article')
+    .filter({ hasText: 'When should a one-time QR code stop working?' });
+  await expect(article.locator('time')).toHaveAttribute('datetime', '2026-11-28');
+});

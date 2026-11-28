@@ -1,0 +1,18 @@
+{
+  "name": "article-preview",
+  "type": "ui:component",
+  "title": "Article Preview",
+  "description": "Linked editorial card with featured styling, a semantic publication date, byline, summary, and reading time.",
+  "dependencies": [],
+  "registryDependencies": [
+    "theme"
+  ],
+  "files": [
+    {
+      "path": "src/ui/article-preview.tsx",
+      "target": "src/ui/article-preview.tsx",
+      "sha256": "d3c789da2a43fff47b72c4d4846f656b4bc09066608eb7597ba6eae6bc408b3e",
+      "content": "import './theme.css';\nimport { scope } from '@fierst/aster';\n\nconst articleScope = scope`\n  :scope { min-width:0; padding:1rem 0; border-top:1px solid var(--aster-border); color:var(--aster-on-surface); overflow-wrap:anywhere; }\n  :scope.featured { padding:clamp(1rem,3vw,2rem); border:1px solid var(--aster-border); border-block-start:3px solid var(--aster-primary); border-radius:var(--aster-radius-lg); background:var(--aster-surface); }\n  h2,h3 { margin:0; line-height:1.16; font-family:var(--aster-font-display); font-size:clamp(1.35rem,3vw,2rem); }\n  a { color:inherit; text-underline-offset:.16em; }\n  .eyebrow { margin:0 0 .75rem; font:600 .8rem var(--aster-font-mono); }\n  .meta { display:flex; gap:.35rem .85rem; flex-wrap:wrap; margin:.95rem 0 0; font-size:.88rem; color:var(--aster-on-surface-muted); }\n  .summary { margin:.8rem 0 0; line-height:1.55; }\n`;\n\nexport function ArticlePreview(props: {\n  title: string;\n  href: string;\n  summary?: string;\n  eyebrow?: string;\n  featured?: boolean;\n  headingLevel?: 2 | 3;\n  author?: string;\n  published?: { dateTime: string; label: string };\n  readingTime?: string;\n}) {\n  const link = <a href={props.href}>{props.title}</a>;\n  return (\n    <article class={[articleScope, props.featured ? 'featured' : ''].join(' ')}>\n      {props.eyebrow && <p class=\"eyebrow\">{props.eyebrow}</p>}\n      {props.headingLevel === 3 ? <h3>{link}</h3> : <h2>{link}</h2>}\n      {(props.author || props.published || props.readingTime) && (\n        <p class=\"meta\">\n          {props.author && <span>{props.author}</span>}\n          {props.published && (\n            <time datetime={props.published.dateTime}>{props.published.label}</time>\n          )}\n          {props.readingTime && <span>{props.readingTime}</span>}\n        </p>\n      )}\n      {props.summary && <p class=\"summary\">{props.summary}</p>}\n    </article>\n  );\n}\n"
+    }
+  ]
+}

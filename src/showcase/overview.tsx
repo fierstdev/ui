@@ -1,3 +1,7 @@
+import { SectionHeader } from '../ui/section-header.tsx';
+import { SiteMenu } from '../ui/site-menu.tsx';
+import { ExampleViewer } from '../ui/example-viewer.tsx';
+import { ArticlePreview } from '../ui/article-preview.tsx';
 import { Activity, Cpu, Globe, Play, RefreshCw, Rocket, Sparkles, Zap } from '@lucide/icons';
 import { type Ctx } from '@fierst/aster';
 import { PageHeader } from '../ui/page-header.tsx';
@@ -83,7 +87,7 @@ export function* OverviewWorkspace(_props: Record<string, any>, ctx: Ctx) {
         <PageHeader
           eyebrow="Fierst Cloud Console"
           title="Edge Fleet & Telemetry"
-          description="Live interactive showcase of all 104 AsterUI components working together on shared signals and native yield* flows."
+          description="Live interactive showcase of AsterUI components working together on shared signals and native yield* flows."
           breadcrumb={
             <Breadcrumb
               items={[
@@ -340,7 +344,7 @@ export function* OverviewWorkspace(_props: Record<string, any>, ctx: Ctx) {
                     id: 's3',
                     content: (
                       <div style="padding:1.25rem; display:grid; gap:0.4rem">
-                        <Badge tone="warning">104 Items</Badge>
+                        <Badge tone="warning">107 Items</Badge>
                         <strong style="font-size:1rem">Code-Owned Registry</strong>
                         <p style="margin:0; font-size:0.85rem; color:var(--aster-on-surface-muted)">
                           Install any component into your repo with{' '}
@@ -354,11 +358,11 @@ export function* OverviewWorkspace(_props: Record<string, any>, ctx: Ctx) {
               <Alert
                 tone="success"
                 title="Registry Verified"
-                description="All 104 modules compiled with zero TypeScript errors."
+                description="All 107 modules compiled with zero TypeScript errors."
                 action={
                   <Button size="sm" variant="outline" onClick={() => navSection.set('directory')}>
                     <Icon icon={Activity} size={13} />
-                    <span>Browse All 104</span>
+                    <span>Browse All 107</span>
                   </Button>
                 }
               />
@@ -380,7 +384,7 @@ export function* OverviewWorkspace(_props: Record<string, any>, ctx: Ctx) {
               <span>AsterUI</span>
             </span>
           }
-          tagline="104 mobile-first, code-owned components for @fierst/aster."
+          tagline="107 mobile-first, code-owned components for @fierst/aster."
           columns={[
             {
               heading: 'Workspaces',
@@ -402,6 +406,42 @@ export function* OverviewWorkspace(_props: Record<string, any>, ctx: Ctx) {
           copyright="© 2026 Fierst LLC. MIT License."
         />
 
+        <section aria-label="Engineering notes" style="display:grid;gap:1rem">
+          <SectionHeader title="Engineering notes" />
+          <SiteMenu
+            id="journal-navigation"
+            label="Journal navigation"
+            links={[
+              { label: 'Engineering notes', href: 'https://fierst.dev/notes/' },
+              { label: 'Products', href: 'https://fierst.dev/products/' },
+            ]}
+          />
+          <ArticlePreview
+            headingLevel={3}
+            featured
+            eyebrow="From the publishing desk"
+            title="When should a one-time QR code stop working?"
+            href="https://fierst.dev/notes/when-should-a-one-time-qr-code-stop-working/"
+            author="Fierst LLC"
+            published={{ dateTime: '2026-11-28', label: 'November 28, 2026' }}
+            readingTime="2 min read"
+            summary="What happens if you scan a pairing code and dismiss the passkey prompt?"
+          />
+          <ExampleViewer
+            title="Manuscript title"
+            files={[
+              {
+                filename: 'draft.tsx',
+                code: '<label>Working title<input placeholder="Untitled draft" /></label>',
+              },
+            ]}
+          >
+            <label>
+              Working title
+              <input placeholder="Untitled draft" />
+            </label>
+          </ExampleViewer>
+        </section>
         <BackToTop threshold={260} label="Back to top" />
       </div>
     );

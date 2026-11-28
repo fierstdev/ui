@@ -396,7 +396,7 @@ function* FlowHost(_props: Record<string, any>, ctx: Ctx) {
       const finished = yield* runTour([
         {
           id: 't1',
-          title: '104 Code-Owned Components',
+          title: '107 Code-Owned Components',
           description:
             'Use the left sidebar to explore Telemetry, Ops, AI Studio, Forms, Overlays, and the full Directory.',
         },
@@ -464,7 +464,7 @@ export function* ShowcaseApp(_props: Record<string, any>, ctx: Ctx) {
     {
       id: 'go-dir',
       group: 'Workspaces',
-      label: 'All 104 Components Directory',
+      label: 'All 107 Components Directory',
       onSelect: () => navSection.set('directory'),
     },
     {
@@ -531,7 +531,7 @@ export function* ShowcaseApp(_props: Record<string, any>, ctx: Ctx) {
             <span style="display:inline-flex; align-items:center; gap:0.45rem; font-weight:600; letter-spacing:-0.015em">
               <Icon icon={Sparkles} size={16} />
               <span>AsterUI</span>
-              <Badge tone="neutral">104 Items</Badge>
+              <Badge tone="neutral">107 Items</Badge>
             </span>
           }
           topbar={<TopbarControls onOpenCommand={() => commandOpen.set(true)} />}
@@ -616,11 +616,11 @@ export function* ShowcaseApp(_props: Record<string, any>, ctx: Ctx) {
                 }}
               />
               <NavItem
-                label="All 104 Directory"
+                label="All 107 Directory"
                 icon={LayoutGrid}
                 active={section === 'directory'}
                 compact={collapsed}
-                badge={<Badge tone="neutral">104</Badge>}
+                badge={<Badge tone="neutral">107</Badge>}
                 onClick={() => {
                   navSection.set('directory');
                   closeMobile();

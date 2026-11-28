@@ -1463,6 +1463,48 @@
           "target": "src/ui/workflow-graph.tsx"
         }
       ]
+    },
+    {
+      "name": "site-menu",
+      "type": "ui:component",
+      "title": "Site Menu",
+      "description": "Compact navigation popover with native links, optional icons, a current-page marker, and a reduced-motion-aware trigger.",
+      "dependencies": ["@lucide/icons"],
+      "registryDependencies": ["theme", "icon", "popover"],
+      "files": [
+        {
+          "path": "src/ui/site-menu.tsx",
+          "target": "src/ui/site-menu.tsx"
+        }
+      ]
+    },
+    {
+      "name": "example-viewer",
+      "type": "ui:component",
+      "title": "Example Viewer",
+      "description": "Switch between a mounted live example and copyable source files without losing the example’s state.",
+      "dependencies": [],
+      "registryDependencies": ["theme", "segmented-control", "copy-button"],
+      "files": [
+        {
+          "path": "src/ui/example-viewer.tsx",
+          "target": "src/ui/example-viewer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "article-preview",
+      "type": "ui:component",
+      "title": "Article Preview",
+      "description": "Linked editorial card with featured styling, a semantic publication date, byline, summary, and reading time.",
+      "dependencies": [],
+      "registryDependencies": ["theme"],
+      "files": [
+        {
+          "path": "src/ui/article-preview.tsx",
+          "target": "src/ui/article-preview.tsx"
+        }
+      ]
     }
   ]
 }

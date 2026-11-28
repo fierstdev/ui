@@ -109,12 +109,15 @@ const EXPECTED_ITEMS = [
   'suggestion-chips',
   'token-usage',
   'workflow-graph',
+  'article-preview',
+  'example-viewer',
+  'site-menu',
 ];
 
-describe('AsterUI Code-Owned Registry & CLI (104 Items)', () => {
-  it('lists all 104 built registry items with non-empty embedded source manifests', async () => {
+describe('AsterUI Code-Owned Registry & CLI (107 Items)', () => {
+  it('lists all 107 built registry items with non-empty embedded source manifests', async () => {
     const items = await listRegistryItems();
-    expect(items.length).toBe(104);
+    expect(items.length).toBe(107);
     const names = items.map((i) => i.name);
     for (const expected of EXPECTED_ITEMS) {
       expect(names).toContain(expected);
